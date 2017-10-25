@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<beans xmlns="http://www.springframework.org/schema/beans"    
+  xmlns:mvc="http://www.springframework.org/schema/mvc"   
+  xmlns:tx="http://www.springframework.org/schema/tx"  
+  xmlns:aop="http://www.springframework.org/schema/aop"  
+  xmlns:context="http://www.springframework.org/schema/context"  
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"        
+  xsi:schemaLocation="                         
+    http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans.xsd  
+    http://www.springframework.org/schema/context   
+    http://www.springframework.org/schema/context/spring-context.xsd  
+    http://www.springframework.org/schema/mvc  
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd  
+    http://www.springframework.org/schema/tx   
+    http://www.springframework.org/schema/tx/spring-tx.xsd  
+    http://www.springframework.org/schema/aop  
+    http://www.springframework.org/schema/aop/spring-aop.xsd " >
+    
+      <!-- 加载db.properties文件中的内容，db.properties文件中的key命名要有一定的特殊规则 -->
+      <context:property-placeholder location="classpath*:db.properties"/>
+      
+      <!-- 配置数据源 -->
+      <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+      </bean>
+      <!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
+      <property name="driverClassName">  
+          <value>com.mysql.jdbc.Driver</value>  
+      </property>  
+      <property name="url">  
+          <value>jdbc:mysql://localhost:3306/test</value>  
+     
+      </property>  
+      <property name="username">  
+          <value>root</value>  
+      </property>  
+      <property name="password">  
+          <value>admin</value>  
+      </property>     
+    </bean> -->
+      
+      <!-- sqlSessionFactory -->
+      <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 数据库连接池 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 加载mybatis的全局配置文件 -->
+        <property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml"/>
+      </bean>
+      
+      <!-- mapper扫描器 -->
+      <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 扫描包路径，若需要扫描多个包，中间使用逗号隔开 -->
+        <property name="basePackage" value="com.scse.crms.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+      </bean>
+      
+</beans>

@@ -7,14 +7,133 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>CRMS Maven Webapp</name>
   <url>http://maven.apache.org</url>
+
+
+  <properties>
+  	<!-- spring版本号 -->
+      <spring.version>4.3.9.RELEASE</spring.version>
+      <!-- log4j日志文件管理包版本 -->
+      <slf4j.version>1.7.24</slf4j.version>
+      <log4j.version>1.2.17</log4j.version>
+      <!-- junit版本号 -->
+      <junit.version>4.12</junit.version>
+      <!-- mybatis版本号 -->
+      <mybatis.version>3.4.2</mybatis.version>
+  </properties>
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
+    <!-- spring核心包 -->    
+    <dependency>  
+        <groupId>org.springframework</groupId>  
+        <artifactId>spring-test</artifactId>  
+        <version>${spring.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.springframework</groupId>  
+        <artifactId>spring-webmvc</artifactId>  
+        <version>${spring.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.springframework</groupId>  
+        <artifactId>spring-core</artifactId>  
+        <version>${spring.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.springframework</groupId>  
+        <artifactId>spring-aop</artifactId>  
+        <version>${spring.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>aspectj</groupId>  
+        <artifactId>aspectjweaver</artifactId>  
+        <version>1.5.3</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>aspectj</groupId>  
+        <artifactId>aspectjrt</artifactId>  
+        <version>1.5.3</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.codehaus.jackson</groupId>  
+        <artifactId>jackson-mapper-asl</artifactId>  
+        <version>1.9.13</version>  
+    </dependency>  
+    <!--mybatis核心包-->  
+    <dependency>  
+        <groupId>org.mybatis</groupId>  
+        <artifactId>mybatis</artifactId>  
+        <version>${mybatis.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.mybatis</groupId>  
+        <artifactId>mybatis-spring</artifactId>  
+        <version>1.3.1</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>mysql</groupId>  
+        <artifactId>mysql-connector-java</artifactId>  
+        <version>5.1.42</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>c3p0</groupId>  
+        <artifactId>c3p0</artifactId>  
+        <version>0.9.1.2</version>  
+        <type>jar</type>  
+    </dependency>  
+    <!--打印日志-->  
+    <dependency>  
+        <groupId>org.slf4j</groupId>  
+        <artifactId>slf4j-api</artifactId>  
+        <version>${slf4j.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.slf4j</groupId>  
+        <artifactId>slf4j-log4j12</artifactId>  
+        <version>${slf4j.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>log4j</groupId>  
+        <artifactId>log4j</artifactId>  
+        <version>${log4j.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>jstl</groupId>  
+        <artifactId>jstl</artifactId>  
+        <version>1.2</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.springframework</groupId>  
+        <artifactId>spring-context-support</artifactId>  
+        <version>${spring.version}</version>  
+        <type>jar</type>  
+        <scope>compile</scope>  
+    </dependency>
+    <!-- 事务名称空间 -->
+    <dependency>
+    <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!-- spring-jdbc -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!-- apache数据源 -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-dbcp2</artifactId>
+      <version>2.1.1</version>
+  </dependency>
   </dependencies>
+
   <build>
     <finalName>CRMS</finalName>
   </build>
