@@ -5,6 +5,8 @@ public class Student {
 	private Integer id;
 	private String name;
 	private int age;
+	protected int grade;
+	protected String faculty;
 
 	
 	

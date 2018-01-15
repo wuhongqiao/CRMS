@@ -8,7 +8,31 @@
     insert into student(name,age) values(#{name},#{age})
   </insert>
   <!-- 查询 -->
-  <select id="findStudentById" parameterType="com.scse.crms.po.StudentVo" resultType="com.scse.crms.po.Student">
+  <select id="findStudentById"  parameterType="int" resultType="com.scse.crms.po.Student">
     SELECT * FROM student WHERE id=1
+  </select>
+  <select id="findAllStudent" resultType="com.scse.crms.po.Student">
+    SELECT * FROM student
+  </select>
+  <select id="findStudentBy"  parameterType="int" resultType="com.scse.crms.po.Student">
+    SELECT * FROM student WHERE 1=1
+    <if test="name!=null">
+    	and sname LIKE CONCAT(CONCAT('%', #{username, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="faculty!=null">
+    	and faculty LIKE CONCAT(CONCAT('%', #{faculty, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="dorm!=null">
+    	and dorm LIKE CONCAT(CONCAT('%', #{dorm, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="sex!=null">
+    	and sex = #{sex, jdbcType=INTEGER}
+    </if>
+    <if test="age!=null">
+    	and age = #{age, jdbcType=INTEGER}
+    </if>
+    <if test="grade!=null">
+    	and grade = #{grade, jdbcType=INTEGER}
+    </if>
   </select>
 </mapper>
