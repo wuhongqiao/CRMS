@@ -1,5 +1,7 @@
 package com.scse.crms.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.scse.crms.mapper.StudentMapper;
@@ -19,14 +21,18 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private StudentMapper studentMapper;
 	
-	public Student findStudentById(StudentVo studentVo) {
+	public Student findStudentById(Student student) {
 		// 
-		return studentMapper.findStudentById(studentVo);
+		return studentMapper.findStudentById(student);
+	}
+	public List<Student> findStudentBy(Student student) {
+		// 
+		return studentMapper.findStudentBy(student);
 	}
 
-	public void insertStudent(StudentVo studentVo) {
+	public void insertStudent(Student student) {
 		// 
-		studentMapper.insertStudent(studentVo);
+		studentMapper.insertStudent(student);
 	}
 
 }

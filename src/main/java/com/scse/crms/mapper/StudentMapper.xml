@@ -14,10 +14,13 @@
   <select id="findAllStudent" resultType="com.scse.crms.po.Student">
     SELECT * FROM student
   </select>
-  <select id="findStudentBy"  parameterType="int" resultType="com.scse.crms.po.Student">
+  <select id="findStudentBy"  parameterType="com.scse.crms.po.Student" resultType="com.scse.crms.po.Student">
     SELECT * FROM student WHERE 1=1
+    <if test="id!=null">
+    	and id LIKE CONCAT(CONCAT('%', #{id, jdbcType=VARCHAR}),'%') 
+    </if>
     <if test="name!=null">
-    	and sname LIKE CONCAT(CONCAT('%', #{username, jdbcType=VARCHAR}),'%') 
+    	and sname LIKE CONCAT(CONCAT('%', #{name, jdbcType=VARCHAR}),'%') 
     </if>
     <if test="faculty!=null">
     	and faculty LIKE CONCAT(CONCAT('%', #{faculty, jdbcType=VARCHAR}),'%') 
@@ -28,10 +31,10 @@
     <if test="sex!=null">
     	and sex = #{sex, jdbcType=INTEGER}
     </if>
-    <if test="age!=null">
+    <if test="age!=null and age!=0">
     	and age = #{age, jdbcType=INTEGER}
     </if>
-    <if test="grade!=null">
+    <if test="grade!=null and age!=0">
     	and grade = #{grade, jdbcType=INTEGER}
     </if>
   </select>

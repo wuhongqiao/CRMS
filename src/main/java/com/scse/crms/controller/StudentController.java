@@ -1,5 +1,7 @@
 package com.scse.crms.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +26,12 @@ public class StudentController {
 
 	//Ñ§Éú²éÑ¯
 	@RequestMapping("/my.action")
-	public ModelAndView queryStudents() {
+	public ModelAndView queryStudents(Student s) {
 		System.out.println("my.action");
-		Student student = studentService.findStudentById(null);
+		List<Student> studentList = studentService.findStudentBy(s);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("student", student);
+		mv.addObject("studentList", studentList);
 		
 		mv.setViewName("/WEB-INF/jsp/student.jsp");
 		

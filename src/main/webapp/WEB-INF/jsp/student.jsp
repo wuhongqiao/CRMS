@@ -2,7 +2,7 @@
 <%@page isELIgnored="false" %>
 <html>
 <body>
-<h2>${student.name}</h2>
+<h2>${studentList}</h2>
 
 <form action="${pageContext.request.contextPath }/my.do" method="post">
   姓名：<input type="text" name="name"/><br/>

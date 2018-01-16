@@ -2,26 +2,31 @@ package com.scse.crms.po;
 
 public class Student {
 
-	private Integer id;
+	private String id;
 	private String name;
 	private int age;
+	private String sex;
 	protected int grade;
 	protected String faculty;
+	protected String dorm;
 
 	
 	
-	public Student(String name, int age) {
+	public Student(String id, String name, int age, int grade, String faculty) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.age = age;
+		this.grade = grade;
+		this.faculty = faculty;
 	}
 	public Student() {
 		super();
 	}
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -35,6 +40,25 @@ public class Student {
 	}
 	public void setAge(int age) {
 		this.age = age;
+	}
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+	public String getFaculty() {
+		return faculty;
+	}
+	public void setFaculty(String faculty) {
+		this.faculty = faculty;
+	}
+	
+	public String getDorm() {
+		return dorm;
+	}
+	public void setDorm(String dorm) {
+		this.dorm = dorm;
 	}
 	@Override
 	public String toString() {
