@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scse.crms.mapper.TeacherMapper">
+  <!-- 插入 -->
+  <insert id="insertTeacher">
+    insert into teacher(name,age) values(#{name},#{age})
+  </insert>
+  <!-- 删除 -->
+  <delete id="deleteTeacherById" parameterType="int">
+    delete from teacher where id = #{id}
+  </delete>
+  <!-- 修改 -->
+  <update id="updateTeacher" parameterType="com.wax.po.Teacher">
+    UPDATE teacher SET name=#{name}, age=#{age}, sex=#{sex}, faculty=#{faculty}, place=#{place}, office=#{office} WHERE id=#{id}
+  </update>
+  <!-- 查询 -->
+  <select id="findTeacherById"  parameterType="int" resultType="com.scse.crms.po.Teacher">
+    SELECT * FROM teacher WHERE id=1
+  </select>
+  <select id="findAllTeacher" resultType="com.scse.crms.po.Teacher">
+    SELECT * FROM teacher
+  </select>
+  <select id="findTeacherBy"  parameterType="com.scse.crms.po.Teacher" resultType="com.scse.crms.po.Teacher">
+    SELECT * FROM teacher WHERE 1=1
+    <if test="id!=null">
+    	and id LIKE CONCAT(CONCAT('%', #{id, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="name!=null">
+    	and sname LIKE CONCAT(CONCAT('%', #{name, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="faculty!=null">
+    	and faculty LIKE CONCAT(CONCAT('%', #{faculty, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="dorm!=null">
+    	and place LIKE CONCAT(CONCAT('%', #{place, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="office!=null">
+    	and office LIKE CONCAT(CONCAT('%', #{office, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="sex!=null">
+    	and sex = #{sex, jdbcType=INTEGER}
+    </if>
+    <if test="age!=null and age!=0">
+    	and age = #{age, jdbcType=INTEGER}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper>
+  <select id="selectSchedule">
+    SELECT classes.cid, classes.classroom, classes_student.sid FROM classes_student,classes 
+      WHERE classes_student.classid=classes.id  AND classes_student.sid=1
+  </select>
+</mapper>

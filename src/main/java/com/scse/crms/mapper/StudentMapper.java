@@ -11,5 +11,9 @@ public interface StudentMapper {
 	public List<Student> findStudentBy(Student student);
 	//Ñ§Éú×¢²á
 	public void insertStudent(Student student);
+	//É¾³ı
+	public int deleteStudentById(int id);
+	//ĞŞ¸Ä
+	public int updateStudent(Student student);
 	
 }

@@ -7,6 +7,14 @@
   <insert id="insertStudent">
     insert into student(name,age) values(#{name},#{age})
   </insert>
+  <!-- 删除 -->
+  <delete id="deleteStudentById" parameterType="int">
+    delete from student where id = #{id}
+  </delete>
+  <!-- 修改 -->
+  <update id="updateStudent" parameterType="com.wax.po.Student">
+    UPDATE student SET name=#{name}, age=#{age}, sex=#{sex}, grade=#{grade}, dorm=#{dorm}, faculty=#{faculty} WHERE id=#{id}
+  </update>
   <!-- 查询 -->
   <select id="findStudentById"  parameterType="int" resultType="com.scse.crms.po.Student">
     SELECT * FROM student WHERE id=1

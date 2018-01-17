@@ -2,15 +2,14 @@ package com.scse.crms.po;
 
 public class Student {
 
-	private String id;
-	private String name;
-	private int age;
-	private String sex;
+	protected String id;
+	protected String name;
+	protected int age;
+	protected String sex;
 	protected int grade;
 	protected String faculty;
 	protected String dorm;
-
-	
+	protected String date;
 	
 	public Student(String id, String name, int age, int grade, String faculty) {
 		super();
@@ -62,6 +61,8 @@ public class Student {
 	}
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", age=" + age + "]";
+		return "Student [id=" + id + ", name=" + name + ", age=" + age + ", sex=" + sex + ", grade=" + grade
+				+ ", faculty=" + faculty + ", dorm=" + dorm + "]";
 	}
+	
 }
