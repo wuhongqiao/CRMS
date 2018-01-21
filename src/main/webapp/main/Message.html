@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>实时监控系统</title>
+  <script  src="../assets/js/jquery-3.2.1.min.js"></script>  
+	<link rel="stylesheet"  href="../assets/css/BS/css/bootstrap.css">  
+	<script  src="../assets/js/bootstrap.min.js"></script>  
+	<link href="../assets/css/BS/css/summernote.css"  rel="stylesheet">  
+	<script src="../assets/js/summernote.js"></script>  
+	<script type="text/javascript" src="../assets/js/bootstrap-paginator.js" ></script>
+	<script  src="../assets/js/summernote-zh-CN.js"></script>  
+	<style>
+		hr{
+			margin-bottom: 5px;
+			margin-top: 10px;
+			border: #000000;
+			border-top: 1px solid #EEEEEE;
+		}
+	</style>
+</head>
+<body>
+ <ul id="myTab" class="nav nav-tabs">
+    <li class="active">
+        <a href="#sendMsg" data-toggle="tab"> 发信息 </a>
+    </li>
+    <li>
+    	<a href="#ios" data-toggle="tab">已发送</a>
+    </li>
+    <!--<li class="dropdown">
+        <a href="#" id="myTabDrop1" class="dropdown-toggle"
+           data-toggle="dropdown">Java
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+            <li><a href="#jmeter" tabindex="-1" data-toggle="tab">jmeter</a></li>
+            <li><a href="#ejb" tabindex="-1" data-toggle="tab">ejb</a></li>
+        </ul>
+    </li>-->
+</ul> 
+  
+<div id="myTabContent" style="padding-top:30px;"class="tab-content">
+	<div class="tab-pane fade in active" id="sendMsg" >
+		 <div class="col-md-10">
+		 	<!--左边文本区-->
+		 	<div class="form-group">
+		    <label for="name">收件人</label>
+		    <div id="divtxt"class="form-control" ></div>
+		    <input type="hidden" class="form-control" id="name">
+		    <!--觉得收件人不好区分可以加多几个hidden-->
+		 	</div>
+		 	<div class="form-group">
+		    <label for="name">标题</label>
+		    <input type="text" class="form-control" id="ti" placeholder="请输入标题">
+		 	</div>
+		    <label for="name">内容</label>
+		    <!--summernote文本编辑器 -->
+		 	<div id="summernote"><p>Hello Summernote</p></div>
+		 	<!--
+                        	作者：offline
+                        	时间：2018-01-20
+                        	描述：这里发信息顺便刷新一波已发送列表的
+                        -->
+		 	<button type="submit" class="btn btn-default">提交</button>
+		 </div>
+		 
+		  <!--
+		  	作者：jed
+		  	时间：2018-01-08
+		  	描述：右边选择联系人
+		  -->
+		<div style="margin-top:30px;"class="col-md-2">
+			<div >选择收件人</div>
+		 	<ul id="myTab" class="nav nav-tabs">
+			    <li class="active">
+			        <a href="#TeachingClass" data-toggle="tab"> 教学班 </a>
+			    </li>
+			    <li>
+			    	<a href="#sousuo" data-toggle="tab">高级</a>
+			    </li>
+			</ul> 
+			<div id="myTabContentR" class="tab-content "style="height: 800px;border:1px solid #D3D3D3;">
+				<div class="tab-pane fade in active" id="TeachingClass" >
+					<div>
+						<ul class="list-group">
+						    <li class="list-group-item"><div id="item" alt="A302"data-toggle="popover" data-placement="left"
+          																	  data-content="已经加过啦~">C++（A302）</div></li><!--使用这样样式遍历出来-->
+						    <li class="list-group-item"><div id="item" alt="A303"data-toggle="popover" data-placement="left"
+          																	  data-content="已经加过啦~">java（A303）</div></li>
+						    <li class="list-group-item"><div id="item" alt="A304">php（A304）</div></li>
+						    <li class="list-group-item"><div id="item" alt="A305">HTML（A305）</div></li>
+						    <li class="list-group-item"><div id="item" alt="A306">python（A306）</div></li>
+						</ul>	 
+					</div>	
+				</div>
+				<div class="tab-pane fade " id="sousuo">	
+					<div style="margin-top:5px">
+						<div class="col-lg-8">
+					    <input type="text" class="form-control" placeholder="Search">
+						</div>
+						
+					    <button type="submit" class="btn btn-default" >提交</button>
+				   </div>
+				    <div class="center-block " >
+					    <ul class="list-group">
+						    <li class="list-group-item"><div id="item" alt="1440121101">jed（1440121101）</div></li>
+						    <li class="list-group-item"><div id="item" alt="1440121103">jed（1440121103）</div></li>
+						    <li class="list-group-item">jed（1440121103）</li>
+						    <li class="list-group-item">jed（1440121103）</li>
+						    <li class="list-group-item">jed（1440121103）</li>
+						    <li class="list-group-item">jed（1440121103）</li>
+						    <li class="list-group-item">jed（1440121103）</li><li class="list-group-item">jed（1440121103）</li><li class="list-group-item">jed（1440121103）</li><li class="list-group-item">jed（1440121103）</li><li class="list-group-item">jed（1440121103）</li><li class="list-group-item">jed（1440121103）</li><li class="list-group-item">jed（1440121103）</li><li class="list-group-item">jed（1440121103）</li>
+							</ul>	
+				    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane fade" id="ios">
+		<div class="col-md-6" >信息列表
+			<hr>
+			  <div class="col-lg-5">
+			    <input type="text" class="form-control" id="exampleInputName2" placeholder="输入内容，也不一定查的到">
+			  </div>
+			  <button type="submit" class="btn btn-info">搜索</button>
+    <ul class="list-group" id="msglist" style="margin-top: 5px;">
+    	<li class="list-group-item" name="msgitem" id="001">
+		    <div class="center-block">
+					<div>
+						<span style="color: #00BFFF; font-size: 20px;">How to be an effective web developer</span>
+						<blockquote>
+							<p>How two simple exercises changed my lifeaaaaaaaaaaaaaa</p>
+						<footer class="text-right">from: <cite title="Source Title">jed</cite></footer>
+						</blockquote>
+					</div>
+		   	</div>
+	   	</li>
+	   		<li class="list-group-item" name="msgitem" id="002">
+		    <div class="center-block" >
+					<div class="">
+						<span style="color: #00BFFF; font-size: 20px;">How to be an effective web developer</span>
+						<blockquote>
+							<p>How two simple exercises changed my lifeabbbbbbbbbbbbbbbbbbbb</p>
+						<footer class="text-right" >from: <cite title="Source Title">jed</cite></footer>
+						</blockquote>
+						
+					</div>
+		   	</div>
+	   	</li>
+   	</ul>
+   	<!--
+       	作者：offline
+       	时间：2018-01-20
+       	描述：点击msg列表发送请求然后展示在右边
+       -->
+    <script>
+    	$(document).on("click","#msglist li",function(){
+    		alert($(this).attr('id'));
+    		lookmsg($(this).attr('id'));
+//  		$.ajax({
+//  			url:"xxxx",
+//  			data:$(this).val();
+//  		});
+    	})
+    	function lookmsg(msg_id){
+    		$.ajax({
+    			data:msg_id,
+    			type:"post",
+    			url:"xxx",
+    			async:true,
+    			/* 后面改为success*/complete:function(data){
+    				var data={id: 1122,title: "213231",sendname:"jeda",content: msg_id+"<p style='color: #00BFFF; font-size: 20px;'>232111111112</p>"}//后面需要直接删掉
+    			//移除原先的内容，替换新内容；
+    			
+    				$("#seemsgtitle").text(data.title);
+    				$("#sendmsgname").text(data.sendname)
+    				$("#seemsg").empty();
+    				$("#seemsg").append(data.content)
+    			}
+    		});
+    	}
+    </script>
+   	<div class="" style="float: right;">
+    <ul class="pagination"></ul>
+    </div>
+    <!--
+    	作者：offline
+    	时间：2018-01-19
+    	描述：ajax封装
+    -->
+			<script>
+				var commonFn={};
+    		commonFn.setAjaxPaginator = function (paginatorSelector, data, option) {
+	        var totals = data.count;//总条数
+	        var pageSize = option.pageSize; //每页条数
+	        var totalPages = 1;
+	        if (totals != 0) {
+	            if (totals % pageSize == 0) {
+	                totalPages = totals / pageSize;
+	            } else {
+	                totalPages = Math.ceil(totals / pageSize);
+	            }
+	        }
+	        if (totalPages > 1) {
+	            //当总页数大于1时生成显示分页否则不显示分页
+	            commonFn.buildAjaxPaginator(paginatorSelector, $.extend(option, {totalPages: totalPages}))
+	        }else{
+	        	console.log("没东西啦")
+	        }
+	   		 }
+ 
+    		commonFn.buildAjaxPaginator = function (paginatorSelector, option) {
+        	var _option = {
+            currentPage: 1, //当前页
+            totalPages: 1, //总页数
+            numberOfPages: 5, //设置控件显示的页码数
+            bootstrapMajorVersion: 3,//如果是bootstrap3版本需要加此标识，并且设置包含分页内容的DOM元素为UL,如果是bootstrap2版本，则DOM包含元素是DIV
+            useBootstrapTooltip: 'ture',//是否显示tip提示框
+            itemTexts: function (type, page, current) {//文字翻译
+                switch (type) {
+                    case "first":
+                        return "首页";
+                    case "prev":
+                        return "上一页";
+                    case "next":
+                        return "下一页";
+                    case "last":
+                        return "尾页";
+                    case "page":
+                        return page;
+                }
+            },
+            onPageClicked: function (event, originalEvent, type, page, pageSize) {
+            }
+        	};
+       		$.extend(_option, option);
+        	paginatorSelector.bootstrapPaginator(_option);
+    		}
+    			$('.btn').click(function(){
+        	queryOperate(1,10)
+        	alert("aaa")
+    			})
+ 
+    var defaultPagination={"page":1,"pageSize":10}; //默认配置的当前页和每页显示条数
+ 
+    //重写点击分页执行的方法 传递当前点击的页面
+    function onPageClick(event, originalEvent, type, page) { //点击分页插件时传递的当前页和每页显示条数
+       queryOperate(page,defaultPagination.pageSize);
+    };
+ 
+    //查询操作
+    function queryOperate(page,pageSize){
+        var queryData={"name":"leyi"};//其他的表单提交值
+        $.extend(queryData, {page: page||1, pageSize: pageSize || 10});//提交查询操作的参数
+        $.ajax({
+            data:queryData,
+            url:'xxx',
+            /* 后面改为success*/complete:function(data){
+                var data={data:"返回的数据内容",count:100/*假设总条数100*/}//后面需要直接删掉
+                //生成分页
+                commonFn.setAjaxPaginator($('.pagination'),data,{currentPage: queryData.page, pageSize:queryData.pageSize,onPageClicked: onPageClick});
+                //DOM操作显示装载的数据内容
+                $('.loadPageDataSelector').html(data.data+queryData.page)
+                
+            }
+        })
+    }
+			</script>
+		</div>
+		<div class="col-md-6" >内容
+			<hr>
+			<div class="center-block">
+				<h2 class="text-center" id="seemsgtitle">aaa</h2>
+				<footer class="text-right">from:<cite title="Source Title" id="sendmsgname">jed</cite></footer>
+				<div id="seemsg">
+							
+				</div>
+			</div>
+      <p>iOS 是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple
+     			 TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
+     	
+    </div>
+	</div>
+</div>
+</body>
+<script>
+    $(document).ready(function() {
+        $('#summernote').summernote();
+    });
+    $('#summernote').summernote({
+	  height: 800,                 // 定义编辑框高度
+	  minHeight: null,             // 定义编辑框最低的高度
+	  maxHeight: null,             // 定义编辑框最高德高度
+	  toolbar: [
+	                <!--字体工具-->
+	                ['fontname', ['fontname']], //字体系列                                 
+	                ['style', ['bold', 'italic', 'underline', 'clear']], // 字体粗体、字体斜体、字体下划线、字体格式清除       
+	                ['font', ['strikethrough', 'superscript', 'subscript']], //字体划线、字体上标、字体下标   
+	                ['fontsize', ['fontsize']], //字体大小                                
+	                ['color', ['color']], //字体颜色
+	                
+	                <!--段落工具-->                
+	                ['style', ['style']],//样式
+	                ['para', ['ul', 'ol', 'paragraph']], //无序列表、有序列表、段落对齐方式
+	                ['height', ['height']], //行高
+	                
+	                <!--插入工具-->    
+	                ['table',['table']], //插入表格    
+	                ['hr',['hr']],//插入水平线                
+	                ['link',['link']], //插入链接                
+	                ['picture',['picture']], //插入图片                
+//	                ['video',['video']], //插入视频
+	                
+	                <!--其它-->
+	                ['fullscreen',['fullscreen']], //全屏
+	                ['codeview',['codeview']], //查看html代码
+	                ['undo',['undo']], //撤销
+	                ['redo',['redo']], //取消撤销
+//	                ['help',['help']], //帮助
+	              ],
+	callbacks: {
+   //回调函数 
+  },
+});
+ 
+  </script>
+  <script>
+	 window.onresize=function(){
+  	$("#myTabContentR").css("height",window.innerHeight*0.6+"px");
+  }
+  </script>
+  <script type="text/javascript">
+	$(function(){  
+	 //点击教学班列表到收件人
+	  $("div#item").on("click",function(){
+		  var $mailTo=$(this).text();//收件人名称
+		  
+		  var $mailToId=$(this).attr("alt");//收件人Id
+		  var $divtxt_val=$("#divtxt").text();//收件人框中的值
+		  var $messId=$("#name").val();//隐藏的input
+		  if($divtxt_val.indexOf($mailTo)<0){//若不存在，则拼接
+		    $("#divtxt").append("<span class='rece' alt='"+$mailToId+";'>"
+		    +$mailTo+";"+"</span>");
+		    $messId=$messId+$mailToId+";";
+		  }else{
+		  	 $(this).popover();
+		  }
+		  $("#name").val($messId);
+		  
+	  });
+	});
+	//	   点击某个收件人，添加样式
+$(document).on("click",".rece",function(){
+	    $("#divtxt").find(".rece").removeClass("on");
+	    $("#divtxt").find(".rece").css("background-color","").css("color","")
+	    $(this).addClass("on").css("background-color", "#545f59").css("color","#fff");
+   	});
+//添加鼠标悬停
+$(document).on("mouseover",".list-group-item",function(){
+	 $(this).css("background-color","#EDEDED")
+});
+$(document).on("mouseout",".list-group-item",function(){
+	 $(this).css("background-color","transparent")
+});
+//$(".list-group-item").hover(function(){
+//  $(this).css("background-color","#EDEDED");
+//	},function(){
+//  $(this).css("background-color","none");
+//	});
+   	//添加删除监听
+  $(document).bind('keydown', function(event) {
+		    	var $messId=$("#name").val();//收件人Id的值
+		    	var $span_alt=$("#divtxt .on").attr("alt");//选中的收件人
+			    if($span_alt != null){
+					  var $index,$span_size,$mess_size,$val;
+					  $index=$messId.indexOf($span_alt);
+					  $span_size=$span_alt.length;
+					  $mess_size=$messId.length;
+				    if(8==event.keyCode||46==event.keyCode){//退格键和del
+					    $("#divtxt .on").remove();
+					      //删除对应的收件人Id
+					  $val=$messId.substring(0,$index)+$messId.substring($index+$span_size,$mess_size);
+					  $("#name").val($val);
+//					    $("#messName").val($("#divtxt").text());
+					    return false;
+				    }
+			  }  
+	  }
+ 		);
+</script>
+</html>
