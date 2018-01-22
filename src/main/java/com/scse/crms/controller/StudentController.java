@@ -48,6 +48,7 @@ public class StudentController {
 	@RequestMapping("schedule.do")
 	@ResponseBody
 	public String selectSchedule() throws JsonGenerationException, JsonMappingException, IOException {
+		
 		ClassesService service = new ClassesServiceImpl();
 		
 		return new ObjectMapper().writeValueAsString(service.selectSchedule().toString());
