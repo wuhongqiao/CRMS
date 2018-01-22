@@ -35,7 +35,7 @@
     使用此种方式可以实现RESTful风格的url
     第三种：/*,这样配置不对，使用这种配置，最终要转发到一个jsp页面时仍然会由DispatcherServlet解析jsp地址，不能根据jsp页面找到handler，会报错。
     -->
-    <url-pattern>*.action</url-pattern>
+    <url-pattern>*.do</url-pattern>
   </servlet-mapping>
   
 </web-app>

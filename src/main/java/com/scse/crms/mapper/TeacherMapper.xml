@@ -12,7 +12,7 @@
     delete from teacher where id = #{id}
   </delete>
   <!-- 修改 -->
-  <update id="updateTeacher" parameterType="com.wax.po.Teacher">
+  <update id="updateTeacher" parameterType="com.scse.crms.po.Student">
     UPDATE teacher SET name=#{name}, age=#{age}, sex=#{sex}, faculty=#{faculty}, place=#{place}, office=#{office} WHERE id=#{id}
   </update>
   <!-- 查询 -->

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scse.crms.mapper.CourseMapper">
+	<select id="getCourseList" resultType="com.scse.crms.mapper.CourseMapper">
+		select * from course
+	</select>
+	<select id="getCourseBy" parameterType="com.scse.crms.mapper.CourseMapper">
+		select * from course where 1=1
+    <if test="id!=null">
+    	and id LIKE CONCAT(CONCAT('%', #{id, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="name!=null">
+    	and name LIKE CONCAT(CONCAT('%', #{name, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="faculty!=null">
+    	and faculty LIKE CONCAT(CONCAT('%', #{faculty, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="inspect!=null">
+    	and inspect LIKE CONCAT(CONCAT('%', #{inspect, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="leaderid!=null">
+    	and leaderid LIKE CONCAT(CONCAT('%', #{leaderid, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="introduction!=null">
+    	and introduction LIKE CONCAT(CONCAT('%', #{introduction, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="premise_cid!=null">
+    	and premise_cid LIKE CONCAT(CONCAT('%', #{premise_cid, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="type!=null">
+    	and type LIKE CONCAT(CONCAT('%', #{type, jdbcType=VARCHAR}),'%') 
+    </if>
+    <if test="proportion!=null">
+    	and proportion LIKE CONCAT(CONCAT('%', #{proportion, jdbcType=VARCHAR}),'%') 
+    </if>
+	</select>
+</mapper>

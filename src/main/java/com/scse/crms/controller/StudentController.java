@@ -1,14 +1,21 @@
 package com.scse.crms.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.scse.crms.po.Student;
+import com.scse.crms.service.ClassesService;
 import com.scse.crms.service.StudentService;
+import com.scse.crms.service.impl.ClassesServiceImpl;
 
 /**
  * 
@@ -25,7 +32,7 @@ public class StudentController {
 	private StudentService studentService;
 
 	//Ñ§Éú²éÑ¯
-	@RequestMapping("/my.action")
+	@RequestMapping("/my.do")
 	public ModelAndView queryStudents(Student s) {
 		System.out.println("my.action");
 		List<Student> studentList = studentService.findStudentBy(s);
@@ -38,6 +45,12 @@ public class StudentController {
 		return mv;
 	}
 	
-	//
+	@RequestMapping("schedule.do")
+	@ResponseBody
+	public String selectSchedule() throws JsonGenerationException, JsonMappingException, IOException {
+		ClassesService service = new ClassesServiceImpl();
+		
+		return new ObjectMapper().writeValueAsString(service.selectSchedule().toString());
+	}
 	
 }
