@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"  pageEncoding="UTF-8"  %>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java"  pageEncoding="UTF-8"  %>
 <!DOCTYPE HTML>
 <html>
  <head>
@@ -49,6 +49,7 @@
               items:[
                 {id:'code',text:'首页代码',href:'main/code.html',closeable : false},
                 {id:'main-menu',text:'顶部导航',href:'main/menu.html'},
+		{id:'message',text:'信息发布管理',href:'main/Message.html'},
                 {id:'second-menu',text:'右边菜单',href:'main/second-menu.html'},
                 {id:'dyna-menu',text:'动态菜单',href:'main/dyna-menu.html'}
               ]
