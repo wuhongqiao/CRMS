@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+  <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+   <link href="../assets/css/main-min.css" rel="stylesheet" type="text/css" />
+<title>无标题文档</title>
+<style>
+div{
+	border-width:1px;
+	border-color:#999;
+	border-style:solid;
+}
+.main{
+	width:70%;
+	overflow-x:auto;
+	float:left;
+	border-width:1px;
+	border-color:#999;
+	border-style:solid;
+	
+}
+.seattr{
+	display:inline-block;
+	height:50px;
+	white-space:nowrap;
+}
+.seat{
+	width:70px;
+	margin:3px;
+	display:inline-block;
+	text-align:center;
+	border-width:1px;
+	border-color:#66a7e8;
+	border-style:solid;
+}
+.rseat{
+	margin-right: 50px;
+}
+.seat:hover{
+	background-color:#e5f3fb;
+}
+input[type=checkbox]:checked+div{
+	background-color:#d1e8ff;
+	
+}
+input[type=checkbox]{
+	display:none;
+}
+.list{
+	width:29%;
+	float:left;
+	height:100px;
+	overflow:auto;
+}
+.list>div{
+	border-left:0;
+	border-right:0;
+	border-top:0;
+}
+
+</style>
+</head>
+
+<body>
+  <div class="main">
+  <div class="seattr">
+	<label for="checkbox1">
+	<input type="checkbox" id="checkbox1"/>
+    <div class=" seat">
+      吴哈哈<br/>
+      1440121102
+    </div>
+    </label>
+	<label for="checkbox">
+	<input type="checkbox" id="checkbox"/>
+    <div class=" seat rseat">
+      吴哈哈<br/>
+      1440121102
+    </div>
+    </label>
+	<label for="checkbox1">
+	<input type="checkbox" id="checkbox1"/>
+    <div class=" seat">
+      吴哈哈<br/>
+      1440121102
+    </div>
+    </label>
+	<label for="checkbox1">
+	<input type="checkbox" id="checkbox1"/>
+    <div class=" seat rseat">
+      吴哈哈<br/>
+      1440121102
+    </div>
+    </label>
+	<label for="checkbox1">
+	<input type="checkbox" id="checkbox1"/>
+    <div class=" seat">
+      吴哈哈<br/>
+      1440121102
+    </div>
+    </label>
+    </div><br/>
+  <div class="seattr">
+	<label for="checkbox1">
+	<input type="checkbox" id="checkbox1"/>
+    <div class=" seat">
+      吴哈哈<br/>
+      1440121102
+    </div>
+    </label>
+    </div>
+  </div>
+  <div class="list">
+    <div>
+    1440121102
+    </div>
+    <div>
+    1440121102
+    </div>
+    <div>
+    1440121102
+    </div>
+    <div>
+    1440121102
+    </div>
+    <div>
+    1440121102
+    </div>
+    <div>
+    1440121102
+    </div>
+    <div>
+    1440121102
+    </div>
+    <div>
+    1440121102
+    </div>
+    <div>
+    1440121103
+    </div>
+  </div>
+</body>
+<script>
+	function (data) {  
+    //对json进行降序排序函数  
+    var colId="age"  
+    var desc = function(x,y)  
+    {  
+        return (x[colId] < y[colId]) ? 1 : -1  
+    }  
+    //对json进行升序排序函数  
+    var asc = function(x,y)  
+    {  
+        return (x[colId] > y[colId]) ? 1 : -1  
+    }  
+    var arr2 = [  
+        {name:"kitty", age:12},  
+        {name:"sonny", age:9},  
+        {name:"jake", age:13},  
+        {name:"fun", age:24}  
+    ]; 
+    data.sort(asc); //升序排序  
+    JSON.stringify(data)
+  
+}
+</script>
+</html>
