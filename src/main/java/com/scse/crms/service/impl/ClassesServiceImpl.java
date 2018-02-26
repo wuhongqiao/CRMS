@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.scse.crms.mapper.ClassesMapper;
 import com.scse.crms.service.ClassesService;
+import com.scse.crms.vo.SeatTable;
 
 @Service
 public class ClassesServiceImpl implements ClassesService {
@@ -15,6 +16,14 @@ public class ClassesServiceImpl implements ClassesService {
 
 	public List selectSchedule() {
 		return mapper.selectSchedule();
+	}
+
+	public List selectSeat() {
+		return mapper.selectSeat();
+	}
+	
+	public int updateSeat(SeatTable seatTable) {
+		return mapper.updateSeat(seatTable);
 	}
 
 }

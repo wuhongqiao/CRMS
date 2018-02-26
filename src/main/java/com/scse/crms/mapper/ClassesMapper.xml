@@ -2,8 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scse.crms.mapper.ClassesMapper">
+<!--   <resultMap type="com.scse.crms.vo.ClassesVo" id="seatTable">
+
+  </resultMap> -->
   <select id="selectSchedule" resultType="com.scse.crms.vo.ClassesVo">
     SELECT classes.cid, classes.classroom, classes_student.sid FROM classes_student,classes 
       WHERE classes_student.classid=classes.id  AND classes_student.sid=1
   </select>
+  <select id="selectSeat" resultType="com.scse.crms.vo.SeatTable">
+  	SELECT classes_student.sid, student.name as sname,classes.cid, classes.classroom, classes_student.seat, score.usual_performance 
+  	FROM student,classes_student,classes,score
+	WHERE classes_student.classid=classes.id  <!-- AND classes_student.classid=1 -->
+	AND score.sid=classes_student.sid=student.id AND score.sid=classes.cid
+  </select>
+  <update id="udateSeat" parameterType="com.scse.crms.vo.SeatTable">
+    UPDATE classes_student SET seat=#{seat} WHERE sid=#{sid} AND classid=#{classid}
+  </update>
 </mapper>
