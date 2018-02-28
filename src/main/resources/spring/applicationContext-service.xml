@@ -19,6 +19,8 @@
      
     <context:component-scan base-package="com.scse.crms.service.impl"/>
 	<!-- 学生管理的service -->
-	<bean id="studentService" class="com.scse.crms.service.impl.StudentServiceImpl"/>
+	<!-- <bean id="studentService" class="com.scse.crms.service.impl.StudentServiceImpl"/>
+	<bean id="classesService" class="com.scse.crms.service.impl.ClassesServiceImpl"/>
+	<bean id="classroomService" class="com.scse.crms.service.impl.ClassroomServiceImpl"/> -->
       
 </beans>

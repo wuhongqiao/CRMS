@@ -17,13 +17,13 @@ import com.scse.crms.vo.SeatTable;
 @Controller
 public class ClassesController {
 	@Autowired
-	ClassesService service;
+	ClassesService classesService;
 	
 	@RequestMapping("class.do")
 	@ResponseBody
 	public String selectSchedule() {
 		try {
-			return new ObjectMapper().writeValueAsString(service.selectSchedule());
+			return new ObjectMapper().writeValueAsString(classesService.selectSchedule());
 		} catch (JsonGenerationException e) {
 			e.printStackTrace();
 		} catch (JsonMappingException e1) {
@@ -39,13 +39,13 @@ public class ClassesController {
 	@ResponseBody
 	public String selectSeatTable() {
 		
-		return service.selectSchedule().toString();
+		return classesService.selectSchedule().toString();
 	}
 
 	@RequestMapping("updateSeat.do")
 	@ResponseBody
 	public String updateSeatTable(SeatTable seatTable) {
 		
-		return ""+service.updateSeat(seatTable);
+		return ""+classesService.updateSeat(seatTable);
 	}
 }

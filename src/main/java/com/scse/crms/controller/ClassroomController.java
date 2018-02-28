@@ -13,14 +13,14 @@ import com.scse.crms.service.ClassroomService;
 
 public class ClassroomController {
 	@Autowired
-	ClassroomService service;
+	ClassroomService classroomService;
 	
 	@RequestMapping("class.do")
 	@ResponseBody
 	public String selectSchedule(String crid) throws JsonGenerationException, JsonMappingException, IOException {
 		//service.selectSchedule();
 		
-		return new ObjectMapper().writeValueAsString(service.selectClassroom(crid));
+		return new ObjectMapper().writeValueAsString(classroomService.selectClassroom(crid));
 	}
 
 }
