@@ -16,6 +16,7 @@ import com.scse.crms.vo.SeatTable;
 
 @Controller
 public class ClassesController {
+	
 	@Autowired
 	ClassesService classesService;
 	
