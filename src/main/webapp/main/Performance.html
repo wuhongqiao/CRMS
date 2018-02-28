@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+	<!--
+    	作者：逐流
+    	时间：2018-02-21
+    	描述：展示成绩
+    -->
+    <header>
+	    <meta charset="UTF-8">
+		<script type="text/javascript" src="../assets/js/jquery-3.2.1.min.js" ></script>
+		<link rel="stylesheet" href="../assets/css/BS/css/bootstrap.css" />	
+		<link rel="stylesheet" href="../assets/css/BS/css/bootstrap-table.css" />
+		<script type="text/javascript" src="../assets/js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="../assets/js/bootstrap-table.js" ></script>
+		<script type="text/javascript" src="../assets/js/bootstrap-table-zh-CN.js" ></script>
+		<script type="text/javascript" src="../assets/js/jquery.cxselect.js" ></script>
+		<script type="text/javascript" src="../assets/js/bootbox.js" ></script>
+	</header>
+	<body>
+		<div class="panel panel-default">
+		    <div id="search_data" class="panel-body form-group" style="margin-bottom:0px;">
+			        <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">课程</label>
+			        <div class="col-sm-2">
+			        	<!--
+                        	作者：联动选项，需要数据初始化json格式如下
+                        	时间：2018-02-22
+                        	描述：
+                        -->
+			            <select class="course">
+			            </select>
+			        </div>
+			        <label class="col-sm-1 control-label" style="text-align: right; margin-top:5px">教学班</label>
+			        <div class="col-sm-2">
+			            <select class="classes" id="classes">
+			            </select>
+			        </div>
+		        <div class="col-sm-1 col-sm-offset-4">
+		            <button class="btn btn-primary" id="search_btn">查询</button>
+		        </div>
+		    </div>
+		</div>
+		
+	+	<table id="mytab" class="table table-hover"></table>
+		<!--修改-->
+		<div class="modal fade" id="modifyModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4 class="modal-title">修改信息</h4>
+                    </div>
+                    <input hidden="hidden" id="rowindex"/>
+                    <div class="modal-body">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label for="modifyidText">学号：</label>
+                                <input id="modifyidText" class="form-control input-sm" readOnly="true">
+                            </div>
+                            <div class="form-group">
+                                <label for="modifyNameText">姓名：</label>
+                                <input id="modifyNameText" class="form-control input-sm" readOnly="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modifyParentNameText">表现分：</label>
+                            <input id="modifyParentNameText" class="form-control input-sm">
+                        </div>
+                        <div class="form-group">
+                            <label for="modifyLevelText">考勤分：</label>
+                            <input id="modifyLevelText" class="form-control input-sm">
+                        </div>
+                        <div class="form-group">
+                            <label for="modifyDescText">作业分：</label>
+                            <input id="modifyDescText" class="form-control input-sm">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button class="btn btn-primary" id="saveModify">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+		<!-- 这有一些工具
+		<div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
+		     <button id="btn_edit" type="button" class="btn btn-default" >
+		         <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>修改
+		     </button>
+		      <button id="btn_delete" type="button" class="btn btn-default" >
+		      	<!--style="display: none;"
+		          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+		      </button>
+		      <button id="btn_add" type="button" class="btn btn-default">
+		          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+		      </button>
+		</div>-->
+
+	</body>
+	<script>
+	$(function () {
+    //1.初始化Table
+    var oTable = new TableInit();
+    oTable.Init();
+    //2.初始化Button的点击事件
+    var oButtonInit = new ButtonInit();
+    oButtonInit.Init();
+	});
+
+  	
+	var TableInit = function () {
+  	 	 var oTableInit = new Object();
+    //初始化Table
+    	oTableInit.Init =function () {
+        $('#mytab').bootstrapTable({
+        	//吧后面的data注释掉即可使用后端数据
+//          url: '/Home/GetDepartment',         //请求后台的URL（*）
+//          method: 'get',                      //请求方式（*）
+//          toolbar: '#toolbar',                //工具按钮用哪个容器
+            striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: false,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            queryParams: oTableInit.queryParams,//传递参数（*）
+            sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber:1,                       //初始化加载第一页，默认第一页
+            pageSize: 3,                       //每页的记录行数（*）
+            pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+            search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: true,                  //是否显示所有的列
+            showRefresh: true,                  //是否显示刷新按钮
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: true,                //是否启用点击选中行
+//          height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+            showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                   //是否显示父子表
+            columns: [{
+                checkbox: true
+            },{
+                field: 'id',
+                title: '学号'
+            },{
+                field: 'Name',
+                title: '姓名'
+            }, {
+                field: 'ParentName',
+                title: '表现分'
+            }, {
+                field: 'Level',
+                title: '考勤分'
+            }, {
+                field: 'Desc',
+                title: '作业分'
+            }, {
+       			formatter: function (value, row, index) {
+	            	return [
+		                '<a href="javascript:modifyPer('+index+","+ row.id + ",'" + row.name + "','" + row.ParentName + "','" + row.Level + "','" +row.Desc+ "'" +')">' +
+		                    '<i class="glyphicon glyphicon-pencil"></i>修改' +
+		                '</a>'
+	            	].join('');
+        		},
+        		title: '操作'
+    		}],
+    		//这个data 替换查询回来的data 直接注释掉
+            data: [{  
+       			id: 1,  
+        		name: 'Name',  
+        		ParentName: '$1',
+        		Level:'dada',
+        		Desc:'啊啊啊啊'
+    		}, {  
+        		id: 2,  
+        		name: 'Name',  
+        		ParentName: '$1',
+        		Level:'dada',
+        		Desc:'啊啊啊啊'
+    		}, {  
+        		id: 3,  
+        		name: 'Name',  
+        		ParentName: '$1',
+        		Level:'dada',
+        		Desc:'啊啊啊啊'
+    		}, {  
+        		id: 4,  
+        		name: 'Name',  
+        		ParentName: '$1',
+        		Level:'dada',
+        		Desc:'啊啊啊啊'
+    		}, {  
+        		id: 5,  
+        		name: 'Name',  
+        		ParentName: '$1',
+        		Level:'dada',
+        		Desc:'啊啊啊啊'
+    		}, {  
+        		id: 6,  
+        		name: 'Name',  
+        		ParentName: '$1',
+        		Level:'dada',
+        		Desc:'啊啊啊啊'
+    		}, {  
+        		id: 7,  
+        		name: 'Name',  
+        		ParentName: '$1',
+        		Level:'dada',
+        		Desc:'啊啊啊啊'
+    		}]
+        });
+    };
+    //得到查询的参数
+	    oTableInit.queryParams = function (params) {
+	        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+	            limit: params.limit,   //页面大小
+	            offset: params.offset,  //页码
+	            departmentname: $("#txt_search_departmentname").val(),
+	            statu: $("#txt_search_statu").val()
+	        };
+	        return temp;
+	    };
+	return oTableInit;
+	};
+
+	
+	var ButtonInit = function () {
+	    var oInit = new Object();
+	    var postdata = {};
+	
+	    oInit.Init = function () {
+	        //初始化页面上面的按钮事件
+	    };
+	
+	    return oInit;
+	};
+	</script>
+	<script>
+		var mid;
+
+// 修改
+function modifyPer(row,id, name, ParentName, Level,Desc) {
+	$("#rowindex").val(row);
+    $('#modifyidText').val(id);
+    $('#modifyNameText').val(name);
+    $('#modifyParentNameText').val(ParentName);
+    $('#modifyLevelText').val(Level);
+    $('#modifyDescText').val(Desc);
+    $('#modifyModal').modal('show');
+}
+
+$('#saveModify').click(function() {
+    $('#modifyModal').modal('hide');
+    bootbox.confirm({
+        title: "提示",
+        message: '确认修改？',
+        callback: function (flag) {
+            if (flag) {
+            	var checkIndex =$("#rowindex").val();
+            	
+            	var id =$('#modifyidText').val();
+            	var name =$('#modifyNameText').val();
+                var ParentName = $('#modifyParentNameText').val();
+                var Level = $('#modifyLevelText').val();
+                var Desc = $('#modifyDescText').val();
+                //下面没注释的复制到在ajax更新完成功回调的操作
+                var data ={  
+	        		id: 71,  
+	        		name: 'Name2',  
+	        		ParentName: '$12',
+	        		Level:'dad2a',
+	        		Desc:'啊2啊啊啊'
+	    			};
+                $('#mytab').bootstrapTable('updateRow', {index: checkIndex, row:data});
+                //~---------------------------
+            //	$.ajax(
+	//      {
+	//          type:"post",啥
+	//          url:"xxxxx",
+	//          data:JSON.stringify({cname:selectvar}),
+	//          contentType: 'application/json',
+	//          dataType:"json",
+	//          success:function(json){
+	////              var data = json.msg;//要传入table的数据值 
+	//     			$("#mytab").bootstrapTable('load',data);
+	//          },
+	//      }
+	//  )
+//              if (verifyNameAndAddress(name, address)) {
+//                  exchangeData('modifyPer', mid, name, age, address);
+//              } else {
+//                  nullAlert();
+//              }
+            }
+        }
+    });
+});
+$("#search_btn").click(function(){
+	var selectvar = $("#classes").val();
+	var selectindex = $("#classes ").get(0).selectedIndex;
+	
+	if(selectvar!=null&&selectindex!=0){
+		//有后端打开注释
+	//	$.ajax(
+	//      {
+	//          type:"posy",啥
+	//          url:"http://localhost:8080/maritime/rest/getAllSuperviseInformjson",
+	//          data:JSON.stringify({cname:selectvar}),
+	//          contentType: 'application/json',
+	//          dataType:"json",
+	//          success:function(json){
+	////              var data = json.msg;//要传入table的数据值 
+	//     			$("#mytab").bootstrapTable('load',data);
+	//          },
+	//      }
+	//  )
+	}else{
+    	alert("请选择查询对象")
+    }
+});
+
+	</script>
+	<script>
+		var dataCustom=[{"cname":"aa","clist":[{"cname":"bb"},{"cname":"bb2"}]},
+		     	{"cname":"aa2","clist":[{"cname":"cc2"},{"cname":"cc2"}]}];
+		
+		//替换数据每次打开请求一次有后台打开注释
+//		$(document).ready(function(){  
+//          $.ajax({  
+//              type:'get',  
+//              url:'xxx',
+//              dataType:'json',  
+//              success:function(data){  
+//                  $("#divp").html('after: ' + data);  
+//               	dataCustom =data; 
+//              }  
+//          });  
+//  	});  
+		$("#search_data").cxSelect({
+  			selects: ['course', 'classes'],
+   			required: false,
+    		jsonName: 'cname',
+    		jsonSub:'clist',
+    		firstTitl:'请选择',
+   			data: dataCustom
+		});
+		
+	</script>
+</html>
