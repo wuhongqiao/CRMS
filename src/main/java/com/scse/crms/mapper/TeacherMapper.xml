@@ -5,7 +5,7 @@
 <mapper namespace="com.scse.crms.mapper.TeacherMapper">
   <!-- 插入 -->
   <insert id="insertTeacher">
-    insert into teacher(name,age) values(#{name},#{age})
+    insert into teacher(id,name,age) values(#{id},#{name},#{age})
   </insert>
   <!-- 删除 -->
   <delete id="deleteTeacherById" parameterType="int">
