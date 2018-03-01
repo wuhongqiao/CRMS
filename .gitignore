@@ -1,3 +1,4 @@
 /target/
 /src/test/
 /src/main/resources/db.properties
+/test-output/
