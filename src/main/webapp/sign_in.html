@@ -55,7 +55,21 @@
 </script>
 <script type="text/javascript">
 	$("#submit").click(function(){
-		
+		$.ajax({
+			url:"CRMS/login.do",
+			data:$("#loginform").serialize()
+			type:"post",
+			success:function(data){
+				if(data=="success"){
+					alert("登录成功");
+				}else{
+					alert("登录失败");
+				}
+			},
+			error:function(){
+				alert("错误");
+			}
+		})
 	})
 </script>
 </html>
