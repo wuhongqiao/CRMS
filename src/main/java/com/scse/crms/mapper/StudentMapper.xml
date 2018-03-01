@@ -39,7 +39,7 @@
     <if test="age!=null and age!=0">
     	and age = #{age, jdbcType=INTEGER}
     </if>
-    <if test="grade!=null and age!=0">
+    <if test="grade!=null and grade!=0">
     	and grade = #{grade, jdbcType=INTEGER}
     </if>
   </select>
