@@ -3,7 +3,6 @@ package com.scse.crms.mapper;
 import java.util.List;
 
 import com.scse.crms.po.Student;
-import com.scse.crms.po.StudentVo;
 
 public interface StudentMapper {
 	//Ñ§Éú²éÑ¯

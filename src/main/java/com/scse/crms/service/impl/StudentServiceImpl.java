@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.scse.crms.mapper.StudentMapper;
 import com.scse.crms.po.Student;
-import com.scse.crms.po.StudentVo;
 import com.scse.crms.service.StudentService;
 
 /**
