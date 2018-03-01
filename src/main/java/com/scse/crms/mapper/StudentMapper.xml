@@ -16,9 +16,6 @@
     UPDATE student SET name=#{name}, age=#{age}, sex=#{sex}, grade=#{grade}, dorm=#{dorm}, faculty=#{faculty} WHERE id=#{id}
   </update>
   <!-- 查询 -->
-  <select id="findStudentById"  parameterType="int" resultType="com.scse.crms.po.Student">
-    SELECT * FROM student WHERE id=#{id}
-  </select>
   <select id="findAllStudent" resultType="com.scse.crms.po.Student">
     SELECT * FROM student
   </select>

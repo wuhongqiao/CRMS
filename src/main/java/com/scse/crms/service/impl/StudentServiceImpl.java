@@ -22,10 +22,6 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private StudentMapper studentMapper;
 	
-	public Student findStudentById(Student student) {
-		// 
-		return studentMapper.findStudentById(student);
-	}
 	public List<Student> findStudentBy(Student student) {
 		// 
 		return studentMapper.findStudentBy(student);

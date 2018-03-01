@@ -6,7 +6,6 @@ import com.scse.crms.po.Student;
 
 public interface StudentMapper {
 	//学生查询
-	public Student findStudentById(Student student);
 	public List<Student> findStudentBy(Student student);
 	//学生注册
 	public void insertStudent(Student student);
