@@ -1,5 +1,6 @@
 /target/
 /src/test/
-/src/main/resources/db.properties
 /test-output/
+/src/main/resources/db.properties
 .classpath
+src/main/resources/db.properties
