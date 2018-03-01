@@ -28,7 +28,7 @@
     	and id LIKE CONCAT(CONCAT('%', #{id, jdbcType=VARCHAR}),'%') 
     </if>
     <if test="name!=null">
-    	and name LIKE CONCAT(CONCAT('%', #{name, jdbcType=VARCHAR}),'%') 
+    	and  name LIKE CONCAT(CONCAT('%', #{name, jdbcType=VARCHAR}),'%') 
     </if>
     <if test="faculty!=null">
     	and faculty LIKE CONCAT(CONCAT('%', #{faculty, jdbcType=VARCHAR}),'%') 
