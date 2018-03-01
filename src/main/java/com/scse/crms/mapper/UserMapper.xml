@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scse.crms.mapper.UserMapper">
+  <select id="login" parameterType="com.scse.crms.po.User" resultType="com.scse.crms.po.User">
+    SELECT * FROM USER WHERE id=#{id} and password=MD('#{password}')
+  </select>
+</mapper>
