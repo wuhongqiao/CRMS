@@ -40,7 +40,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter{
         User user =  (User) request.getSession().getAttribute("user");  
         if(user == null){  
             response.setCharacterEncoding("UTF-8");  
-            response.sendRedirect("/CRMS/login.do");
+            response.sendRedirect("/CRMS/sign_in.html");
             //request.getRequestDispatcher("login.action").include(request, response);  
             return false;  
         }else  
