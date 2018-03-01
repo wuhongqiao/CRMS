@@ -5,6 +5,15 @@ public class User {
 	private String password;
 	private String role;
 	
+	public User() {
+		super();
+	}
+	public User(String id, String password, String role) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.role = role;
+	}
 	public String getId() {
 		return id;
 	}

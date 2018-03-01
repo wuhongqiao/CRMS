@@ -10,6 +10,9 @@ public class Teacher {
 	protected String place;
 	protected String office;
 	
+	public Teacher() {
+		super();
+	}
 	public Teacher(String id, String name, int age, String sex, String faculty, String dorm, String place,
 			String office) {
 		super();

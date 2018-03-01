@@ -10,7 +10,10 @@ public class Student {
 	protected String faculty;
 	protected String dorm;
 	protected String date;
-	
+
+	public Student() {
+		super();
+	}
 	public Student(String id, String name, int age, int grade, String faculty) {
 		super();
 		this.id = id;
@@ -18,9 +21,6 @@ public class Student {
 		this.age = age;
 		this.grade = grade;
 		this.faculty = faculty;
-	}
-	public Student() {
-		super();
 	}
 	public String getId() {
 		return id;

@@ -7,6 +7,10 @@ public class Classroom {
 	private String rank;
 	private String building;
 	private String zone;
+	
+	public Classroom() {
+		super();
+	}
 	public Classroom(String crid, String room_num, int row, String rank, String building, String zone) {
 		super();
 		this.crid = crid;

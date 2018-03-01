@@ -4,6 +4,6 @@
 
 <mapper namespace="com.scse.crms.mapper.UserMapper">
   <select id="login" parameterType="com.scse.crms.po.User" resultType="com.scse.crms.po.User">
-    SELECT * FROM USER WHERE id=#{id} and password=MD('#{password}')
+    SELECT * FROM USER WHERE id=#{id} and password=MD5(#{password})
   </select>
 </mapper>

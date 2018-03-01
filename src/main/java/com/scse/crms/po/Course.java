@@ -10,6 +10,10 @@ public class Course {
 	protected String premise_cid;
 	protected String type;
 	protected String proportion;
+	
+	public Course() {
+		super();
+	}
 	public Course(String id, String name, String faculty, String inspect, String leaderid, String introduction,
 			String premise_cid, String type, String proportion) {
 		super();
