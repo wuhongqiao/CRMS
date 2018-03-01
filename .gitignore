@@ -3,4 +3,3 @@
 /test-output/
 /src/main/resources/db.properties
 .classpath
-src/main/resources/db.properties
