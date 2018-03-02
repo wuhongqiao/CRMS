@@ -12,8 +12,8 @@ import com.scse.crms.po.User;
 
 
 //验证登录
-public class CommonInterceptor extends HandlerInterceptorAdapter{  
-    private final Logger log = LoggerFactory.getLogger(CommonInterceptor.class);  
+public class CommonInterceptorForTeacher extends HandlerInterceptorAdapter{  
+    private final Logger log = LoggerFactory.getLogger(CommonInterceptorForTeacher.class);  
     /* 
      * 利用正则映射到需要拦截的路径 
  
@@ -38,8 +38,8 @@ public class CommonInterceptor extends HandlerInterceptorAdapter{
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {  
         
         User user =  (User) request.getSession().getAttribute("user");  
-        if(user == null){  
-            response.setCharacterEncoding("UTF-8");
+        if(!user.getRole().equals("teacher")){  
+            response.setCharacterEncoding("UTF-8");  
             response.getWriter().write("Insufficient authority");
             //response.sendRedirect("/CRMS/sign_in.html");
             //request.getRequestDispatcher("login.action").include(request, response);  
