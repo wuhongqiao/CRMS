@@ -3,15 +3,21 @@ package com.scse.crms.vo;
 public class SeatTable {
 	private String sid;
 	private String sname;
+	private String classesid;
 	private String cid;
 	private String classroom;
 	private String seat;
 	private String usual_performance;
-	public SeatTable(String sid, String sname, String cid, String classroom, String seat, String usual_performance) {
+	
+	public SeatTable() {
+		super();
+	}
+	public SeatTable(String sid, String sname, String cid, String classesid, String classroom, String seat, String usual_performance) {
 		super();
 		this.sid = sid;
 		this.sname = sname;
 		this.cid = cid;
+		this.classesid = classesid;
 		this.classroom = classroom;
 		this.seat = seat;
 		this.usual_performance = usual_performance;
@@ -51,6 +57,12 @@ public class SeatTable {
 	}
 	public void setUsual_performance(String usual_performance) {
 		this.usual_performance = usual_performance;
+	}
+	public String getClassesid() {
+		return classesid;
+	}
+	public void setClassesid(String classesid) {
+		this.classesid = classesid;
 	}
 
 	

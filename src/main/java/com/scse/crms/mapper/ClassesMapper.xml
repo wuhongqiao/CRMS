@@ -15,7 +15,13 @@
 	WHERE classes_student.classid=classes.id  <!-- AND classes_student.classid=1 -->
 	AND score.sid=classes_student.sid=student.id AND score.sid=classes.cid
   </select>
+  <select id="selectCountWithSeat" parameterType="String" resultType="int">
+    SELECT COUNT(*) FROM classes_student WHERE seat=#{seat}
+  </select>
   <update id="udateSeat" parameterType="com.scse.crms.vo.SeatTable">
     UPDATE classes_student SET seat=#{seat} WHERE sid=#{sid} AND classid=#{classid}
+  </update>
+  <update id="removeSeat" parameterType="String">
+    UPDATE classes_student SET seat=null WHEREseat=#{seat}
   </update>
 </mapper>

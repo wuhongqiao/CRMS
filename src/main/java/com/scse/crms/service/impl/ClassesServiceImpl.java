@@ -26,4 +26,11 @@ public class ClassesServiceImpl implements ClassesService {
 		return mapper.updateSeat(seatTable);
 	}
 
+	public int removeSeat(String seat) {
+		return mapper.removeSeat(seat);
+	}
+	public int selectCountWithSeat(String seat) {
+		return mapper.selectCountWithSeat(seat);
+	}
+
 }

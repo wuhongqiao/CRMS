@@ -9,4 +9,6 @@ public interface ClassesMapper {
 	public List<ClassesVo> selectSchedule();
 	public List<SeatTable> selectSeat();
 	public int updateSeat(SeatTable seatTable);
+	public int removeSeat(String seat);
+	public int selectCountWithSeat(String seat);
 }
