@@ -2,7 +2,7 @@ package com.scse.crms.po;
 
 public class Classroom {
 	private String crid;
-	private String room_num;
+	private String room_number;
 	private int row;
 	private String rank;
 	private String building;
@@ -11,10 +11,10 @@ public class Classroom {
 	public Classroom() {
 		super();
 	}
-	public Classroom(String crid, String room_num, int row, String rank, String building, String zone) {
+	public Classroom(String crid, String room_number, int row, String rank, String building, String zone) {
 		super();
 		this.crid = crid;
-		this.room_num = room_num;
+		this.room_number = room_number;
 		this.row = row;
 		this.rank = rank;
 		this.building = building;
@@ -26,11 +26,11 @@ public class Classroom {
 	public void setCrid(String crid) {
 		this.crid = crid;
 	}
-	public String getRoom_num() {
-		return room_num;
+	public String getRoom_number() {
+		return room_number;
 	}
-	public void setRoom_num(String room_num) {
-		this.room_num = room_num;
+	public void setRoom_number(String room_number) {
+		this.room_number = room_number;
 	}
 	public int getRow() {
 		return row;
