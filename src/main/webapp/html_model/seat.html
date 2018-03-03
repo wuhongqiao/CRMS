@@ -38,9 +38,6 @@ div{
 .rseat{
 	margin-right: 50px;
 }
-.seat:hover,.list>div:hover{
-	background-color:#e5f3fb;
-}
 .mouseover {
 	background-color:#e5f3fb;
 }
@@ -93,6 +90,15 @@ input[type=radio]{
 $(function() {
 	$(".seat,.list div").mouseover(function(){$(this).addClass("mouseover");});
 	$(".seat,.list div").mouseout(function(){$(this).removeClass("mouseover");});
+	
+	$("input[name='seat']").change(function(){
+		if($(this).attr("checked")){
+			$(".list").animate({
+				scrollTop:$("#list"+$(this).next(".seat").children(".student").attr("name")).attr("checked","true").next().offset().top-$(".list").offset().top+$(".list").scrollTop()-$(document).scrollTop()-160
+			});
+		}
+	});
+	
     $( ".list div" ).draggable({ 
 		scroll: true, 
 		containment: "document",
@@ -143,9 +149,9 @@ function seatTable(){
 			  '14401211'+i+j+'<p/>'+
 			'</div></div>'+
 			'</label></td>';
-			list+='<label for="list'+i+j+'">'+
-			'<input type="radio" id="list'+i+j+'"name="list" value="14401211'+i+j+'"/>'+
-			'<div>14401211'+i+j+'</div>';
+			list+='<label for="list14401211'+i+j+'">'+
+			'<input type="radio" id="list14401211'+i+j+'"name="list" value="14401211'+i+j+'"/>'+
+			'<div>14401211'+i+j+'</div></label>';
 		}
 		html+="</tr>";
 	}
