@@ -10,6 +10,7 @@
 	<script src="../assets/js/summernote.js"></script>  
 	<script type="text/javascript" src="../assets/js/bootstrap-paginator.js" ></script>
 	<script  src="../assets/js/summernote-zh-CN.js"></script>  
+	<script type="text/javascript" src="../assets/js/bootbox.js" ></script>
 	<style>
 		hr{
 			margin-bottom: 5px;
@@ -57,8 +58,8 @@
 		    <!--summernote文本编辑器 -->
 		 	<div id="summernote"><p>Hello Summernote</p></div>
 		 	<!--
-                        	作者：offline
-                        	时间：2018-01-20
+           	作者：
+          	时间：2018-01-20
                         	描述：这里发信息顺便刷新一波已发送列表的
                         -->
 		 	<button type="submit" class="btn btn-default">提交</button>
@@ -117,7 +118,8 @@
 		</div>
 	</div>
 	<div class="tab-pane fade" id="ios">
-		<div class="col-md-6" >信息列表
+		<div class="col-md-6" >
+			<div style="padding: 6px 12px;">信息列表</div>
 			<hr>
 			  <div class="col-lg-5">
 			    <input type="text" class="form-control" id="exampleInputName2" placeholder="输入内容，也不一定查的到">
@@ -135,7 +137,7 @@
 					</div>
 		   	</div>
 	   	</li>
-	   		<li class="list-group-item" name="msgitem" id="002">
+	   	<li class="list-group-item" name="msgitem" id="002">
 		    <div class="center-block" >
 					<div class="">
 						<span style="color: #00BFFF; font-size: 20px;">How to be an effective web developer</span>
@@ -149,7 +151,7 @@
 	   	</li>
    	</ul>
    	<!--
-       	作者：offline
+       	作者：逐流
        	时间：2018-01-20
        	描述：点击msg列表发送请求然后展示在右边
        -->
@@ -173,7 +175,8 @@
     			//移除原先的内容，替换新内容；
     			
     				$("#seemsgtitle").text(data.title);
-    				$("#sendmsgname").text(data.sendname)
+    				$("#sendmsgname").text(data.sendname);
+    				$("#seemsgid").val(data.id);
     				$("#seemsg").empty();
     				$("#seemsg").append(data.content)
     			}
@@ -184,7 +187,7 @@
     <ul class="pagination"></ul>
     </div>
     <!--
-    	作者：offline
+    	作者：逐流
     	时间：2018-01-19
     	描述：ajax封装
     -->
@@ -267,10 +270,48 @@
     }
 			</script>
 		</div>
-		<div class="col-md-6" >内容
+		<div class="col-md-6" >
+			<div class="col-md-1" style="padding: 6px 12px;">内容</div>
+			<div class="col-md-8"></div>
+			<button class="btn btn-danger text-right" id="delmsg">删除</button>
+			<script>
+				$("#delmsg").on("click",function(){
+					
+					var msgid = $("#seemsgid").val();
+					alert(msgid);
+					if(msgid!=null&& msgid!=""){
+						bootbox.confirm({
+							title: "提示",
+       				message: '确认删除？',
+        			callback: function (flag) {
+        				$.ajax({
+									data: msgid,
+									url:":xxx",
+									complete:function(data){
+										$("#seemsgtitle").text("");
+				    				$("#sendmsgname").text("");
+				    				$("#seemsgid").val("");
+				    				$("#seemsg").empty();
+									}
+								})
+        			}
+						})
+					}else{
+						bootbox.confirm({
+							title: "警告",
+       				message: '没有选择信息',
+        			callback: function (flag) {
+        				
+        			}
+						})
+					}
+					
+				});
+			</script>
 			<hr>
 			<div class="center-block">
 				<h2 class="text-center" id="seemsgtitle">aaa</h2>
+				<input hidden="hidden" id="seemsgid">
 				<footer class="text-right">from:<cite title="Source Title" id="sendmsgname">jed</cite></footer>
 				<div id="seemsg">
 							
