@@ -13,35 +13,35 @@ import com.scse.crms.vo.SeatTable;
 @Service
 public class ClassesServiceImpl implements ClassesService {
 	@Autowired
-	private ClassesMapper mapper;
+	private ClassesMapper classesMapper;
 
 	public List<ClassesVo> selectScheduleForStudent(ClassesVo classesVo){
-		return mapper.selectScheduleForStudent(classesVo);
+		return classesMapper.selectScheduleForStudent(classesVo);
 	}
 	public List<ClassesVo> selectScheduleForTeacher(ClassesVo classesVo){
-		return mapper.selectScheduleForTeacher(classesVo);
+		return classesMapper.selectScheduleForTeacher(classesVo);
 	}
 
 	public List<SeatTable> selectSeat() {
-		return mapper.selectSeat();
+		return classesMapper.selectSeat();
 	}
 	
 	public int updateSeat(SeatTable seatTable) {
-		return mapper.updateSeat(seatTable);
+		return classesMapper.updateSeat(seatTable);
 	}
 
 	public int removeSeat(SeatTable seatTable) {
-		return mapper.removeSeat(seatTable);
+		return classesMapper.removeSeat(seatTable);
 	}
 	public int removeSeatBySid(SeatTable seatTable) {
-		return mapper.removeSeatBySid(seatTable);
+		return classesMapper.removeSeatBySid(seatTable);
 	}
 	public int selectCountWithSeat(SeatTable seatTable) {
-		return mapper.selectCountWithSeat(seatTable);
+		return classesMapper.selectCountWithSeat(seatTable);
 	}
 
 	public int removeAllSeat() {
-		return mapper.removeAllSeat();
+		return classesMapper.removeAllSeat();
 	}
 
 }
