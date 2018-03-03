@@ -1,20 +1,14 @@
 package com.scse.crms.vo;
 
-import com.scse.crms.po.Classes;
 
-public class ClassesVo extends Classes {
-	String cid;
+public class ClassesVo {
 	String cname;
+	String tname;
 	String classid;
+	String shooltime;
 	String week;
 	String classroom;
 	
-	public String getCid() {
-		return cid;
-	}
-	public void setCid(String cid) {
-		this.cid = cid;
-	}
 	public String getCname() {
 		return cname;
 	}
@@ -38,6 +32,18 @@ public class ClassesVo extends Classes {
 	}
 	public void setClassroom(String classroom) {
 		this.classroom = classroom;
+	}
+	public String getTname() {
+		return tname;
+	}
+	public void setTname(String tname) {
+		this.tname = tname;
+	}
+	public String getShooltime() {
+		return shooltime;
+	}
+	public void setShooltime(String shooltime) {
+		this.shooltime = shooltime;
 	}
 	
 }
