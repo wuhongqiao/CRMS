@@ -26,4 +26,12 @@ public class UserController {
 		}
 		return "fail";
 	}
+
+	@RequestMapping("/getMenu.do")
+	@ResponseBody
+	public String getMenu(HttpSession session) {
+		
+		return null;
+	}
+	
 }
