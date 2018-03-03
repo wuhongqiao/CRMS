@@ -5,23 +5,36 @@
 <!--   <resultMap type="com.scse.crms.vo.ClassesVo" id="seatTable">
 
   </resultMap> -->
-  <select id="selectSchedule" resultType="com.scse.crms.vo.ClassesVo">
-    SELECT classes.cid, classes.classroom, classes_student.sid FROM classes_student,classes 
-      WHERE classes_student.classid=classes.id  AND classes_student.sid=1
+  <select id="selectScheduleForStudent" parameterType="String" resultType="com.scse.crms.vo.ClassesVo">
+    SELECT course.name as cname,teacher.name tname,classes.id AS classid,classes.week,classes.classroom
+	FROM classes_student,classes,course,teacher
+	WHERE classes_student.classid=classes.id AND classes.cid=course.id AND classes.tid=teacher.id
+	 AND classes_student.sid=#{sid}
+  </select>
+  <select id="selectScheduleForTeacher" parameterType="String" resultType="com.scse.crms.vo.ClassesVo">
+    SELECT course.name as cname,teacher.name as tname,classes.id AS classid,classes.week,classes.classroom
+	FROM classes,course,teacher
+	WHERE  classes.cid=course.id AND classes.tid=teacher.id=teacher.id=#{id}
   </select>
   <select id="selectSeat" resultType="com.scse.crms.vo.SeatTable">
   	SELECT classes_student.sid, student.name as sname,classes.cid, classes.classroom, classes_student.seat, score.usual_performance 
   	FROM student,classes_student,classes,score
-	WHERE classes_student.classid=classes.id  <!-- AND classes_student.classid=1 -->
+	WHERE classes_student.classid=classes.id 
 	AND score.sid=classes_student.sid=student.id AND score.sid=classes.cid
   </select>
-  <select id="selectCountWithSeat" parameterType="String" resultType="int">
-    SELECT COUNT(*) FROM classes_student WHERE seat=#{seat}
+  <select id="selectCountWithSeat" parameterType="com.scse.crms.vo.SeatTable" resultType="int">
+    SELECT COUNT(*) FROM classes_student WHERE seat=#{seat} and classid=#{classid}
   </select>
-  <update id="udateSeat" parameterType="com.scse.crms.vo.SeatTable">
+  <update id="updateSeat" parameterType="com.scse.crms.vo.SeatTable">
     UPDATE classes_student SET seat=#{seat} WHERE sid=#{sid} AND classid=#{classid}
   </update>
-  <update id="removeSeat" parameterType="String">
-    UPDATE classes_student SET seat=null WHEREseat=#{seat}
+  <update id="removeSeat" parameterType="com.scse.crms.vo.SeatTable">
+    UPDATE classes_student SET seat=null WHERE seat=#{seat} and classid=#{classid}
+  </update>
+  <update id="removeSeatBySid" parameterType="com.scse.crms.vo.SeatTable">
+    UPDATE classes_student SET seat=null WHERE sid=#{sid} and classid=#{classid}
+  </update>
+  <update id="removeAllSeat" parameterType="com.scse.crms.vo.SeatTable">
+    UPDATE classes_student SET seat=null where classid=#{classid}
   </update>
 </mapper>

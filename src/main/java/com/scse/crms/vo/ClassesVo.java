@@ -3,30 +3,35 @@ package com.scse.crms.vo;
 import com.scse.crms.po.Classes;
 
 public class ClassesVo extends Classes {
-	String sid;
-	String sname;
 	String cid;
+	String cname;
+	String classid;
+	String week;
 	String classroom;
-	String seat;
-	String usual_performance;
 	
-	public String getSid() {
-		return sid;
-	}
-	public void setSid(String sid) {
-		this.sid = sid;
-	}
-	public String getSname() {
-		return sname;
-	}
-	public void setSname(String sname) {
-		this.sname = sname;
-	}
 	public String getCid() {
 		return cid;
 	}
 	public void setCid(String cid) {
 		this.cid = cid;
+	}
+	public String getCname() {
+		return cname;
+	}
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+	public String getClassid() {
+		return classid;
+	}
+	public void setClassid(String classid) {
+		this.classid = classid;
+	}
+	public String getWeek() {
+		return week;
+	}
+	public void setWeek(String week) {
+		this.week = week;
 	}
 	public String getClassroom() {
 		return classroom;
@@ -34,18 +39,5 @@ public class ClassesVo extends Classes {
 	public void setClassroom(String classroom) {
 		this.classroom = classroom;
 	}
-	public String getSeat() {
-		return seat;
-	}
-	public void setSeat(String seat) {
-		this.seat = seat;
-	}
-	public String getUsual_performance() {
-		return usual_performance;
-	}
-	public void setUsual_performance(String usual_performance) {
-		this.usual_performance = usual_performance;
-	}
-	
 	
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.scse.crms.mapper.ClassesMapper;
 import com.scse.crms.service.ClassesService;
+import com.scse.crms.vo.ClassesVo;
 import com.scse.crms.vo.SeatTable;
 
 @Service
@@ -14,11 +15,14 @@ public class ClassesServiceImpl implements ClassesService {
 	@Autowired
 	private ClassesMapper mapper;
 
-	public List selectSchedule() {
-		return mapper.selectSchedule();
+	public List<ClassesVo> selectScheduleForStudent(String sid){
+		return mapper.selectScheduleForStudent(sid);
+	}
+	public List<ClassesVo> selectScheduleForTeacher(String tid){
+		return mapper.selectScheduleForTeacher(tid);
 	}
 
-	public List selectSeat() {
+	public List<SeatTable> selectSeat() {
 		return mapper.selectSeat();
 	}
 	
@@ -26,11 +30,18 @@ public class ClassesServiceImpl implements ClassesService {
 		return mapper.updateSeat(seatTable);
 	}
 
-	public int removeSeat(String seat) {
-		return mapper.removeSeat(seat);
+	public int removeSeat(SeatTable seatTable) {
+		return mapper.removeSeat(seatTable);
 	}
-	public int selectCountWithSeat(String seat) {
-		return mapper.selectCountWithSeat(seat);
+	public int removeSeatBySid(SeatTable seatTable) {
+		return mapper.removeSeatBySid(seatTable);
+	}
+	public int selectCountWithSeat(SeatTable seatTable) {
+		return mapper.selectCountWithSeat(seatTable);
+	}
+
+	public int removeAllSeat() {
+		return mapper.removeAllSeat();
 	}
 
 }
