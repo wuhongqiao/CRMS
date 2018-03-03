@@ -2,12 +2,16 @@ package com.scse.crms.vo;
 
 
 public class ClassesVo {
+	String sid;
 	String cname;
+	String tid;
 	String tname;
 	String classid;
 	String shooltime;
 	String week;
 	String classroom;
+	int year;
+	int term;
 	
 	public String getCname() {
 		return cname;
@@ -44,6 +48,30 @@ public class ClassesVo {
 	}
 	public void setShooltime(String shooltime) {
 		this.shooltime = shooltime;
+	}
+	public int getYear() {
+		return year;
+	}
+	public void setYear(int year) {
+		this.year = year;
+	}
+	public int getTerm() {
+		return term;
+	}
+	public void setTerm(int term) {
+		this.term = term;
+	}
+	public String getTid() {
+		return tid;
+	}
+	public void setTid(String tid) {
+		this.tid = tid;
+	}
+	public String getSid() {
+		return sid;
+	}
+	public void setSid(String sid) {
+		this.sid = sid;
 	}
 	
 }

@@ -15,11 +15,11 @@ public class ClassesServiceImpl implements ClassesService {
 	@Autowired
 	private ClassesMapper mapper;
 
-	public List<ClassesVo> selectScheduleForStudent(String sid){
-		return mapper.selectScheduleForStudent(sid);
+	public List<ClassesVo> selectScheduleForStudent(ClassesVo classesVo){
+		return mapper.selectScheduleForStudent(classesVo);
 	}
-	public List<ClassesVo> selectScheduleForTeacher(String tid){
-		return mapper.selectScheduleForTeacher(tid);
+	public List<ClassesVo> selectScheduleForTeacher(ClassesVo classesVo){
+		return mapper.selectScheduleForTeacher(classesVo);
 	}
 
 	public List<SeatTable> selectSeat() {
