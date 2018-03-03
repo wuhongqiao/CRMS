@@ -20,9 +20,13 @@
     <!-- 拦截器 -->
     <mvc:interceptors>
       <mvc:interceptor>
-        <mvc:mapping path="/*.do"/>
+        <mvc:mapping path="/**/*.do"/>
         <mvc:exclude-mapping path="/login.do"/>
         <bean class="com.scse.crms.interceptor.CommonInterceptor" />
+      </mvc:interceptor>
+      <mvc:interceptor>
+        <mvc:mapping path="/teacher/*.do"/>
+        <bean class="com.scse.crms.interceptor.CommonInterceptorForTeacher" />
       </mvc:interceptor>
     </mvc:interceptors>
     <!-- 拦截器 -->
