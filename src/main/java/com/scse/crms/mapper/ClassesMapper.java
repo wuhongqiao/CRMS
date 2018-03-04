@@ -8,7 +8,7 @@ import com.scse.crms.vo.SeatTable;
 public interface ClassesMapper {
 	public List<ClassesVo> selectScheduleForStudent(ClassesVo classesVo);
 	public List<ClassesVo> selectScheduleForTeacher(ClassesVo classesVo);
-	public List<SeatTable> selectSeat();
+	public List<SeatTable> selectSeat(String classid);
 	public int updateSeat(SeatTable seatTable);
 	public int removeSeat(SeatTable seatTable);
 	public int removeSeatBySid(SeatTable seatTable);

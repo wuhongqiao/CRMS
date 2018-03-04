@@ -16,11 +16,11 @@
 	FROM classes,course,teacher
 	WHERE  classes.cid=course.id AND classes.tid=teacher.id AND teacher.id=#{tid} AND classes.year=#{year} AND classes.term=#{term}
   </select>
-  <select id="selectSeat" resultType="com.scse.crms.vo.SeatTable">
+  <select id="selectSeat" parameterType="String" resultType="com.scse.crms.vo.SeatTable">
   	SELECT classes_student.sid, student.name as sname,classes.cid, classes.classroom, classes_student.seat, score.usual_performance 
   	FROM student,classes_student,classes,score
-	WHERE classes_student.classid=classes.id 
-	AND score.sid=classes_student.sid=student.id AND score.sid=classes.cid
+	WHERE classes_student.classid=classes.id =#{classid}
+	AND score.sid=classes_student.sid=student.id AND score.sid=classes.sid
   </select>
   <select id="selectCountWithSeat" parameterType="com.scse.crms.vo.SeatTable" resultType="int">
     SELECT COUNT(*) FROM classes_student WHERE seat=#{seat} and classid=#{classid}

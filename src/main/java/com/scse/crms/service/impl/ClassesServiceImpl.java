@@ -22,8 +22,8 @@ public class ClassesServiceImpl implements ClassesService {
 		return classesMapper.selectScheduleForTeacher(classesVo);
 	}
 
-	public List<SeatTable> selectSeat() {
-		return classesMapper.selectSeat();
+	public List<SeatTable> selectSeat(String classid) {
+		return classesMapper.selectSeat(classid);
 	}
 	
 	public int updateSeat(SeatTable seatTable) {

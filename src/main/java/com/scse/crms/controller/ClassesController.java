@@ -83,8 +83,8 @@ public class ClassesController {
 
 	@RequestMapping("seat.do")
 	@ResponseBody
-	public String selectSeatTable() {
-		return classesService.selectSeat().toString();
+	public String selectSeatTable(String classid) throws JsonGenerationException, JsonMappingException, IOException {
+		return new ObjectMapper().writeValueAsString(classesService.selectSeat(classid));
 	}
 
 	@RequestMapping("/{role}/updateSeat.do")

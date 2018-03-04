@@ -31,7 +31,8 @@ public class NoticeController {
 	@ResponseBody
 	public String selectNoticeForTeacher(HttpSession session) throws JsonGenerationException, JsonMappingException, IOException{
 
-		return new ObjectMapper().writeValueAsString(noticeService.selectNoticeForTeacher(((User)session.getAttribute("user")).getId()));
+		List<Notice> data = noticeService.selectNoticeForTeacher(((User)session.getAttribute("user")).getId());
+		return "{data:"+new ObjectMapper().writeValueAsString(data)+",count:"+data.size()+"}";
 	}
 
 	@RequestMapping("/teacher/addNotice.do")

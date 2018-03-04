@@ -3,6 +3,7 @@ package com.scse.crms.po;
 public class Notice {
 	String id;
 	String tid;
+	String title;
 	String content;
 	String target;
 	String date;
@@ -18,6 +19,12 @@ public class Notice {
 	}
 	public void setTid(String tid) {
 		this.tid = tid;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public String getContent() {
 		return content;
