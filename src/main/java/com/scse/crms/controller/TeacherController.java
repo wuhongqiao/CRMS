@@ -2,6 +2,8 @@ package com.scse.crms.controller;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpSession;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -10,8 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.scse.crms.po.Student;
-import com.scse.crms.service.StudentService;
+import com.scse.crms.po.Teacher;
+import com.scse.crms.po.User;
+import com.scse.crms.service.TeacherService;
 
 /**
  * 
@@ -22,23 +25,24 @@ import com.scse.crms.service.StudentService;
  */
 
 @Controller
-public class StudentController {
+public class TeacherController {
 	
 	@Autowired
-	private StudentService studentService;
+	private TeacherService teacherService;
 
 	//Ñ§Éú²éÑ¯
-	@RequestMapping("/student.do")
+	@RequestMapping("/teacher.do")
 	@ResponseBody
-	public String queryStudents(Student s) throws JsonGenerationException, JsonMappingException, IOException {
+	public String queryTeacher(HttpSession session, Teacher t) throws JsonGenerationException, JsonMappingException, IOException {
 //		List<Student> studentList = studentService.findStudentBy(s);
 //		
 //		ModelAndView mv = new ModelAndView();
 //		mv.addObject("studentList", studentList);
 //		
 //		mv.setViewName("/WEB-INF/jsp/student.jsp");
+		t.setId(((User)session.getAttribute("user")).getId());
 		
-		return new ObjectMapper().writeValueAsString(studentService.findStudentBy(s));
+		return new ObjectMapper().writeValueAsString(teacherService.findTeacherBy(t));
 	}
 	
 }

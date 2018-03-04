@@ -16,8 +16,8 @@
     UPDATE teacher SET name=#{name}, age=#{age}, sex=#{sex}, faculty=#{faculty}, place=#{place}, office=#{office} WHERE id=#{id}
   </update>
   <!-- 查询 -->
-  <select id="findTeacherById"  parameterType="int" resultType="com.scse.crms.po.Teacher">
-    SELECT * FROM teacher WHERE id=1
+  <select id="findTeacherById"  parameterType="String" resultType="com.scse.crms.po.Teacher">
+    SELECT * FROM teacher WHERE id=#{id}
   </select>
   <select id="findAllTeacher" resultType="com.scse.crms.po.Teacher">
     SELECT * FROM teacher

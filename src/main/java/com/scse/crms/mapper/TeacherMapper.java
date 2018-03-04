@@ -11,7 +11,7 @@ public interface TeacherMapper {
 	//Ñ§Éú×¢²á
 	public void insertTeacher(Teacher teacher);
 	//É¾³ý
-	public int deleteTeacherById(int id);
+	public int deleteTeacherById(String id);
 	//ÐÞ¸Ä
 	public int updateTeacher(Teacher teacher);
 	
