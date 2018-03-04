@@ -20,7 +20,7 @@
   	SELECT classes_student.sid, student.name as sname,classes.cid, classes.classroom, classes_student.seat, score.usual_performance 
   	FROM student,classes_student,classes,score
 	WHERE classes_student.classid=classes.id =#{classid}
-	AND score.sid=classes_student.sid=student.id AND score.sid=classes.sid
+	AND score.sid=classes_student.sid=student.id AND score.cid=classes.cid
   </select>
   <select id="selectCountWithSeat" parameterType="com.scse.crms.vo.SeatTable" resultType="int">
     SELECT COUNT(*) FROM classes_student WHERE seat=#{seat} and classid=#{classid}
