@@ -7,6 +7,7 @@
 	<link rel="stylesheet"  href="../assets/css/BS/css/bootstrap.css">  
 	<script  src="../assets/js/bootstrap.min.js"></script>  
 	<link href="../assets/css/BS/css/summernote.css"  rel="stylesheet">  
+	<link href="../assets/css/page.css"  rel="stylesheet">  
 	<script src="../assets/js/summernote.js"></script>  
 	<script type="text/javascript" src="../assets/js/bootstrap-paginator.js" ></script>
 	<script  src="../assets/js/summernote-zh-CN.js"></script>  
@@ -157,7 +158,9 @@
        -->
     <script>
     	$(document).on("click","#msglist li",function(){
-    		alert($(this).attr('id'));
+    		var data = datas[$(this).attr('id')];
+    		$("#seemsgtitle").html(data.title);
+    		$("#msgcontent").html(data.content);
     		lookmsg($(this).attr('id'));
 //  		$.ajax({
 //  			url:"xxxx",
@@ -184,7 +187,7 @@
     	}
     </script>
    	<div class="" style="float: right;">
-    <ul class="pagination"></ul>
+    <ul class="pagination" id="page"></ul>
     </div>
     <!--
     	作者：逐流
@@ -271,6 +274,51 @@
         })
     }
 			</script>
+			
+	<script type="text/javascript" src="../assets/js/page.js"></script>  
+			<script type="text/javascript">
+			var datas = [];
+			var options={
+				"id":"page",//显示页码的元素
+				"data":"",//datas,//显示数据
+				"maxshowpageitem":4,//最多显示的页码个数
+				"pagelistcount":3,//每页显示数据个数
+				"callBack":function(result){
+					var cHtml="";
+					for(var i=0;i<result.length;i++){
+							/*将从数据库起请求的数据直循环的插入动态创建的元素*/
+						 cHtml+='<li class="list-group-item" name="msgitem" id="'+i+'">'+
+							'<div class="center-block">'+
+									'<div>'+
+										'<span style="color: #00BFFF; font-size: 20px;">'+result[i].title+'</span>'+
+										'<blockquote>'+
+											'<p>'+result[i].content+'</p>'+
+										'<footer class="text-right">from: <cite title="Source Title">jed</cite></footer>'+
+										'</blockquote>'+
+									'</div>'+
+							'</div>'+
+						'</li>'
+					}
+					//将数据增加到页面中
+					$("#msglist").html(cHtml);
+				}
+			};
+			
+			$.ajax({
+		            type:"post",
+		            dataType:"json",
+		            url:'/CRMS/teacher/notice.do',
+		            success:function(data){
+					//data=[{title:"title",content:"content"}];
+		                options.data=data;
+		    			datas=data;
+		    			page.init(data.length,1,options);
+		            },
+		            error:function(data){
+		            	alert("错误："+data);
+		            }
+		        });
+			</script>
 		</div>
 		<div class="col-md-6" >
 			<div class="col-md-1" style="padding: 6px 12px;">内容</div>
@@ -319,7 +367,7 @@
 							
 				</div>
 			</div>
-      <p>iOS 是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple
+      <p id="msgcontent">iOS 是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple
      			 TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
      	
     </div>
