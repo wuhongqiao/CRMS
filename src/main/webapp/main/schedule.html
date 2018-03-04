@@ -282,7 +282,7 @@
     	return (8-a.getDay())%7+1
     }
     function showTime(){ 
-		  var show_day=new Array('星期一','星期二','星期三','星期四','星期五','星期六','星期日'); 
+		  var show_day=new Array('星期日','星期一','星期二','星期三','星期四','星期五','星期六'); 
 		  var time=new Date(); 
 		  var year=time.getFullYear(); 
 		  var month=time.getMonth(); 
@@ -290,7 +290,7 @@
 		  var day=time.getDay();  
 		  month<10?month='0'+month:month; 
 		  month++; 
-		  var now_time='当前时间：'+year+'年'+month+'月'+date+'日'+' '+show_day[day-1]; 
+		  var now_time='当前时间：'+year+'年'+month+'月'+date+'日'+' '+show_day[day]; 
 		  return now_time;
 	}
     function getweek(){
