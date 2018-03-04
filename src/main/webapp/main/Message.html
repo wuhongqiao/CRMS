@@ -165,12 +165,12 @@
 //  		});
     	})
     	function lookmsg(msg_id){
-    		$.ajax({
+    		/* $.ajax({
     			data:msg_id,
     			type:"post",
     			url:"xxx",
     			async:true,
-    			/* 后面改为success*/complete:function(data){
+    			/* 后面改为successcomplete:function(data){
     				var data={id: 1122,title: "213231",sendname:"jeda",content: msg_id+"<p style='color: #00BFFF; font-size: 20px;'>232111111112</p>"}//后面需要直接删掉
     			//移除原先的内容，替换新内容；
     			
@@ -180,7 +180,7 @@
     				$("#seemsg").empty();
     				$("#seemsg").append(data.content)
     			}
-    		});
+    		}); */
     	}
     </script>
    	<div class="" style="float: right;">
@@ -218,7 +218,7 @@
             totalPages: 1, //总页数
             numberOfPages: 5, //设置控件显示的页码数
             bootstrapMajorVersion: 3,//如果是bootstrap3版本需要加此标识，并且设置包含分页内容的DOM元素为UL,如果是bootstrap2版本，则DOM包含元素是DIV
-            useBootstrapTooltip: 'ture',//是否显示tip提示框
+            useBootstrapTooltip: 'false',//是否显示tip提示框
             itemTexts: function (type, page, current) {//文字翻译
                 switch (type) {
                     case "first":
@@ -257,14 +257,16 @@
         $.extend(queryData, {page: page||1, pageSize: pageSize || 10});//提交查询操作的参数
         $.ajax({
             data:queryData,
-            url:'xxx',
-            /* 后面改为success*/complete:function(data){
-                var data={data:"返回的数据内容",count:100/*假设总条数100*/}//后面需要直接删掉
+            url:'/CRMS/teacher/notice.do',
+            /* 后面改为success*/success:function(data){
+            	if(true) alert(data);
+            	else{
+                //var data={data:"返回的数据内容",count:100/*假设总条数100*/}//后面需要直接删掉
                 //生成分页
-                commonFn.setAjaxPaginator($('.pagination'),data,{currentPage: queryData.page, pageSize:queryData.pageSize,onPageClicked: onPageClick});
-                //DOM操作显示装载的数据内容
-                $('.loadPageDataSelector').html(data.data+queryData.page)
-                
+	                commonFn.setAjaxPaginator($('.pagination'),data,{currentPage: queryData.page, pageSize:queryData.pageSize,onPageClicked: onPageClick});
+	                //DOM操作显示装载的数据内容
+	                $('.loadPageDataSelector').html(data.data+queryData.page)
+            	}
             }
         })
     }
