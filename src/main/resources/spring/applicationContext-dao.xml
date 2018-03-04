@@ -25,8 +25,7 @@
         <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/><!-- 最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。 Default:0-->  
-        <property name="maxIdleTime" value="60"/>  
+        <property name="password" value="${jdbc.password}"/>
       </bean>
       <!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
       <property name="driverClassName">  
