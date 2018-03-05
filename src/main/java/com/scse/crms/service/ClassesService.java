@@ -15,5 +15,5 @@ public interface ClassesService {
 	public int removeSeat(SeatTable seatTable);
 	public int removeSeatBySid(SeatTable seatTable);
 	public int selectCountWithSeat(SeatTable seatTable);
-	public int removeAllSeat();
+	public int removeAllSeat(String classid);
 }

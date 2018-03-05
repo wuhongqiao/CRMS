@@ -34,7 +34,7 @@
   <update id="removeSeatBySid" parameterType="com.scse.crms.vo.SeatTable">
     UPDATE classes_student SET seat=null WHERE sid=#{sid} and classid=#{classid}
   </update>
-  <update id="removeAllSeat" parameterType="com.scse.crms.vo.SeatTable">
+  <update id="removeAllSeat" parameterType="Sting">
     UPDATE classes_student SET seat=null where classid=#{classid}
   </update>
 </mapper>

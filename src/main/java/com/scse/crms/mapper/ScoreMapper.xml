@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scse.crms.mapper.ScoreMapper">
+
+	<select id="selectScoreWithClassid" parameterType="com.scse.crms.vo.ParaForScore" resultType="com.scse.crms.vo.ScoreVo">
+		SELECT student.name,course.name,score.* 
+		FROM student,course,score,classes,classes_student
+		WHERE classes.id=classes_student.classid 
+		AND classes_student.sid=student.id 
+		AND classes.cid=course.id 
+		AND course.id=score.cid 
+		AND classes_student.sid=score.sid
+    <if test="classid!=null"> AND classes.id=#{classid}</if>
+    <if test="sid!=null"> AND student.id=#{sid}</if>
+    <if test="tid!=null"> AND classes.tid=#{tid}</if>
+    <if test="cid!=null"> AND classes.cid=#{cid}</if>
+	</select>
+</mapper>

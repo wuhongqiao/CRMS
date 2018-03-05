@@ -40,8 +40,8 @@ public class ClassesServiceImpl implements ClassesService {
 		return classesMapper.selectCountWithSeat(seatTable);
 	}
 
-	public int removeAllSeat() {
-		return classesMapper.removeAllSeat();
+	public int removeAllSeat(String classid) {
+		return classesMapper.removeAllSeat(classid);
 	}
 
 }

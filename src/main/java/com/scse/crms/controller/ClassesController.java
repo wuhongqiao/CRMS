@@ -125,8 +125,8 @@ public class ClassesController {
 	//清空所有座位
 	@RequestMapping("/teacher/removeAllSeat.do")
 	@ResponseBody
-	public String removeAllSeat() {
-		if(classesService.removeAllSeat()>0)
+	public String removeAllSeat(String classid) {
+		if(classesService.removeAllSeat(classid)>0)
 			return "清空座位成功";
 		return "清空座位失败";
 	}
