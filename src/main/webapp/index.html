@@ -22,7 +22,7 @@
     </div>
   </div>
    <div class="content">
-    <div class="dl-main-nav">
+    <!--<div class="dl-main-nav">
       <div class="dl-inform"><div class="dl-inform-title">贴心小秘书<s class="dl-inform-icon dl-up"></s></div></div>
       <ul id="J_Nav"  class="nav-list ks-clear">
         <li class="nav-item dl-selected"><div class="nav-item-inner nav-home">首页</div></li>
@@ -30,7 +30,7 @@
         <li class="nav-item"><div class="nav-item-inner nav-inventory">搜索页</div></li>
         <li class="nav-item"><div class="nav-item-inner nav-supplier">详情页</div></li>
       </ul>
-    </div>
+    </div>-->
     <ul id="J_NavContent" class="dl-tab-conten">
 
     </ul>
@@ -129,6 +129,18 @@
         modulesConfig : config
       });
     });
+	var int = self.setInterval(function (){
+			var el = null;
+			el = $(".tab-content-container");
+			if(el.length>0){
+				el.height(el.height()+40);
+				el= $(".dl-second-nav:first");
+				el.height(el.height()+40);
+				el = $(".bui-nav-tab");
+				el.height(el.height()+40);
+				window.clearInterval(int);
+			}
+		},100);
   </script>
  </body>
 </html>
