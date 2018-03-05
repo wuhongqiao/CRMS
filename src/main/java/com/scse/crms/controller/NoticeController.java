@@ -39,15 +39,15 @@ public class NoticeController {
 
 	@RequestMapping("/teacher/addNotice.do")
 	@ResponseBody
-	public int addNotice(Notice notice) {
+	public String addNotice(Notice notice) {
 		// TODO Auto-generated method stub
-		return noticeService.addNotice(notice);
+		return ""+noticeService.addNotice(notice);
 	}
 
 	@RequestMapping("/teacher/deleteNoticeById.do")
 	@ResponseBody
-	public int deleteNoticeById(String id) {
+	public String deleteNoticeById(String id) {
 		// TODO Auto-generated method stub
-		return noticeService.deleteNoticeById(id);
+		return ""+noticeService.deleteNoticeById(id);
 	}
 }
