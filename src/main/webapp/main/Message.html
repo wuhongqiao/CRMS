@@ -12,6 +12,7 @@
 	<script type="text/javascript" src="../assets/js/bootstrap-paginator.js" ></script>
 	<script  src="../assets/js/summernote-zh-CN.js"></script>  
 	<script type="text/javascript" src="../assets/js/bootbox.js" ></script>
+	<script src="../assets/js/term.js"></script>
 	<style>
 		hr{
 			margin-bottom: 5px;
@@ -24,10 +25,10 @@
 <body>
  <ul id="myTab" class="nav nav-tabs">
     <li class="active">
-        <a href="#sendMsg" data-toggle="tab"> 发信息 </a>
+        <a href="#sendMsg" data-toggle="tab"> 发布公告 </a>
     </li>
     <li>
-    	<a href="#ios" data-toggle="tab">已发送</a>
+    	<a href="#ios" data-toggle="tab">已发布</a>
     </li>
     <!--<li class="dropdown">
         <a href="#" id="myTabDrop1" class="dropdown-toggle"
@@ -43,17 +44,17 @@
   
 <div id="myTabContent" style="padding-top:30px;"class="tab-content">
 	<div class="tab-pane fade in active" id="sendMsg" >
-		 <div class="col-md-10">
+		 <div class="col-md-10"><form id="noticeForm">
 		 	<!--左边文本区-->
 		 	<div class="form-group">
-		    <label for="name">收件人</label>
+		    <label for="name">公告班级</label>
 		    <div id="divtxt"class="form-control" ></div>
-		    <input type="hidden" class="form-control" id="name">
+		    <input type="hidden" class="form-control" name="target" id="target">
 		    <!--觉得收件人不好区分可以加多几个hidden-->
 		 	</div>
 		 	<div class="form-group">
 		    <label for="name">标题</label>
-		    <input type="text" class="form-control" id="ti" placeholder="请输入标题">
+		    <input name="title" type="text" class="form-control" id="title" placeholder="请输入标题">
 		 	</div>
 		    <label for="name">内容</label>
 		    <!--summernote文本编辑器 -->
@@ -63,8 +64,8 @@
           	时间：2018-01-20
                         	描述：这里发信息顺便刷新一波已发送列表的
                         -->
-		 	<button type="submit" class="btn btn-default">提交</button>
-		 </div>
+		 	<button type="button" id="submit" class="btn btn-default">提交</button>
+		 </form></div>
 		 
 		  <!--
 		  	作者：jed
@@ -72,7 +73,7 @@
 		  	描述：右边选择联系人
 		  -->
 		<div style="margin-top:30px;"class="col-md-2">
-			<div >选择收件人</div>
+			<div >选择班级</div>
 		 	<ul id="myTab" class="nav nav-tabs">
 			    <li class="active">
 			        <a href="#TeachingClass" data-toggle="tab"> 教学班 </a>
@@ -120,7 +121,7 @@
 	</div>
 	<div class="tab-pane fade" id="ios">
 		<div class="col-md-6" >
-			<div style="padding: 6px 12px;">信息列表</div>
+			<div style="padding: 6px 12px;">公告列表</div>
 			<hr>
 			  <div class="col-lg-5">
 			    <input type="text" class="form-control" id="exampleInputName2" placeholder="输入内容，也不一定查的到">
@@ -159,15 +160,20 @@
     <script>
     	$(document).on("click","#msglist li",function(){
     		var data = datas[$(this).attr('id')];
-    		$("#seemsgtitle").html(data.title);
-    		$("#msgcontent").html(data.content);
-    		lookmsg($(this).attr('id'));
+    		//$("#seemsgtitle").html(data.title);
+    		//$("#msgcontent").html(data.content);
+			
+			$("#seemsgtitle").text(data.title);
+			$("#sendmsgname").text(data.tname);
+			$("#seemsgid").val(data.id);
+			$("#seemsg").empty();
+			$("#seemsg").append(data.content)
 //  		$.ajax({
 //  			url:"xxxx",
 //  			data:$(this).val();
 //  		});
     	})
-    	function lookmsg(msg_id){
+    	//function lookmsg(msg_id){
     		/* $.ajax({
     			data:msg_id,
     			type:"post",
@@ -177,14 +183,9 @@
     				var data={id: 1122,title: "213231",sendname:"jeda",content: msg_id+"<p style='color: #00BFFF; font-size: 20px;'>232111111112</p>"}//后面需要直接删掉
     			//移除原先的内容，替换新内容；
     			
-    				$("#seemsgtitle").text(data.title);
-    				$("#sendmsgname").text(data.sendname);
-    				$("#seemsgid").val(data.id);
-    				$("#seemsg").empty();
-    				$("#seemsg").append(data.content)
     			}
     		}); */
-    	}
+    	//}
     </script>
    	<div class="" style="float: right;">
     <ul class="pagination" id="page"></ul>
@@ -242,10 +243,6 @@
        		$.extend(_option, option);
         	paginatorSelector.bootstrapPaginator(_option);
     		}
-    			$('.btn').click(function(){
-        	queryOperate(1,10)
-        	alert("aaa")
-    			})
  
     var defaultPagination={"page":1,"pageSize":10}; //默认配置的当前页和每页显示条数
  
@@ -318,6 +315,57 @@
 		            	alert("错误："+JSON.stringify(data));
 		            }
 		        });
+			var term=getweek();
+			$.ajax({
+		            type:"post",
+		            dataType:"json",
+		            data:{"year":term.years,"term":term.day},
+		            url:'/CRMS/courseList.do',
+		            success:function(data){alert("数据："+JSON.stringify(data));
+		            	var html='<div><ul class="list-group">'
+					    
+						for(var i in data){alert("数据："+JSON.stringify(data[i]));
+		            		//这个li设置成不可点击
+							html+='<li class="list-group-item" style="background-color: transparent;">'+
+							'<div id="item" data-toggle="popover" data-placement="left">'+data[i].cname+'</div></li>';
+							
+							//这里是2级列表，可点击
+							html+='<ul>';
+							var clist=data[i].clist;
+							for(var j in clist){alert("数据："+JSON.stringify(clist[j]));
+								html+='<li class="list-group-item" style="background-color: transparent;">'+
+								'<div id="item" data-toggle="popover" data-placement="left">'+clist[j].cname+'</div></li>';
+							}
+							html+='</ul>';
+						}
+		            	html+='</ul></div>'
+		            	alert(html);
+		            	$("#TeachingClass").html(html);
+		            },
+		            error:function(data){
+		            	alert("错误："+JSON.stringify(data));
+		            }
+		        });
+				$(document).ready(function (){
+					$("#submit").click(function(){
+					$.ajax({
+						data:{'title':$("#title").val(),'content':$("#summernote").summernote('code'),'target':$("#target").val()},
+			            type:"post",
+			            dataType:"json",
+			            url:'/CRMS/teacher/addNotice.do',
+			            success:function(data){
+							if(data=="1"){
+								alert("发布完成")
+							}else{
+								alert("发布出错")
+							}
+			            },
+			            error:function(data){
+			            	alert("错误："+JSON.stringify(data));
+			            }
+			        });
+				})
+				});
 			</script>
 		</div>
 		<div class="col-md-6" >
@@ -428,7 +476,7 @@
 		  
 		  var $mailToId=$(this).attr("alt");//收件人Id
 		  var $divtxt_val=$("#divtxt").text();//收件人框中的值
-		  var $messId=$("#name").val();//隐藏的input
+		  var $messId=$("#target").val();//隐藏的input
 		  if($divtxt_val.indexOf($mailTo)<0){//若不存在，则拼接
 		    $("#divtxt").append("<span class='rece' alt='"+$mailToId+";'>"
 		    +$mailTo+";"+"</span>");
@@ -436,7 +484,7 @@
 		  }else{
 		  	 $(this).popover();
 		  }
-		  $("#name").val($messId);
+		  $("#target").val($messId);
 		  
 	  });
 	});
@@ -459,22 +507,22 @@ $(document).on("mouseout",".list-group-item",function(){
 //  $(this).css("background-color","none");
 //	});
    	//添加删除监听
-  $(document).bind('keydown', function(event) {
-		    	var $messId=$("#name").val();//收件人Id的值
+    $("#divtxt").bind('dblclick', function(event) {
+		    	var $messId=$("#target").val();//收件人Id的值
 		    	var $span_alt=$("#divtxt .on").attr("alt");//选中的收件人
 			    if($span_alt != null){
 					  var $index,$span_size,$mess_size,$val;
 					  $index=$messId.indexOf($span_alt);
 					  $span_size=$span_alt.length;
 					  $mess_size=$messId.length;
-				    if(8==event.keyCode||46==event.keyCode){//退格键和del
+				    //if(8==event.keyCode||46==event.keyCode){//退格键和del
 					    $("#divtxt .on").remove();
 					      //删除对应的收件人Id
 					  $val=$messId.substring(0,$index)+$messId.substring($index+$span_size,$mess_size);
-					  $("#name").val($val);
+					  $("#target").val($val);
 //					    $("#messName").val($("#divtxt").text());
 					    return false;
-				    }
+				    //}
 			  }  
 	  }
  		);

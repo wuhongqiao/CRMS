@@ -15,6 +15,7 @@
 		<script type="text/javascript" src="../assets/js/bootstrap-table-zh-CN.js" ></script>
 		<script type="text/javascript" src="../assets/js/jquery.cxselect.js" ></script>
 		<script type="text/javascript" src="../assets/js/bootbox.js" ></script>
+	<script src="../assets/js/term.js"></script>
 	</header>
 	<body>
 		<div class="panel panel-default">
@@ -136,19 +137,19 @@
             columns: [{
                 checkbox: true
             },{
-                field: 'id',
+                field: 'sid',
                 title: '学号'
             },{
-                field: 'name',
+                field: 'sname',
                 title: '姓名'
             }, {
-                field: 'ParentName',
+                field: 'performance',
                 title: '表现分'
             }, {
-                field: 'Level',
+                field: 'absence',
                 title: '考勤分'
             }, {
-                field: 'Desc',
+                field: 'homework',
                 title: '作业分'
             }, {
        			formatter: function (value, row, index) {
@@ -269,19 +270,20 @@ $('#saveModify').click(function() {
 	    			};
                 $('#mytab').bootstrapTable('updateRow', {index: checkIndex, row:data});
                 //~---------------------------
-            //	$.ajax(
-	//      {
-	//          type:"post",啥
-	//          url:"xxxxx",
-	//          data:JSON.stringify({cname:selectvar}),
+            $.ajax({
+	          type:"post",
+	          url:"/CRMS/updateScore.do",
+	          data:{"usual_performance":"$('#modifyParentNameText').val(),$('#modifyLevelText').val(),$('#modifyDescText').val()"},
 	//          contentType: 'application/json',
-	//          dataType:"json",
-	//          success:function(json){
-	////              var data = json.msg;//要传入table的数据值 
-	//     			$("#mytab").bootstrapTable('load',data);
-	//          },
-	//      }
-	//  )
+	          dataType:"json",
+	          success:function(data){
+	        	  alert(JSON.stringify(data));
+				  $("#mytab").bootstrapTable('load',data);
+	          },
+	          error:function(data){
+	        	  alert("error:"+JSON.stringify(data));
+	          }
+	        })
 //              if (verifyNameAndAddress(name, address)) {
 //                  exchangeData('modifyPer', mid, name, age, address);
 //              } else {
@@ -297,19 +299,20 @@ $("#search_btn").click(function(){
 	
 	if(selectvar!=null&&selectindex!=0){
 		//有后端打开注释
-	//	$.ajax(
-	//      {
-	//          type:"posy",啥
-	//          url:"http://localhost:8080/maritime/rest/getAllSuperviseInformjson",
-	//          data:JSON.stringify({cname:selectvar}),
+		$.ajax({
+	          type:"post",
+	          url:"/CRMS/teacher/score.do",
+	          data:{"classid":$(".classes").val()},
 	//          contentType: 'application/json',
-	//          dataType:"json",
-	//          success:function(json){
-	////              var data = json.msg;//要传入table的数据值 
-	//     			$("#mytab").bootstrapTable('load',data);
-	//          },
-	//      }
-	//  )
+	          dataType:"json",
+	          success:function(data){
+	        	  alert(JSON.stringify(data));
+				  $("#mytab").bootstrapTable('load',data);
+	          },
+	          error:function(data){
+	        	  alert("error:"+JSON.stringify(data));
+	          }
+	        })
 	}else{
     	alert("请选择查询对象")
     }
@@ -321,17 +324,31 @@ $("#search_btn").click(function(){
 		     	{"cname":"aa2","clist":[{"cname":"cc2"},{"cname":"cc2"}]}];
 		
 		//替换数据每次打开请求一次有后台打开注释
-//		$(document).ready(function(){  
-//          $.ajax({  
-//              type:'get',  
-//              url:'xxx',
-//              dataType:'json',  
-//              success:function(data){  
-//                  $("#divp").html('after: ' + data);  
-//               	dataCustom =data; 
-//              }  
-//          });  
-//  	});  
+		$(document).ready(function(){  
+			var term=getweek();
+			$.ajax({
+		            type:"post",
+		            dataType:"json",
+		            data:{"year":term.years,"term":term.day},
+		            url:'/CRMS/courseList.do',
+		            success:function(data){  
+		            	alert(JSON.stringify(data));
+	               		dataCustom =data; 
+	        			$("#search_data").cxSelect({
+	        	  			selects: ['course', 'classes'],
+	        	   			required: false,
+	        	    		jsonName: 'cname',
+	        	    		jsonSub:'clist',
+	        	    		firstTitl:'请选择',
+	        	   			data: dataCustom
+	        			});
+		            },
+		            error:function(data){  
+		            	alert("error:"+JSON.stringify(data));
+		            }
+          });
+
+  	});  
 		$("#search_data").cxSelect({
   			selects: ['course', 'classes'],
    			required: false,

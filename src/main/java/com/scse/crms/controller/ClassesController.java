@@ -60,7 +60,7 @@ public class ClassesController {
 		classesVo.setTid(((User)session.getAttribute("user")).getId());
 		List<ClassesVo> schedule = classesService.selectScheduleForTeacher(classesVo);
 		Map m = new HashMap();
-		List l = new ArrayList<Map>();
+		List result = new ArrayList<Map>();
 		for(ClassesVo c : schedule) {
 			if(!m.containsKey(c.getCname()))
 				m.put(c.getCname(), new ArrayList<String>());
@@ -72,13 +72,14 @@ public class ClassesController {
 			json.put("cname", s);
 			json.put("clist", new ArrayList<Map>());
 			for(String classid : (List<String>)m.get(s)) {
+				clist=new HashMap();
 				clist.put("cname", classid);
 				((List<Map>)json.get("clist")).add(clist);
 			}
-			l.add(json);
+			result.add(json);
 		}
 		
-		return new ObjectMapper().writeValueAsString(l);
+		return new ObjectMapper().writeValueAsString(result);
 	}
 
 	@RequestMapping("seat.do")

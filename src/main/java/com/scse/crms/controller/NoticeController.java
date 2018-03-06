@@ -39,8 +39,9 @@ public class NoticeController {
 
 	@RequestMapping("/teacher/addNotice.do")
 	@ResponseBody
-	public String addNotice(Notice notice) {
+	public String addNotice(HttpSession session, Notice notice) {
 		// TODO Auto-generated method stub
+		notice.setTid(((User)session.getAttribute("user")).getId());
 		return ""+noticeService.addNotice(notice);
 	}
 

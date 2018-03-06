@@ -4,16 +4,20 @@
 <mapper namespace="com.scse.crms.mapper.ScoreMapper">
 
 	<select id="selectScoreWithClassid" parameterType="com.scse.crms.vo.ParaForScore" resultType="com.scse.crms.vo.ScoreVo">
-		SELECT student.name,course.name,score.* 
+		SELECT student.name sname,course.name cname,score.sid,score.usual_performance
 		FROM student,course,score,classes,classes_student
 		WHERE classes.id=classes_student.classid 
 		AND classes_student.sid=student.id 
 		AND classes.cid=course.id 
 		AND course.id=score.cid 
 		AND classes_student.sid=score.sid
-    <if test="classid!=null"> AND classes.id=#{classid}</if>
-    <if test="sid!=null"> AND student.id=#{sid}</if>
-    <if test="tid!=null"> AND classes.tid=#{tid}</if>
-    <if test="cid!=null"> AND classes.cid=#{cid}</if>
+	    <if test="classid!=null"> AND classes.id=#{classid}</if>
+	    <if test="sid!=null"> AND student.id=#{sid}</if>
+	    <if test="tid!=null"> AND classes.tid=#{tid}</if>
+	    <if test="cid!=null"> AND classes.cid=#{cid}</if>
 	</select>
+	
+	<update id="updateScoreBySidAndCid" parameterType="com.scse.crms.po.Score">
+		UPDATE score SET usual_performance=#{usual_performance} WHERE sid=#{sid} AND cid=#{cid}
+	</update>
 </mapper>
