@@ -1,7 +1,12 @@
 package com.scse.crms.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,21 +22,14 @@ public class UserController {
 	
 	@RequestMapping("/login.do")
 	@ResponseBody
-	public String login(User user, HttpSession session){
+	public String login(User user, HttpSession session) throws JsonGenerationException, JsonMappingException, IOException{
 		User login = userService.login(user);
 		if(login != null) {
 			login.setPassword("");
 			session.setAttribute("user", login);
-			return "success";
+			return new ObjectMapper().writeValueAsString(login);
 		}
 		return "fail";
-	}
-
-	@RequestMapping("/getMenu.do")
-	@ResponseBody
-	public String getMenu(HttpSession session) {
-		
-		return null;
 	}
 	
 }

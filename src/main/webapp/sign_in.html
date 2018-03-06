@@ -9,6 +9,7 @@
   <title>Login Form</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <script type="text/javascript" src="assets/js/jquery-1.8.1.min.js" ></script>
+  <script type="text/javascript" src="assets/js/jquery.cookie.js" ></script>
   <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 <body>
@@ -60,8 +61,11 @@
 			url:"login.do",
 			data:$("#loginform").serialize(),
 			type:"post",
+			dataType:"json",
 			success:function(data){
-				if(data=="success"){
+				if(data!="fail"){
+					$.cookie("user", data.id);
+					$.cookie("role", data.role);
 					window.location.href="/CRMS"
 				}else{
 					alert("用户名或密码错误");
