@@ -20,12 +20,12 @@
 	<body>
 		<div class="panel panel-default">
 		    <div id="search_data" class="panel-body form-group" style="margin-bottom:0px;">
-			       <label class="col-md-1 " style="text-align: right; margin-top: 5px;">课程:</label>
+			       <label class="col-md-1 " style="text-align: right; margin-top: 5px;">学年:</label>
 				        <div class="col-md-1">
 				            <select style="font-size:16px;width: 80px; margin-top: 5px;" class="course">
 				            </select>
 				        </div>
-				        <label class="col-md-1 " style="text-align: right; margin-top: 5px;">教学班:</label>
+				        <label class="col-md-1 " style="text-align: right; margin-top: 5px;">学期:</label>
 				        <div class="col-md-2">
 				            <select style="font-size:16px;width: 80px; margin-top: 5px;" class="classes" >
 				            </select>
@@ -131,80 +131,54 @@
             minimumCountColumns: 2,             //最少允许的列数
             clickToSelect: true,                //是否启用点击选中行
 //          height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+//          uniqueId: "id",                     //每一行的唯一标识，一般为主键列
             showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
             detailView: false,                   //是否显示父子表
             columns: [{
                 checkbox: true
             },{
-                field: 'sid',
-                title: '学号'
+                field: 'performance',
+                title: '课程'
             },{
-                field: 'sname',
-                title: '姓名'
-            }, {
                 field: 'performance',
                 title: '表现分'
-            }, {
+            },{
                 field: 'absenceScore',
                 title: '考勤分'
             }, {
                 field: 'homework',
                 title: '作业分'
-            }, {
-       			formatter: function (value, row, index) {
-	            	return [
-		                '<a href="javascript:modifyPer('+index+","+ row.sid + ",'" + row.sname + "','" + row.performance + "','" + row.absenceScore + "','" +row.homework+ "'" +')">' +
-		                    '<i class="glyphicon glyphicon-pencil"></i>修改' +
-		                '</a>'
-	            	].join('');
-        		},
-        		title: '操作'
-    		}],
+            }],
     		//这个data 替换查询回来的data 直接注释掉
             data: [{  
-       			id: 1,  
         		name: 'Name1',  
         		ParentName: '$1',
         		Level:'dada',
-        		Desc:'啊啊啊啊1'
     		}, {  
-        		id: 2,  
-        		name: 'Name2',  
-        		ParentName: '$2',
-        		Level:'dada',
-        		Desc:'啊啊啊啊2'
-    		}, {  
-        		id: 3,  
-        		name: 'Name3',  
-        		ParentName: '$3',
-        		Level:'dada',
-        		Desc:'啊啊啊啊3'
-    		}, {  
-        		id: 4,  
-        		name: 'Name4',  
-        		ParentName: '$4',
-        		Level:'dada',
-        		Desc:'啊啊啊啊4'
-    		}, {  
-        		id: 5,  
-        		name: 'Name5',  
+        		name: 'Name1',  
         		ParentName: '$1',
         		Level:'dada',
-        		Desc:'啊啊啊啊'
     		}, {  
-        		id: 6,  
-        		name: 'Name',  
+        		name: 'Name1',  
         		ParentName: '$1',
         		Level:'dada',
-        		Desc:'啊啊啊啊'
     		}, {  
-        		id: 7,  
-        		name: 'Name',  
+        		name: 'Name1',  
         		ParentName: '$1',
         		Level:'dada',
-        		Desc:'啊啊啊啊'
+    		}, {  
+        		name: 'Name1',  
+        		ParentName: '$1',
+        		Level:'dada',
+    		}, {  
+        		name: 'Name1',  
+        		ParentName: '$1',
+        		Level:'dada',
+    		}, {  
+        		name: 'Name1',  
+        		ParentName: '$1',
+        		Level:'dada',
     		}]
         });
     };
@@ -236,91 +210,8 @@
 	<script>
 		var mid;
 
-// 修改
-function modifyPer(row,sid, sname, performance, absenceScore,homework) {
-	$("#rowindex").val(row);
-    $('#modifyidText').val(sid);
-    $('#modifyNameText').val(sname);
-    $('#modifyParentNameText').val(performance);
-    $('#modifyLevelText').val(absenceScore);
-    $('#modifyDescText').val(homework);
-    $('#modifyModal').modal('show');
-}
 
-$('#saveModify').click(function() {
-    $('#modifyModal').modal('hide');
-    bootbox.confirm({
-        title: "提示",
-        message: '确认修改？',
-        callback: function (flag) {
-            if (flag) {
-            	var checkIndex =$("#rowindex").val();
-            	
-            	var id =$('#modifyidText').val();
-            	var name =$('#modifyNameText').val();
-                var performance = $('#modifyParentNameText').val();
-                var absenceScore = $('#modifyLevelText').val();
-                var homework = $('#modifyDescText').val();
-                //下面没注释的复制到在ajax更新完成功回调的操作
-                var newdata ={   
-	        		performance: performance,
-	        		absenceScore:absenceScore,
-	        		homework:homework
-	    			};
-                $('#mytab').bootstrapTable('updateRow', {index: checkIndex, row:newdata});
-                //~---------------------------
-                
-            $.ajax({
-            	
-	          type:"post",
-	          url:"/CRMS/teacher/updateScore.do",
-	          data:{"usual_performance":$('#modifyParentNameText').val()+","+$('#modifyLevelText').val()+","+$('#modifyDescText').val(),"sid":$('#modifyidText').val(),"classid":classid},
-	//          contentType: 'application/json',
-	          dataType:"json",
-	          success:function(data){
-	        	  alert("修改成功");
-	        	  if(data=="1")
-	                  $('#mytab').bootstrapTable('updateRow', {index: checkIndex, row:newdata});
-	        	  else
-	        		  alert("修改失败");
-	          },
-	          error:function(data){
-	        	  alert("error:"+JSON.stringify(data));
-	          }
-	        })
-//              if (verifyNameAndAddress(name, address)) {
-//                  exchangeData('modifyPer', mid, name, age, address);
-//              } else {
-//                  nullAlert();
-//              }
-            }
-        }
-    });
-});
-$("#search_btn").click(function(){
-	classid = $(".classes").val();
-	//var selectindex = $("#classes ").get(0).selectedIndex;
-	alert(classid);
-	if(classid!=null&classid!=""){
-		//有后端打开注释
-		$.ajax({
-	          type:"post",
-	          url:"/CRMS/teacher/score.do",
-	          data:{"classid":classid},
-	//          contentType: 'application/json',
-	          dataType:"json",
-	          success:function(data){
-	        	  alert(JSON.stringify(data));
-				  $("#mytab").bootstrapTable('load',data);
-	          },
-	          error:function(data){
-	        	  alert("error:"+JSON.stringify(data));
-	          }
-	        })
-	}else{
-    	alert("请选择查询对象")
-    }
-});
+
 
 	</script>
 	<script>
@@ -328,31 +219,28 @@ $("#search_btn").click(function(){
 		     	{"cname":"aa2","clist":[{"cname":"cc2"},{"cname":"cc2"}]}];
 		
 		//替换数据每次打开请求一次有后台打开注释
-		$(document).ready(function(){  
-			var term=getweek();
-			$.ajax({
-		            type:"post",
-		            dataType:"json",
-		            data:{"year":term.years,"term":term.day},
-		            url:'/CRMS/courseList.do',
-		            success:function(data){  
-		            	alert(JSON.stringify(data));
-	               		dataCustom =data; 
-	        			$("#search_data").cxSelect({
-	        	  			selects: ['course', 'classes'],
-	        	   			required: false,
-	        	    		jsonName: 'cname',
-	        	    		jsonSub:'clist',
-	        	    		firstTitl:'请选择',
-	        	   			data: dataCustom
-	        			});
-		            },
-		            error:function(data){  
-		            	alert("error:"+JSON.stringify(data));
-		            }
-          });
-
-  	});  
+	
+  	var data=[];
+		var sign = 2015;
+		var year = new Date().getFullYear();
+		for(var asign=sign;asign <=year; asign++){
+			var temp = {"cname":asign+"-"+(asign+1),"clist":[{"cname":"一"},{"cname":"二"}]};
+			data.push(temp);
+		}	
+		
+		
+		//替换数据每次打开请求一次有后台打开注释
+//		$(document).ready(function(){  
+//          $.ajax({  
+//              type:'get',  
+//              url:'xxx',
+//              dataType:'json',  
+//              success:function(data){  
+//                  $("#divp").html('after: ' + data);  
+//               	dataCustom =data; 
+//              }  
+//          });  
+//  	});  
 		$("#search_data").cxSelect({
   			selects: ['course', 'classes'],
    			required: false,

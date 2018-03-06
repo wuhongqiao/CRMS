@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>实时监控系统</title>
+  <script  src="../assets/js/jquery-3.2.1.min.js"></script>  
+	<link rel="stylesheet"  href="../assets/css/BS/css/bootstrap.css">  
+	<script  src="../assets/js/bootstrap.min.js"></script>  
+	<link href="../assets/css/BS/css/summernote.css"  rel="stylesheet">  
+	<link href="../assets/css/page.css"  rel="stylesheet">  
+	<script src="../assets/js/summernote.js"></script>  
+	<script type="text/javascript" src="../assets/js/bootstrap-paginator.js" ></script>
+	<script  src="../assets/js/summernote-zh-CN.js"></script>  
+	<script type="text/javascript" src="../assets/js/bootbox.js" ></script>
+	<script src="../assets/js/term.js"></script>
+	<style>
+		hr{
+			margin-bottom: 5px;
+			margin-top: 10px;
+			border: #000000;
+			border-top: 1px solid #EEEEEE;
+		}
+	</style>
+</head>
+<body>
+ <ul id="myTab" class="nav nav-tabs">
+    <li>
+    	<a href="#ios" data-toggle="tab">公告</a>
+    </li>
+   
+</ul> 
+ 
+	<div class="tab-pane fade in active" id="ios">
+		<div class="col-md-6" >
+			<div style="padding: 6px 12px;">公告列表</div>
+			<hr>
+			  
+    <ul class="list-group" id="msglist" style="margin-top: 5px;">
+    	
+   	</ul>
+   	<!--
+       	作者：逐流
+       	时间：2018-01-20
+       	描述：点击msg列表发送请求然后展示在右边
+       -->
+    
+   	<div class="" style="float: right;">
+    <ul class="pagination" id="page"></ul>
+    </div>
+    <!--
+    	作者：逐流
+    	时间：2018-01-19
+    	描述：ajax封装
+    -->
+			<script>
+				var commonFn={};
+    		commonFn.setAjaxPaginator = function (paginatorSelector, data, option) {
+	        var totals = data.count;//总条数
+	        var pageSize = option.pageSize; //每页条数
+	        var totalPages = 1;
+	        if (totals != 0) {
+	            if (totals % pageSize == 0) {
+	                totalPages = totals / pageSize;
+	            } else {
+	                totalPages = Math.ceil(totals / pageSize);
+	            }
+	        }
+	        if (totalPages > 1) {
+	            //当总页数大于1时生成显示分页否则不显示分页
+	            commonFn.buildAjaxPaginator(paginatorSelector, $.extend(option, {totalPages: totalPages}))
+	        }else{
+	        	console.log("没东西啦")
+	        }
+	   		 }
+ 
+    		commonFn.buildAjaxPaginator = function (paginatorSelector, option) {
+        	var _option = {
+            currentPage: 1, //当前页
+            totalPages: 1, //总页数
+            numberOfPages: 5, //设置控件显示的页码数
+            bootstrapMajorVersion: 3,//如果是bootstrap3版本需要加此标识，并且设置包含分页内容的DOM元素为UL,如果是bootstrap2版本，则DOM包含元素是DIV
+            useBootstrapTooltip: 'false',//是否显示tip提示框
+            itemTexts: function (type, page, current) {//文字翻译
+                switch (type) {
+                    case "first":
+                        return "首页";
+                    case "prev":
+                        return "上一页";
+                    case "next":
+                        return "下一页";
+                    case "last":
+                        return "尾页";
+                    case "page":
+                        return page;
+                }
+            },
+            onPageClicked: function (event, originalEvent, type, page, pageSize) {
+            }
+        	};
+       		$.extend(_option, option);
+        	paginatorSelector.bootstrapPaginator(_option);
+    		}
+ 
+    var defaultPagination={"page":1,"pageSize":10}; //默认配置的当前页和每页显示条数
+ 
+    //重写点击分页执行的方法 传递当前点击的页面
+    function onPageClick(event, originalEvent, type, page) { //点击分页插件时传递的当前页和每页显示条数
+       queryOperate(page,defaultPagination.pageSize);
+    };
+ 
+    //查询操作
+    function queryOperate(page,pageSize){
+        var queryData={"name":"leyi"};//其他的表单提交值
+        $.extend(queryData, {page: page||1, pageSize: pageSize || 10});//提交查询操作的参数
+        $.ajax({
+            data:queryData,
+            url:'/CRMS/teacher/notice.do',
+            /* 后面改为success*/success:function(data){
+            	if(true) alert(data);
+            	else{
+                //var data={data:"返回的数据内容",count:100/*假设总条数100*/}//后面需要直接删掉
+                //生成分页
+	                commonFn.setAjaxPaginator($('.pagination'),data,{currentPage: queryData.page, pageSize:queryData.pageSize,onPageClicked: onPageClick});
+	                //DOM操作显示装载的数据内容
+	                $('.loadPageDataSelector').html(data.data+queryData.page)
+            	}
+            }
+        })
+    }
+			</script>
+			
+	<script type="text/javascript" src="../assets/js/page.js"></script>  
+			<script type="text/javascript">
+			var datas = [];
+			var options={
+				"id":"page",//显示页码的元素
+				"data":"",//datas,//显示数据
+				"maxshowpageitem":4,//最多显示的页码个数
+				"pagelistcount":3,//每页显示数据个数
+				"callBack":function(result){
+					var cHtml="";
+					for(var i=0;i<result.length;i++){
+							/*将从数据库起请求的数据直循环的插入动态创建的元素*/
+						 cHtml+='<li class="list-group-item" name="msgitem" id="'+i+'">'+
+							'<div class="center-block">'+
+									'<div>'+
+										'<span style="color: #00BFFF; font-size: 20px;">'+result[i].title+'</span>'+
+										'<blockquote>'+
+											'<p>'+result[i].content+'</p>'+
+										'<footer class="text-right">from: <cite title="Source Title">jed</cite></footer>'+
+										'</blockquote>'+
+									'</div>'+
+							'</div>'+
+						'</li>'
+					}
+					//将数据增加到页面中
+					$("#msglist").html(cHtml);
+				}
+			};
+			
+			$.ajax({
+		            type:"post",
+		            dataType:"json",
+		            url:'/CRMS/teacher/notice.do',
+		            success:function(data){
+					//data=[{title:"title",content:"content"}];
+		                options.data=data;
+		    			datas=data;
+		    			page.init(data.length,1,options);
+		            },
+		            error:function(data){
+		            	alert("错误："+JSON.stringify(data));
+		            }
+		        });
+			var term=getweek();
+			
+
+			</script>
+		</div>
+		<div class="col-md-6" >
+			<div class="col-md-1" style="padding: 6px 12px;">内容</div>
+			<div class="col-md-8"></div>
+			<!--<button class="btn btn-danger text-right" id="delmsg">删除</button>-->
+			
+			<hr>
+			<div class="center-block">
+				<h2 class="text-center" id="seemsgtitle"></h2>
+				<input hidden="hidden" id="seemsgid">
+				<footer class="text-right">from:<cite title="Source Title" id="sendmsgname"></cite></footer>
+				<div id="seemsg">
+							
+				</div>
+			</div>
+      <p id="msgcontent"></p>
+     	
+    </div>
+	</div>
+</div>
+</body>
+
+
+</html>
