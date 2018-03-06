@@ -16,7 +16,7 @@
   </select>
   
   <insert id="addNotice" parameterType="com.scse.crms.po.Notice">
-    INSERT notice VALUE(UNIX_TIMESTAMP(NOW()), #{tid}, #{title}, #{content}, #{target}, CURDATE(), #{effective})
+    INSERT notice(id, tid, title, content, target, DATE, effective) VALUE(UNIX_TIMESTAMP(NOW()), 2, 'title', 'content', '1', CURDATE(), NULL)
   </insert>
   
   <delete id="deleteNoticeById" parameterType="String">
