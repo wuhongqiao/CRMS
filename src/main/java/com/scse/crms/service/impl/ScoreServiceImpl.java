@@ -21,9 +21,9 @@ public class ScoreServiceImpl implements ScoreService {
 		return scoreMapper.selectScoreWithClassid(para);
 	}
 
-	public int updateScoreBySidAndCid(Score score) {
+	public int updateScoreBySidAndClassid(ParaForScore para) {
 		// TODO Auto-generated method stub
-		return scoreMapper.updateScoreBySidAndCid(score);
+		return scoreMapper.updateScoreBySidAndClassid(para);
 	}
 
 }

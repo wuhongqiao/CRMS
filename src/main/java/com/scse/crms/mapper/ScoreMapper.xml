@@ -17,7 +17,7 @@
 	    <if test="cid!=null"> AND classes.cid=#{cid}</if>
 	</select>
 	
-	<update id="updateScoreBySidAndCid" parameterType="com.scse.crms.po.Score">
-		UPDATE score SET usual_performance=#{usual_performance} WHERE sid=#{sid} AND cid=#{cid}
+	<update id="updateScoreBySidAndClassid" parameterType="com.scse.crms.vo.ParaForScore">
+		UPDATE classes,score SET usual_performance=#{usual_performance} WHERE score.cid=classes.cid AND score.sid=#{sid} AND classes.id=#{classid}
 	</update>
 </mapper>

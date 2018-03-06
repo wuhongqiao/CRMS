@@ -1,6 +1,7 @@
 package com.scse.crms.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,20 +30,21 @@ public class ScoreController {
 	public String selectScore(ParaForScore para, @PathVariable("role") String role, HttpSession session) throws JsonGenerationException, JsonMappingException, IOException {
 		if(!role.equals("teacher"))
 			para.setSid(((User)session.getAttribute("user")).getId());
-		for(ScoreVo s : scoreService.selectScoreWithClassid(para)) {
+		List<ScoreVo> list = scoreService.selectScoreWithClassid(para);
+		for(ScoreVo s : list) {
 			String[] i = s.getUsual_performance().split(",");
 				s.setPerformance(Float.parseFloat(i[0]));
 				s.setAbsenceScore(Float.parseFloat(i[1]));
-				s.setPerformance(Float.parseFloat(i[2]));
+				s.setHomework(Float.parseFloat(i[2]));
 			}
 		
 		
-		return new ObjectMapper().writeValueAsString(scoreService.selectScoreWithClassid(para));
+		return new ObjectMapper().writeValueAsString(list);
 	}
 	
-	@RequestMapping("/teacher/upadteScore.do")
+	@RequestMapping("/teacher/updateScore.do")
 	@ResponseBody
-	public String updateScoreBySidAndCid(Score score) {
-		return ""+scoreService.updateScoreBySidAndCid(score);
+	public String updateScoreBySidAndClassid(ParaForScore para) {
+		return ""+scoreService.updateScoreBySidAndClassid(para);
 	}
 }

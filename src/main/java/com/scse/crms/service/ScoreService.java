@@ -9,5 +9,5 @@ import com.scse.crms.vo.ScoreVo;
 public interface ScoreService {
 
 	public List<ScoreVo> selectScoreWithClassid(ParaForScore para);
-	public int updateScoreBySidAndCid(Score score);
+	public int updateScoreBySidAndClassid(ParaForScore para);
 }

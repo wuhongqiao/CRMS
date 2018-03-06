@@ -5,6 +5,13 @@ public class ParaForScore {
 	String sid;
 	String cid;
 	String tid;
+	String usual_performance;
+	public String getUsual_performance() {
+		return usual_performance;
+	}
+	public void setUsual_performance(String usual_performance) {
+		this.usual_performance = usual_performance;
+	}
 	public String getClassid() {
 		return classid;
 	}
