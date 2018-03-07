@@ -29,7 +29,7 @@ public class ClassesController {
 	@Autowired
 	ClassesService classesService;
 	
-	@RequestMapping("/student/schedule.do")
+	@RequestMapping(value="/student/schedule.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String selectScheduleForStudent(HttpSession session, ClassesVo classesVo) {
 		try {
@@ -42,7 +42,7 @@ public class ClassesController {
 		
 		return "error";
 	}
-	@RequestMapping("/teacher/schedule.do")
+	@RequestMapping(value="/teacher/schedule.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String selectScheduleForTeacher(HttpSession session, ClassesVo classesVo) {
 		try {
@@ -54,7 +54,7 @@ public class ClassesController {
 		
 		return "error";
 	}
-	@RequestMapping("/courseList.do")
+	@RequestMapping(value="/courseList.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String courseList(HttpSession session, ClassesVo classesVo) throws JsonGenerationException, JsonMappingException, IOException {
 		classesVo.setTid(((User)session.getAttribute("user")).getId());
@@ -69,6 +69,7 @@ public class ClassesController {
 		Map json = new HashMap();
 		Map clist = new HashMap();
 		for(String s : (Set<String>)m.keySet()) {
+			System.out.println("Hometown:"+s);
 			json.put("cname", s);
 			json.put("clist", new ArrayList<Map>());
 			for(String classid : (List<String>)m.get(s)) {
@@ -78,17 +79,16 @@ public class ClassesController {
 			}
 			result.add(json);
 		}
-		
 		return new ObjectMapper().writeValueAsString(result);
 	}
 
-	@RequestMapping("seat.do")
+	@RequestMapping(value="/seat.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String selectSeatTable(String classid) throws JsonGenerationException, JsonMappingException, IOException {
 		return new ObjectMapper().writeValueAsString(classesService.selectSeat(classid));
 	}
 
-	@RequestMapping("/{role}/updateSeat.do")
+	@RequestMapping(value="/{role}/updateSeat.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String updateSeatTable(@PathVariable("role") String role, SeatTable seatTable, HttpSession session) {
 		if(!role.equals("teacher")) {
@@ -106,7 +106,7 @@ public class ClassesController {
 	}
 
 
-	@RequestMapping("/student/removeSeat.do")
+	@RequestMapping(value="/student/removeSeat.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String removeSeatBySid(SeatTable seatTable, HttpSession session) {
 		seatTable.setSid(((User)session.getAttribute("user")).getId());
@@ -114,7 +114,7 @@ public class ClassesController {
 			return "移除座位成功";
 		return "移除座位失败";
 	}
-	@RequestMapping("/teacher/removeSeat.do")
+	@RequestMapping(value="/teacher/removeSeat.do")
 	@ResponseBody
 	public String removeSeat(SeatTable seatTable, HttpSession session) {
 		
@@ -124,7 +124,7 @@ public class ClassesController {
 	}
 	
 	//清空所有座位
-	@RequestMapping("/teacher/removeAllSeat.do")
+	@RequestMapping(value="/teacher/removeAllSeat.do")
 	@ResponseBody
 	public String removeAllSeat(String classid) {
 		if(classesService.removeAllSeat(classid)>0)
@@ -132,7 +132,7 @@ public class ClassesController {
 		return "清空座位失败";
 	}
 
-	@RequestMapping("autoRankSeat.do")
+	@RequestMapping(value="autoRankSeat.do")
 	@ResponseBody
 	public String autoRankSeat() {
 		return "";

@@ -9,6 +9,7 @@ public class ScoreVo extends Score {
 	float performance;
 	float absenceScore;
 	float homework;
+	String proportion;
 	public String getSname() {
 		return sname;
 	}
@@ -38,5 +39,11 @@ public class ScoreVo extends Score {
 	}
 	public void setHomework(float homework) {
 		this.homework = homework;
+	}
+	public String getProportion() {
+		return proportion;
+	}
+	public void setProportion(String proportion) {
+		this.proportion = proportion;
 	}
 }

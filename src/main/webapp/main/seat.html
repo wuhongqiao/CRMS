@@ -376,8 +376,8 @@ $(document).ready(function(){
 <script>
 		$(document).ready(function(){
 			
-			var classid = GetQueryString(classid);
-			//alert(classid);
+			var classid = GetQueryString('classid');
+			alert("classid:"+classid);
 			if(classid!=null){
 				getseatbyclassid(classid);
 				
