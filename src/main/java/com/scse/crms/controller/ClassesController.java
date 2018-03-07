@@ -114,7 +114,7 @@ public class ClassesController {
 			return "移除座位成功";
 		return "移除座位失败";
 	}
-	@RequestMapping(value="/teacher/removeSeat.do")
+	@RequestMapping(value="/teacher/removeSeat.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String removeSeat(SeatTable seatTable, HttpSession session) {
 		
@@ -124,7 +124,7 @@ public class ClassesController {
 	}
 	
 	//清空所有座位
-	@RequestMapping(value="/teacher/removeAllSeat.do")
+	@RequestMapping(value="/teacher/removeAllSeat.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String removeAllSeat(String classid) {
 		if(classesService.removeAllSeat(classid)>0)
@@ -132,7 +132,7 @@ public class ClassesController {
 		return "清空座位失败";
 	}
 
-	@RequestMapping(value="autoRankSeat.do")
+	@RequestMapping(value="autoRankSeat.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String autoRankSeat() {
 		return "";

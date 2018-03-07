@@ -25,7 +25,7 @@ public class ScoreController {
 	@Autowired
 	public ScoreService scoreService;
 	
-	@RequestMapping("/{role}/score.do")
+	@RequestMapping(value="/{role}/score.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String selectScore(ParaForScore para, @PathVariable("role") String role, HttpSession session) throws JsonGenerationException, JsonMappingException, IOException {
 		if(!role.equals("teacher"))
@@ -42,7 +42,7 @@ public class ScoreController {
 		return new ObjectMapper().writeValueAsString(list);
 	}
 	
-	@RequestMapping("/teacher/updateScore.do")
+	@RequestMapping(value="/teacher/updateScore.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String updateScoreBySidAndClassid(ParaForScore para) {
 		return ""+scoreService.updateScoreBySidAndClassid(para);

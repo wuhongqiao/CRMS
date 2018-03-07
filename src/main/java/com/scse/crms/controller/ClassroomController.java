@@ -15,7 +15,7 @@ public class ClassroomController {
 	@Autowired
 	ClassroomService classroomService;
 	
-	@RequestMapping("class.do")
+	@RequestMapping(value="class.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String selectSchedule(String crid) throws JsonGenerationException, JsonMappingException, IOException {
 		//service.selectSchedule();
