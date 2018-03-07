@@ -22,12 +22,12 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 
-	@RequestMapping("/student/notice.do")
+	@RequestMapping(value="/student/notice.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String selectNoticeForClasses(HttpSession session) throws JsonGenerationException, JsonMappingException, IOException{
 		return new ObjectMapper().writeValueAsString(noticeService.selectNoticeForClasses(noticeService.selectClassesBySid(((User)session.getAttribute("user")).getId())));
 	}
-	@RequestMapping("/teacher/notice.do")
+	@RequestMapping(value="/teacher/notice.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String selectNoticeForTeacher(HttpSession session) throws JsonGenerationException, JsonMappingException, IOException{
 
@@ -37,7 +37,7 @@ public class NoticeController {
 		//return "{data:"+new ObjectMapper().writeValueAsString(data)+",count:"+data.size()+"}";
 	}
 
-	@RequestMapping("/teacher/addNotice.do")
+	@RequestMapping(value="/teacher/addNotice.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String addNotice(HttpSession session, Notice notice) {
 		// TODO Auto-generated method stub
@@ -45,7 +45,7 @@ public class NoticeController {
 		return ""+noticeService.addNotice(notice);
 	}
 
-	@RequestMapping("/teacher/deleteNoticeById.do")
+	@RequestMapping(value="/teacher/deleteNoticeById.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String deleteNoticeById(String id) {
 		// TODO Auto-generated method stub

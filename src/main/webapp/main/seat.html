@@ -10,6 +10,7 @@
 		<script type="text/javascript" src="../assets/js/bootstrap-table-zh-CN.js" ></script>
 		<script type="text/javascript" src="../assets/js/jquery.cxselect.js" ></script>
 		<script type="text/javascript" src="../assets/js/jquery-ui/jquery-ui.js" ></script>
+		<script type="text/javascript" src="../assets/js/term.js" ></script>
 <title>座位表</title>
 <style>
 /*div{
@@ -139,6 +140,7 @@ input[type=radio]{
   </div>
 </body>
 <script>
+var classid=null;
 $(function() {
 	
 //	$("input[name='seat']").change(function(){
@@ -191,7 +193,6 @@ function seatTable(r,l){
 	var larr=l.split(",");
 	for(var index in larr){
 		lnum+=Number(larr[index])
-		
 	}
 //	alert(r+"xxxxxxx"+lnum);
 	for(var i=65;i<65+Number(r);i++){
@@ -218,6 +219,83 @@ function seatTable(r,l){
 	
 		$(".seat").mouseover(function(){$(this).addClass("mouseover");});
 		$(".seat").mouseout(function(){$(this).removeClass("mouseover");});
+		
+		$( "#seatTable td" ).draggable({ 
+			scroll: true, 
+			containment: "document",
+			cancel: "p", 
+			helper: function( event ) {
+      			  return $( "<div class='ui-widget-header'>移动</div>" );
+   			},
+			cursor: "crosshair", 
+			cursorAt: { top: -5, left: -5 },
+			stop:function(){
+////				$("table .mouseover").html($(this).html());
+				console.log($(this).html())
+//				console.log($("table .mouseover>div>span").html());
+				//新座位
+				var stopseat = $("table .mouseover>div>span ").html();
+				console.log("stopseat="+stopseat)
+				var stopsid =$('#'+stopseat+">div").attr("id");
+				var thissid = $(this).children("label").children(".seat").children(".student").children("div").attr("id");
+				var thisseat = $(this).children("label").children(".seat").children(".student").attr("id");
+//				var seat = $("#"+listsid).children("h4").attr("name");
+//				var sid  = listsid.replace("list","");
+//				var sname = $(this).children("div").attr("name");
+//				console.log(seat)
+				console.log("stopseat="+stopseat)
+				console.log("stopsid="+stopsid)
+				console.log("thissid="+thissid)
+				console.log("thisseat="+thisseat)
+//				console.log(sid)
+				if(thissid == undefined^stopsid==undefined){
+					
+					var upsid ="";
+					if(thissid != undefined){
+						upsid = thissid
+					}
+					if(stopsid != undefined){
+						upsid = stopsid
+					}
+					$.ajax({
+						data:{"seat":stopseat,"sid":upsid,"classid":classid},
+	            		url:'/CRMS/teacher/updateSeat.do',
+		            /* 后面改为success*/
+		            	success:function(data){
+		            	alert(data);
+						getseatbyclassid(classid);
+						},
+						error:function(){
+							alert("错误！")
+						}
+						
+	           		 })
+				}
+				if(thissid != undefined&&stopsid!=undefined){
+					$.ajax({
+						data:{"seat":stopseat,"sid":thissid},
+	            		url:'/CRMS/teacher/updateSeat.do',
+		            /* 后面改为success*/success:function(data){
+						$.ajax({
+						data:{"seat":thisseat,"sid":stopsid},
+	            		url:'/CRMS/teacher/updateSeat.do',
+		            /* 后面改为success*/success:function(data){alert(data);
+						getseatbyclassid(classid);
+						},
+						error:function(){
+							alert("错误！")
+						}
+	           		 })
+						},
+						error:function(){
+							alert("错误！")
+						}
+	           		 })
+					
+				}
+				
+			}
+		 });
 	}
 //	seatTable("10","4,6,3");
 //$(".list>div").click(function(){
@@ -242,17 +320,30 @@ $(document).ready(function(){
 		     	{"cname":"aa2","clist":[{"cname":"cc2"},{"cname":"cc2"}]}];
 		
 		//替换数据每次打开请求一次有后台打开注释
-//		$(document).ready(function(){  
-//          $.ajax({  
-//              type:'get',  
-//              url:'xxx',
-//              dataType:'json',  
-//              success:function(data){  
-//                  $("#divp").html('after: ' + data);  
-//               	dataCustom =data; 
-//              }  
-//          });  
-//  	});  
+		$(document).ready(function(){  
+            var term=getweek();
+			$.ajax({
+	            type:"post",
+	            dataType:"json",
+	            data:{"year":term.years,"term":term.day},
+	            url:'/CRMS/courseList.do',
+	            success:function(data){  
+	            	//alert(JSON.stringify(data));
+               		dataCustom =data; 
+        			$("#search_data").cxSelect({
+        	  			selects: ['course', 'classes'],
+        	   			required: false,
+        	    		jsonName: 'cname',
+        	    		jsonSub:'clist',
+        	    		firstTitl:'请选择',
+        	   			data: dataCustom
+        			});
+	            },
+	            error:function(data){  
+	            	alert("error:"+JSON.stringify(data));
+	            }
+      }); 
+  	});  
 		$("#search_data").cxSelect({
   			selects: ['course', 'classes'],
    			required: false,
@@ -269,7 +360,7 @@ $(document).ready(function(){
 	    	$("#accordion").html("");
 	    	console.log("aaaaaaaaaaa");
 	    	for(var key in data){
-	    		
+	    		console.log(JSON.stringify(data[key]));
 	    		var sid = data[key].sid;
 	    		var sname = data[key].sname;
 	    		var seat = data[key].seat;
@@ -332,10 +423,15 @@ $(document).ready(function(){
 					console.log(sid)
 					if(stopseat != undefined){
 						$.ajax({
-						data:{"seat":stopseat,"sid":sid},
-	            		url:'xxx',
-	            /* 后面改为success*/complete:function(data){
+						data:{"seat":stopseat,"sid":sid,"classid":classid},
+	            		url:'/CRMS/teacher/updateSeat.do',
+	            /* 后面改为success*/
+	            		success:function(data){
+	            				alert(data);
 	            				getseatbyclassid(classid);
+							},
+							error:function(){
+								alert("错误！")
 							}
 	            		})
 					}
@@ -345,25 +441,29 @@ $(document).ready(function(){
 			}
 		 });
 		}
-		function getseatbyclassid(classid){
+		function getseatbyclassid(classid){alert(classid);
 			$.ajax({
 						data:{"classid":classid},
-	            		url:'getseatbyclassid',
-		            /* 后面改为success*/complete:function(data){
-		            	data=[]
+	            		url:'/CRMS/seat.do',
+	            		type:'post',
+	            		dataType:'json',
+		            /* 后面改为success*/
+		            	success:function(data){alert(data)
+		            		//data=[]
 //		            	data = [{"sid":"1440121104","sname":"邓文杰","classid":null,"cid":"1","classroom":"B201","seat":"A8","usual_performance":"2"},
 //								{"sid":"1440121105","sname":"杰哥","classid":null,"cid":"1","classroom":"B201","seat":"A9","usual_performance":"2"},
 //								{"sid":"1440121106","sname":"毕设死了","classid":null,"cid":"1","classroom":"B201","seat":"A10","usual_performance":"2"},
 //								{"sid":"1440121107","sname":"无语","classid":null,"cid":"1","classroom":"B201","seat":"B5","usual_performance":"2"},
 //								{"sid":"1440121108","sname":"我想跳楼","classid":null,"cid":"1","classroom":"B201","seat":"B6","usual_performance":"2"},
 //								{"sid":"1440121109","sname":"啊啊啊啊","classid":null,"cid":"1","classroom":"B201","seat":"B1","usual_performance":"2"},]
-									seatmpty();
-									jsonfill2(data,classid)
+							seatmpty();
+							jsonfill2(data,classid)
 		               //请求完都需要操作下面东东
-		            	  console.log(data);
+		            	 	 console.log(data);
 		                 
-						}
-	        })
+						},
+						error:function(){alert("错误！")}
+						})
 			
 		}
 		
@@ -376,9 +476,21 @@ $(document).ready(function(){
 <script>
 		$(document).ready(function(){
 			
-			var classid = GetQueryString('classid');
-			alert("classid:"+classid);
+			classid = GetQueryString('classid');
 			if(classid!=null){
+				alert("classid:"+classid);
+				$.ajax({
+					type:"post",
+		            dataType:"json",
+		            data:{"classid":classid},
+		            url:'/CRMS/class.do',
+		            success:function(data){
+		            	alert(data.row+"&"+data.rank)
+		            	seatTable(data.row,data.rank);
+		            },
+		            error:function(data){alert("错误！")}
+					})
+				
 				getseatbyclassid(classid);
 				
 			}
@@ -389,70 +501,8 @@ $(document).ready(function(){
 //			seatTable("10","4,6,3");
 //			jsonfill2(classid);
 //			draggablelist(classid);
-			$( "#seatTable td" ).draggable({ 
-			scroll: true, 
-			containment: "document",
-			cancel: "p", 
-			helper: function( event ) {
-      			  return $( "<div class='ui-widget-header'>移动</div>" );
-   			},
-			cursor: "crosshair", 
-			cursorAt: { top: -5, left: -5 },
-			stop:function(){
-////				$("table .mouseover").html($(this).html());
-				console.log($(this).html())
-//				console.log($("table .mouseover>div>span").html());
-				//新座位
-				var stopseat = $("table .mouseover>div>span ").html();
-				console.log("stopseat="+stopseat)
-				var stopsid =$('#'+stopseat+">div").attr("id");
-				var thissid = $(this).children("label").children(".seat").children(".student").children("div").attr("id");
-				var thisseat = $(this).children("label").children(".seat").children(".student").attr("id");
-//				var seat = $("#"+listsid).children("h4").attr("name");
-//				var sid  = listsid.replace("list","");
-//				var sname = $(this).children("div").attr("name");
-//				console.log(seat)
-				console.log("stopseat="+stopseat)
-				console.log("stopsid="+stopsid)
-				console.log("thissid="+thissid)
-				console.log("thisseat="+thisseat)
-//				console.log(sid)
-				if(thissid == undefined^stopsid==undefined){
-					
-					var upsid ="";
-					if(thissid != undefined){
-						upsid = thissid
-					}
-					if(stopsid != undefined){
-						upsid = stopsid
-					}
-					$.ajax({
-						data:{"seat":stopseat,"sid":upsid},
-	            		url:'xxx',
-		            /* 后面改为success*/complete:function(data){
-						getseatbyclassid(classid);
-						}
-	           		 })
-				}
-				if(thissid != undefined&&stopsid!=undefined){
-					$.ajax({
-						data:{"seat":stopseat,"sid":thissid},
-	            		url:'xxx',
-		            /* 后面改为success*/complete:function(data){
-						$.ajax({
-						data:{"seat":thisseat,"sid":stopsid},
-	            		url:'xxx',
-		            /* 后面改为success*/complete:function(data){
-						getseatbyclassid(classid);
-						}
-	           		 })
-						}
-	           		 })
-					
-				}
-				
-			}
-		 });
+			alert($( "#seatTable td" ).length)
+			
 			$("input[name='seat']").change(function(){
 			var s =  $(this).next(".seat").children(".student").children("div").attr("id");
 			var rms =  $(this).next(".seat").children(".student").attr("id");
@@ -473,9 +523,12 @@ $(document).ready(function(){
 					if(rms!=undefined){
 						$.ajax({
 							data:{"classid":classid,"seat":rms},
-		            		url:'rms',
-			            /* 后面改为success*/complete:function(data){
+		            		url:'/CRMS/teacher/removeSeat.do',
+			            /* 后面改为success*/success:function(data){alert(data);
 							getseatbyclassid(classid);
+							},
+							error:function(){
+								alert("错误！")
 							}
 	           		 })
 					}
@@ -485,9 +538,12 @@ $(document).ready(function(){
 				console.log("清空");
 						$.ajax({
 						data:{"classid":classid},
-	            		url:'rmallseat',
-		            /* 后面改为success*/complete:function(data){
+	            		url:'/CRMS/teacher/removeAllSeat.do',
+		            /* 后面改为success*/success:function(data){alert(data);
 						getseatbyclassid(classid);
+						},
+						error:function(){
+							alert("错误！")
 						}
 	           		 })
 					
@@ -498,8 +554,11 @@ $(document).ready(function(){
 					$.ajax({
 						data:{"classid":classid},
 	            		url:'paixv',
-		            /* 后面改为success*/complete:function(data){
+		            /* 后面改为success*/success:function(data){alert(data);
 						getseatbyclassid(classid);
+						},
+						error:function(){
+							alert("错误！")
 						}
 	           		 })
 				})
@@ -512,8 +571,12 @@ $(document).ready(function(){
 						$.ajax({
 						data:{"seat":rms},
 	            		url:'zhanz',
-		            /* 后面改为success*/complete:function(data){
+		            /* 后面改为success*/success:function(data){
+		            	alert(data);
 						getseatbyclassid(classid);
+						},
+						error:function(){
+							alert("错误！")
 						}
 	           		 })
 					}else{

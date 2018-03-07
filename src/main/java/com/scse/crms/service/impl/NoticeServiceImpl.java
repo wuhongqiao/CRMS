@@ -8,18 +8,19 @@ import org.springframework.stereotype.Service;
 import com.scse.crms.mapper.NoticeMapper;
 import com.scse.crms.po.Notice;
 import com.scse.crms.service.NoticeService;
+import com.scse.crms.vo.NoticeVo;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
 	@Autowired
 	private NoticeMapper noticeMapper;
 
-	public List<Notice> selectNoticeForClasses(List<Notice> list) {
+	public List<NoticeVo> selectNoticeForClasses(List<Notice> list) {
 		// TODO Auto-generated method stub
 		return noticeMapper.selectNoticeForClasses(list);
 	}
 
-	public List<Notice> selectNoticeForTeacher(String tid) {
+	public List<NoticeVo> selectNoticeForTeacher(String tid) {
 		// TODO Auto-generated method stub
 		return noticeMapper.selectNoticeForTeacher(tid);
 	}

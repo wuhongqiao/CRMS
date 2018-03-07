@@ -20,7 +20,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("/login.do")
+	@RequestMapping(value="/login.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String login(User user, HttpSession session) throws JsonGenerationException, JsonMappingException, IOException{
 		User login = userService.login(user);

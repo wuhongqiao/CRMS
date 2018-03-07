@@ -30,8 +30,8 @@ public class TeacherController {
 	@Autowired
 	private TeacherService teacherService;
 
-	//学生查询
-	@RequestMapping("/teacher.do")
+	//教师查询
+	@RequestMapping(value="/teacher.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String queryTeacher(HttpSession session, Teacher t) throws JsonGenerationException, JsonMappingException, IOException {
 //		List<Student> studentList = studentService.findStudentBy(s);

@@ -28,7 +28,7 @@ public class StudentController {
 	private StudentService studentService;
 
 	//Ñ§Éú²éÑ¯
-	@RequestMapping("/student.do")
+	@RequestMapping(value="/student.do", produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String queryStudents(Student s) throws JsonGenerationException, JsonMappingException, IOException {
 //		List<Student> studentList = studentService.findStudentBy(s);

@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scse.crms.mapper.ClassroomMapper">
   <select id="selectClassroom" parameterType="String" resultType="com.scse.crms.po.Classroom">
-  	SELECT * FROM classroom WHERE crid=#{id}
+  	SELECT classroom.row,classroom.rank FROM classroom,classes WHERE classes.classroom=classroom.crid AND classes.id=#{classid}
   </select>
   
 </mapper>

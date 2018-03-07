@@ -121,13 +121,15 @@
        -->
     <script>
     	$(document).on("click","#msglist li",function(){
-    		var data = datas[$(this).attr('id')];
+			var index = $(this).attr('id');
+    		var data = datas[index];
     		//$("#seemsgtitle").html(data.title);
     		//$("#msgcontent").html(data.content);
 			
 			$("#seemsgtitle").text(data.title);
 			$("#sendmsgname").text(data.tname);
 			$("#seemsgid").val(data.id);
+			$("#seemsgid").attr("name", index);
 			$("#seemsg").empty();
 			$("#seemsg").append(data.content)
 //  		$.ajax({
@@ -252,7 +254,7 @@
 										'<span style="color: #00BFFF; font-size: 20px;">'+result[i].title+'</span>'+
 										'<blockquote>'+
 											'<p>'+result[i].content+'</p>'+
-										'<footer class="text-right">from: <cite title="Source Title">jed</cite></footer>'+
+										'<footer class="text-right">from: <cite title="Source Title">'+result[i].tname+'</cite></footer>'+
 										'</blockquote>'+
 									'</div>'+
 							'</div>'+
@@ -283,10 +285,10 @@
 		            dataType:"json",
 		            data:{"year":term.years,"term":term.day},
 		            url:'/CRMS/courseList.do',
-		            success:function(data){alert("数据："+JSON.stringify(data));
+		            success:function(data){
 		            	var html='<div><ul class="list-group">'
 					    
-						for(var i in data){alert("数据："+JSON.stringify(data[i]));
+						for(var i in data){
 		            		//这个li设置成不可点击
 							html+='<li class="list-group-item" style="background-color: transparent;">'+
 							'<div id="item" data-toggle="popover" data-placement="left">'+data[i].cname+'</div></li>';
@@ -294,14 +296,13 @@
 							//这里是2级列表，可点击
 							html+='<ul>';
 							var clist=data[i].clist;
-							for(var j in clist){alert("数据："+JSON.stringify(clist[j]));
+							for(var j in clist){
 								html+='<li class="list-group-item" style="background-color: transparent;">'+
 								'<div id="item" data-toggle="popover" data-placement="left">'+clist[j].cname+'</div></li>';
 							}
 							html+='</ul>';
 						}
 		            	html+='</ul></div>'
-		            	alert(html);
 		            	$("#TeachingClass").html(html);
 		            },
 		            error:function(data){
@@ -345,14 +346,26 @@
        				message: '确认删除？',
         			callback: function (flag) {
         				$.ajax({
-									data: msgid,
-									url:":xxx",
-									complete:function(data){
+								data: {"id":msgid},
+								url:"/CRMS/teacher/deleteNoticeById.do",
+								type:"post",
+								success:function(data){
+									if(data=='1'){
+										options.data.splice($("#seemsgid").attr("name"),1);
+										page.init(options.data.length,1,options);
+										alert("ok");
+										
 										$("#seemsgtitle").text("");
-				    				$("#sendmsgname").text("");
-				    				$("#seemsgid").val("");
-				    				$("#seemsg").empty();
+										$("#sendmsgname").text("");
+										$("#seemsgid").val("");
+										$("#seemsg").empty();
+									}else{
+										alert("删除过程出错!");
 									}
+								},
+								error:function(){
+									alert("错误！")
+								}
 								})
         			}
 						})

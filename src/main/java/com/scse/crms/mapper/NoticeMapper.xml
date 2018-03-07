@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scse.crms.mapper.NoticeMapper">
-  <select id="selectNoticeForClasses" parameterType="List" resultType="com.scse.crms.po.Notice">
-    SELECT * FROM notice WHERE 1=1 <!-- AND target LIKE CONCAT(CONCAT('%', #{target},'%')) -->
+  <select id="selectNoticeForClasses" parameterType="List" resultType="com.scse.crms.vo.NoticeVo">
+    SELECT notice.*,teacher.name tname FROM notice,teacher WHERE notice.tid=teacher.id <!-- AND target LIKE CONCAT(CONCAT('%', #{target},'%')) -->
     <foreach item="item" collection="list" separator="OR" open="AND(" close=")" index="">  
       target LIKE CONCAT(CONCAT('%', #{item.target}),'%')
     </foreach>
   </select>
-  <select id="selectNoticeForTeacher" parameterType="String" resultType="com.scse.crms.po.Notice">
-    SELECT * FROM notice WHERE tid=#{tid}
+  <select id="selectNoticeForTeacher" parameterType="String" resultType="com.scse.crms.vo.NoticeVo">
+    SELECT notice.*,teacher.name tname FROM notice,teacher WHERE tid=#{tid} AND notice.tid=teacher.id
   </select>
   <select id="selectClassesBySid" parameterType="String" resultType="com.scse.crms.po.Notice">
     SELECT classid as target FROM classes_student WHERE sid=#{sid}
