@@ -22,6 +22,7 @@
       <mvc:interceptor>
         <mvc:mapping path="/**/*.do"/>
         <mvc:exclude-mapping path="/login.do"/>
+        <mvc:exclude-mapping path="/signOut.do"/>
         <bean class="com.scse.crms.interceptor.CommonInterceptor" />
       </mvc:interceptor>
       <mvc:interceptor>

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.scse.crms.po.User;
 import com.scse.crms.service.UserService;
@@ -32,4 +33,12 @@ public class UserController {
 		return "fail";
 	}
 	
+	
+	@RequestMapping(value="/signOut.do", produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String signOut(User user, HttpSession session) throws JsonGenerationException, JsonMappingException, IOException{
+		session.setAttribute("user", null);
+				
+		return "success";
+	}
 }

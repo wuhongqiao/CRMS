@@ -17,7 +17,7 @@
         </a>
       </div>
 
-    <div class="dl-log">欢迎您，<span class="dl-log-user"></span><a href="###" title="退出系统" class="dl-log-quit">[退出]</a>
+    <div class="dl-log">欢迎您，<span class="dl-log-user"></span><a id="signOut" title="退出系统" class="dl-log-quit">[退出]</a>
     </div>
   </div>
    <div class="content">
@@ -85,6 +85,18 @@ BUI.use('common/main',function(){
 				window.clearInterval(int);
 			}
 		},100);
+	
+	$("#signOut").click(function(){
+		$.ajax({
+			type:'post',
+			url:'/CRMS/signOut.do',
+			complete:function(){
+				$.cookie("user", null);
+				$.cookie("role", null);
+				window.location.href='/CRMS';
+			}
+		})
+	});
   </script>
  </body>
 </html>
