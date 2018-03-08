@@ -305,7 +305,7 @@
 							var clist=data[i].clist;
 							for(var j in clist){
 								html+='<li class="list-group-item" style="background-color: transparent;">'+
-								'<div id="item" data-toggle="popover" data-placement="left">'+clist[j].cname+'</div></li>';
+								'<div id="item" alt="'+clist[j].cname+'" data-toggle="popover" data-placement="left">'+clist[j].cname+'</div></li>';
 							}
 							html+='</ul>';
 						}
@@ -320,7 +320,7 @@
 					$("#submit").click(function(){
 						if($("#title").val()!=null&&$("#title").val().trim()!=""){
 							if($("#target").val()!=null&&$("#target").val().trim()!=""){
-								if($("#summernote").summernote('code')!=null&&$("#target").val().trim()!=""){
+								if($("#summernote").summernote('code')!=null&&$("#summernote").text()!=""){
 										$.ajax({
 											data:{'title':$("#title").val(),'content':$("#summernote").summernote('code'),'target':$("#target").val()},
 								            type:"post",
@@ -330,8 +330,9 @@
 												if(data=="1"){
 													$("#title").val("");
 													$("#summernote").summernote('code',"");
-													#("#divtxt").html("");
-													#("#target").val("");
+													alert($("#divtxt"));
+													$("#divtxt").html("");
+													$("#target").val("");
 													alert("发布完成")
 													$.ajax({
 												            type:"post",
@@ -367,7 +368,7 @@
 			</script>
 		</div>
 		<div class="col-md-6" >
-			<div class="col-md-1" style="padding: 6px 12px;">内容</div>
+			<div class="col-md-2" style="padding: 6px 12px;">内容</div>
 			<div class="col-md-8"></div>
 			<button class="btn btn-danger text-right" id="delmsg">删除</button>
 			<script>
