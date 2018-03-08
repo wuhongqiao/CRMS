@@ -54,14 +54,14 @@
 
   if(role=="student"){
 	config[0].menu[0].items=[
-		{id:'message',text:'公告查看',href:'main/MessageStudent.html'},
+		{id:'message',text:'公告查看',href:'main/MessageStudent.html',closeable : false},
 		{id:'Performance',text:'平时成绩查询',href:'main/PerformanceStudent.html'},
 		{id:'schedule',text:'课程表',href:'main/schedule.html'},
 		{id:'seat-menu',text:'座位表',href:'main/seatStudent.html'},
 	]
   }else if(role=="teacher"){
 	config[0].menu[0].items=[
-		{id:'message',text:'公告管理',href:'main/Message.html'},
+		{id:'message',text:'公告管理',href:'main/Message.html',closeable : false},
 		{id:'Performance',text:'平时成绩管理',href:'main/Performance.html'},
 		{id:'schedule',text:'课程表',href:'main/schedule.html'},
 		{id:'seat-menu',text:'座位表',href:'main/seat.html'},
