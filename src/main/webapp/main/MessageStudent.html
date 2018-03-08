@@ -38,11 +38,53 @@
     <ul class="list-group" id="msglist" style="margin-top: 5px;">
     	
    	</ul>
-   	<!--
+   	<script>
+   	/*<!--
        	作者：逐流
        	时间：2018-01-20
        	描述：点击msg列表发送请求然后展示在右边
-       -->
+       -->*/
+       $(document).ready(function(){
+    	 //添加鼠标悬停
+    	   $(document).on("mouseover",".list-group-item",function(){
+    	   	 $(this).css("background-color","#EDEDED")
+    	   });
+    	   $(document).on("mouseout",".list-group-item",function(){
+    	   	 $(this).css("background-color","transparent")
+    	   });
+    	  
+    	$(document).on("click","#msglist li",function(){
+			var index = $(this).attr('id');
+    		var data = datas[index];
+    		//$("#seemsgtitle").html(data.title);
+    		//$("#msgcontent").html(data.content);
+			
+			$("#seemsgtitle").text(data.title);
+			$("#sendmsgname").text(data.tname);
+			$("#seemsgid").val(data.id);
+			$("#seemsgid").attr("name", index);
+			$("#seemsg").empty();
+			$("#seemsg").append(data.content)
+//  		$.ajax({
+//  			url:"xxxx",
+//  			data:$(this).val();
+//  		});
+    	})
+    	//function lookmsg(msg_id){
+    		/* $.ajax({
+    			data:msg_id,
+    			type:"post",
+    			url:"xxx",
+    			async:true,
+    			/* 后面改为successcomplete:function(data){
+    				var data={id: 1122,title: "213231",sendname:"jeda",content: msg_id+"<p style='color: #00BFFF; font-size: 20px;'>232111111112</p>"}//后面需要直接删掉
+    			//移除原先的内容，替换新内容；
+    			
+    			}
+    		}); */
+    	//}
+       })
+    </script>
     
    	<div class="" style="float: right;">
     <ul class="pagination" id="page"></ul>
@@ -114,7 +156,7 @@
         $.extend(queryData, {page: page||1, pageSize: pageSize || 10});//提交查询操作的参数
         $.ajax({
             data:queryData,
-            url:'/CRMS/teacher/notice.do',
+            url:'/CRMS/student/notice.do',
             /* 后面改为success*/success:function(data){
             	if(true) alert(data);
             	else{
@@ -161,7 +203,7 @@
 			$.ajax({
 		            type:"post",
 		            dataType:"json",
-		            url:'/CRMS/teacher/notice.do',
+		            url:'/CRMS/student/notice.do',
 		            success:function(data){
 					//data=[{title:"title",content:"content"}];
 		                options.data=data;
