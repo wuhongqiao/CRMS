@@ -47,7 +47,7 @@
 		 <div class="col-md-10"><form id="noticeForm">
 		 	<!--左边文本区-->
 		 	<div class="form-group">
-		    <label for="name">公告班级</label>
+		    <label for="name">选择班级</label>
 		    <div id="divtxt"class="form-control" ></div>
 		    <input type="hidden" class="form-control" name="target" id="target">
 		    <!--觉得收件人不好区分可以加多几个hidden-->
@@ -297,7 +297,7 @@
 					    
 						for(var i in data){
 		            		//这个li设置成不可点击
-							html+='<li class="list-group-item" style="background-color: transparent;">'+
+							html+='<li class="list-group-item" style="background-color: #237237237;">'+
 							'<div id="items" data-toggle="popover" data-placement="left">'+data[i].cname+'</div></li>';
 							
 							//这里是2级列表，可点击
@@ -318,22 +318,50 @@
 		        });
 				$(document).ready(function (){
 					$("#submit").click(function(){
-					$.ajax({
-						data:{'title':$("#title").val(),'content':$("#summernote").summernote('code'),'target':$("#target").val()},
-			            type:"post",
-			            dataType:"json",
-			            url:'/CRMS/teacher/addNotice.do',
-			            success:function(data){
-							if(data=="1"){
-								alert("发布完成")
+						if($("#title").val()!=null&&$("#title").val().trim()!=""){
+							if($("#target").val()!=null&&$("#target").val().trim()!=""){
+								if($("#summernote").summernote('code')!=null&&$("#target").val().trim()!=""){
+										$.ajax({
+											data:{'title':$("#title").val(),'content':$("#summernote").summernote('code'),'target':$("#target").val()},
+								            type:"post",
+								            dataType:"json",
+								            url:'/CRMS/teacher/addNotice.do',
+								            success:function(data){
+												if(data=="1"){
+													$("#title").val("");
+													$("#summernote").summernote('code',"");
+													#("#divtxt").html("");
+													#("#target").val("");
+													alert("发布完成")
+													$.ajax({
+												            type:"post",
+												            dataType:"json",
+												            url:'/CRMS/teacher/notice.do',
+												            success:function(data){
+															//data=[{title:"title",content:"content"}];
+												                options.data=data;
+												    			datas=data;
+												    			page.init(data.length,1,options);
+												            }
+												        });
+												}else{
+													alert("发布出错")
+												}
+								            },
+								            error:function(data){
+								            	alert("错误："+JSON.stringify(data));
+								            }
+								        });
+								}else{
+									alert("内容不能为空");
+								}
 							}else{
-								alert("发布出错")
+								alert("请选择班级");
 							}
-			            },
-			            error:function(data){
-			            	alert("错误："+JSON.stringify(data));
-			            }
-			        });
+						}else{
+							alert("标题不能为空");
+						}
+					
 				})
 				});
 			</script>
@@ -408,7 +436,7 @@
         $('#summernote').summernote();
     });
     $('#summernote').summernote({
-	  height: 800,                 // 定义编辑框高度
+	  height: 200,                 // 定义编辑框高度
 	  minHeight: null,             // 定义编辑框最低的高度
 	  maxHeight: null,             // 定义编辑框最高德高度
 	  toolbar: [
