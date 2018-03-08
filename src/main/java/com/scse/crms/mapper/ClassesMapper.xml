@@ -12,8 +12,8 @@
 	AND classes.year=#{year} AND classes.term=#{term} AND classes_student.sid=#{sid}
   </select>
   <select id="selectScheduleForTeacher" parameterType="com.scse.crms.vo.ClassesVo" resultType="com.scse.crms.vo.ClassesVo">
-    SELECT course.name as cname,teacher.name as tname,classes.id AS classid,classes.week,classes.classroom
-	FROM classes,course,teacher
+    SELECT course.name as cname,teacher.name as tname,classes.id AS classid,classes.week,classes.classroom,classes.shooltime
+	FROM classes,course,teacher 
 	WHERE  classes.cid=course.id AND classes.tid=teacher.id AND teacher.id=#{tid} AND classes.year=#{year} AND classes.term=#{term}
   </select>
   <select id="selectSeat" parameterType="String" resultType="com.scse.crms.vo.SeatTable">

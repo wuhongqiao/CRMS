@@ -262,8 +262,8 @@ function seatTable(r,l){
 	            		url:'/CRMS/teacher/updateSeat.do',
 		            /* 后面改为success*/
 		            	success:function(data){
-		            	
-						getseatbyclassid(classid);
+			            	alert(data);
+							getseatbyclassid(classid);
 						},
 						error:function(){
 							alert("错误！")
@@ -274,18 +274,22 @@ function seatTable(r,l){
 				if(thissid != undefined&&stopsid!=undefined){
 					$.ajax({
 						data:{"seat":stopseat,"sid":thissid},
+						type:'post',
 	            		url:'/CRMS/teacher/updateSeat.do',
-		            /* 后面改为success*/success:function(data){
-						$.ajax({
-						data:{"seat":thisseat,"sid":stopsid},
-	            		url:'/CRMS/teacher/updateSeat.do',
-		            /* 后面改为success*/success:function(data){
-						getseatbyclassid(classid);
-						},
-						error:function(){
-							alert("错误！")
-						}
-	           		 })
+		            /* 后面改为success*/
+		            	success:function(data){
+							$.ajax({
+								data:{"seat":thisseat,"sid":stopsid},
+								type:'post',
+			            		url:'/CRMS/teacher/updateSeat.do',
+				            	success:function(data){
+					            	alert(data);
+									getseatbyclassid(classid);
+								},
+								error:function(){
+									alert("错误！")
+								}
+	           		 		})
 						},
 						error:function(){
 							alert("错误！")
@@ -377,6 +381,7 @@ $(document).ready(function(){
 		});
 	</script>
 	<script>
+	console.log('3-8');
 		function jsonfill2(data,classid){
 //			console.log("jsonfill")
 //			var data = getseatbyclassid(classid);
@@ -448,13 +453,15 @@ $(document).ready(function(){
 						$.ajax({
 						data:{"seat":stopseat,"sid":sid,"classid":classid},
 						type:'post',
-						dataType:'json',
+						dataType:'text',
 	            		url:'/CRMS/teacher/updateSeat.do',
 	            /* 后面改为success*/
 	            		success:function(data){
+	            				alert(data);
 	            				getseatbyclassid(classid);
 							},
-							error:function(){
+							error:function(data){
+								console.log(data);
 								alert("错误！")
 							}
 	            		})
@@ -465,7 +472,7 @@ $(document).ready(function(){
 			}
 		 });
 		}
-		function getseatbyclassid(classid){alert(classid);
+		function getseatbyclassid(classid){//alert(classid);
 			$.ajax({
 						data:{"classid":classid},
 	            		url:'/CRMS/seat.do',
@@ -523,7 +530,7 @@ $(document).ready(function(){
 //			seatTable("10","4,6,3");
 //			jsonfill2(classid);
 //			draggablelist(classid);
-			alert($( "#seatTable td" ).length)
+			//alert($( "#seatTable td" ).length)
 			
 			$("input[name='seat']").change(function(){
 			var s =  $(this).next(".seat").children(".student").children("div").attr("id");
@@ -546,10 +553,12 @@ $(document).ready(function(){
 						$.ajax({
 							data:{"classid":classid,"seat":rms},
 			        		type:'post',
-			        		dataType:'json',
+			        		dataType:'text',
 		            		url:'/CRMS/teacher/removeSeat.do',
-			            /* 后面改为success*/success:function(data){
-							getseatbyclassid(classid);
+			            /* 后面改为success*/
+			            	success:function(data){
+			            		alert(data);
+								getseatbyclassid(classid);
 							},
 							error:function(){
 								alert("错误！")
@@ -595,7 +604,7 @@ $(document).ready(function(){
 						$.ajax({
 						data:{"seat":rms},
 		        		type:'post',
-		        		dataType:'json',
+		        		dataType:'text',
 	            		url:'zhanz',
 		            /* 后面改为success*/success:function(data){
 						getseatbyclassid(classid);

@@ -61,7 +61,7 @@
 			url:"login.do",
 			data:$("#loginform").serialize(),
 			type:"post",
-			dataType:"json",
+			dataType:"text",
 			success:function(data){
 				if(data!="fail"){
 					$.cookie("user", data.id);

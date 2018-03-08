@@ -52,10 +52,20 @@
     	   $(document).on("mouseout",".list-group-item",function(){
     	   	 $(this).css("background-color","transparent")
     	   });
+    	   function getItem(arr,obj) {  
+    	        arrFor: for (var i = 0; i < arr.length; i++) {  
+    	            for (var n in obj)  
+    	                if (arr[i][n]!=obj[n])  
+    	                    continue arrFor;  
+    	            return i;  
+    	        }  
+    	    }  
     	  
     	$(document).on("click","#msglist li",function(){
-			var index = $(this).attr('id');
+			var id = $(this).attr('id');
+			var index=getItem(datas,{'id':id})
     		var data = datas[index];
+			//alert(JSON.stringify(data));
     		//$("#seemsgtitle").html(data.title);
     		//$("#msgcontent").html(data.content);
 			
@@ -183,7 +193,7 @@
 					var cHtml="";
 					for(var i=0;i<result.length;i++){
 							/*将从数据库起请求的数据直循环的插入动态创建的元素*/
-						 cHtml+='<li class="list-group-item" name="msgitem" id="'+i+'">'+
+						 cHtml+='<li class="list-group-item" name="msgitem" id="'+result[i].id+'">'+
 							'<div class="center-block">'+
 									'<div>'+
 										'<span style="color: #00BFFF; font-size: 20px;">'+result[i].title+'</span>'+
@@ -211,7 +221,10 @@
 		    			page.init(data.length,1,options);
 		            },
 		            error:function(data){
-		            	alert("错误："+JSON.stringify(data));
+		            	alert("错误："+data.responseText);
+		            	if(data.responseText=='Insufficient authority'){
+		            		window.parent.location.href='/CRMS/sign_in.html'
+		            	}
 		            }
 		        });
 			var term=getweek();

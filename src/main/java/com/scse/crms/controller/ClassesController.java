@@ -125,11 +125,11 @@ public class ClassesController {
 		}
 		else if(classesService.selectCountWithSeat(seatTable)>0) {
 			if(classesService.removeSeat(seatTable)<1)
-				return "设置座位失败";
+				return "修改座位失败";
 		}
 		if(classesService.updateSeat(seatTable)>0)
-			return "设置座位成功";
-		return "设置座位失败";
+			return "修改座位成功";
+		return "修改座位失败";
 	}
 
 
