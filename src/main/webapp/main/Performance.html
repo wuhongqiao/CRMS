@@ -60,14 +60,17 @@
                         <div class="form-group">
                             <label for="modifyParentNameText">表现分：</label>
                             <input id="modifyParentNameText" type="number"min="1" max="10" maxlength="" class="form-control input-sm">
+                            <span></span>
                         </div>
                         <div class="form-group">
                             <label for="modifyLevelText">考勤分：</label>
                             <input id="modifyLevelText" type="number" min="1" max="10" class="form-control input-sm "><span></span>
+                        	<span></span>
                         </div>
                         <div class="form-group">
                             <label for="modifyDescText">作业分：</label>
-                            <input id="modifyDescText" type="number" min="1" max="30" class="form-control input-sm"><span></span>
+                            <input id="modifyDescText" type="number" min="1" max="40" class="form-control input-sm"><span></span>
+                        	<span></span>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -238,6 +241,7 @@
 
 // 修改
 function modifyPer(row,sid, sname, performance, absenceScore,homework) {
+	tjchecktext();
 	$("#rowindex").val(row);
     $('#modifyidText').val(sid);
     $('#modifyNameText').val(sname);
@@ -248,10 +252,8 @@ function modifyPer(row,sid, sname, performance, absenceScore,homework) {
 }
 
 $('#saveModify').click(function() {
-	if(modifyParentNameText_check()&&modifyLevelText_check()&&modifyDescText_check()){
+	if(tjchecktext()){
 		
-	
-	
     $('#modifyModal').modal('hide');
     bootbox.confirm({
         title: "提示",
@@ -345,8 +347,12 @@ $("#search_btn").click(function(){
 		            dataType:"json",
 		            data:{"year":term.years,"term":term.day},
 		            url:'/CRMS/courseList.do',
-		            success:function(data){  
+		            success:function(data){
 		            	//alert(JSON.stringify(data));
+		            	
+					modifyParentNameText_check();
+					modifyLevelText_check();
+					modifyDescText_check();
 	               		dataCustom =data; 
 	        			$("#search_data").cxSelect({
 	        	  			selects: ['course', 'classes'],
@@ -374,17 +380,64 @@ $("#search_btn").click(function(){
 		
 	</script>
 	<script>
-		//考勤分和表现分
-		 function modifyParentNameText_check() {
-		 $("#modifyParentNameText").blur(function(){ 
-	    	 var reg = /^([1-9]|10)$/; 
-	     	if ($("#modifyParentNameText").val().search(reg) == -1) {
+		function tjchecktext(){
+			 var maxDesc= Number($("#modifyDescText").attr("max"))-20;
+			 var reg = /^([0-9]|10)$/; 
+			if ($("#modifyParentNameText").val().search(reg) == -1) {
+				
 	         $("#modifyParentNameText").next().html("只能评1~10分");
 	          $("#modifyParentNameText").parent().addClass("has-error")
 	         /*alert("密码只能是6-9位数字");*/
 	         	return false;
 	     	} else {
-	         $("#modifyParentNameText").next().html();
+	         $("#modifyParentNameText").next().html("");
+	         $("#modifyParentNameText").parent().removeClass("has-error")
+	     	}
+	     	if ($("#modifyLevelText").val().search(reg) == -1) {
+	          $("#modifyLevelText").parent().addClass("has-error")
+	          $("#modifyLevelText").next().html("只能评1~10分");
+	         	return false;
+	     	} else {
+	         $("#modifyLevelText").next().html("");
+	         $("#modifyLevelText").parent().removeClass("has-error")
+	     	}
+	     	var reg1 
+		  	if(maxDesc == 10){
+		  		reg = /^([0-9]|10)$/;
+		  	}else if(maxDesc == 30){
+		  		reg = /^([0-9]|(1[0-9])|(2[0-9])|30)$/;
+		  	}else if(maxDesc == 20){
+		  		reg = /^([0-9]|(1[0-9])|20)$/;
+		  	}
+		  	 console.log(reg1)
+	    	  
+	     	if ($("#modifyDescText").val().search(reg1) == -1) {
+	          $("#modifyDescText").parent().addClass("has-error")
+	          $("#modifyDescText").next().html("只能评1~10分");
+	         /*alert("密码只能是6-9位数字");*/
+	         	return false;
+	     	} else {
+	         $("#modifyDescText").next().html("");
+	         $("#modifyDescText").parent().removeClass("has-error")
+	     	}
+	     	
+	       		return true;
+		}
+		//考勤分和表现分
+		 function modifyParentNameText_check() {
+		 $("#modifyParentNameText").blur(function(){ 
+	    	 var reg = /^([0-9]|10)$/; 
+	     	if ($("#modifyParentNameText").val().search(reg) == -1) {
+	     		
+	         console.log($("#modifyParentNameText").html());
+	         $("#modifyParentNameText").next().html("只能评1~10分");
+	          $("#modifyParentNameText").parent().addClass("has-error")
+	         /*alert("密码只能是6-9位数字");*/
+	         	return false;
+	     	} else {
+	     		 console.log("2131"+$("#modifyParentNameText").next().html());
+	         $("#modifyParentNameText").next().html("");
+	          console.log("2131next"+$("#modifyParentNameText").next().html());
 	         $("#modifyParentNameText").parent().removeClass("has-error")
 	       		return true;
 	     	}
@@ -394,12 +447,13 @@ $("#search_btn").click(function(){
 	 		}
 		 function modifyLevelText_check() {
 		 $("#modifyLevelText").blur(function(){ 
-	    	 var reg = /^([1-9]|10)$/; 
+	    	 var reg = /^([0-9]|10)$/; 
 	     	if ($("#modifyLevelText").val().search(reg) == -1) {
 	          $("#modifyLevelText").parent().addClass("has-error")
+	         $("#modifyLevelText").next().html("只能评1~10分");
 	         	return false;
 	     	} else {
-	         $("#modifyLevelText").next().html();
+	         $("#modifyLevelText").next().html("");
 	         $("#modifyLevelText").parent().removeClass("has-error")
 	       		return true;
 	     	}
@@ -411,21 +465,23 @@ $("#search_btn").click(function(){
 		  	var maxDesc= Number($("#modifyDescText").attr("max"))-20;
 		  	var reg 
 		  	if(maxDesc == 10){
-		  		reg = /^([1-9]|10)$/;
+		  		reg = /^([0-9]|10)$/;
 		  	}else if(maxDesc == 30){
-		  		reg = /^([1\n2][0-9]|30|[1-9])$/;
+		  		reg = /^([0-9]|(1[0-9])|(2[0-9])|30)$/;
 		  	}else if(maxDesc == 20){
-		  		reg = /^(?!0)\d{1,20}$/;
+		  		reg = /^([0-9]|(1[0-9])|20)$/;
 		  	}
 		  	 console.log(reg)
 		 	$("#modifyDescText").blur(function(){ 
 	    	  
 	     	if ($("#modifyDescText").val().search(reg) == -1) {
 	          $("#modifyDescText").parent().addClass("has-error")
+	          
+	         $("#modifyDescText").next().html("只能评1~"+maxDesc+"分");
 	         /*alert("密码只能是6-9位数字");*/
 	         	return false;
 	     	} else {
-	         $("#modifyDescText").next().html();
+	         $("#modifyDescText").next().html("");
 	         $("#modifyDescText").parent().removeClass("has-error")
 	       		return true;
 	     	}
