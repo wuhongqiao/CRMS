@@ -81,6 +81,33 @@ public class ClassesController {
 		}
 		return new ObjectMapper().writeValueAsString(result);
 	}
+	@RequestMapping(value="/student/courseList.do", produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String courseListForstudent(HttpSession session, ClassesVo classesVo) throws JsonGenerationException, JsonMappingException, IOException {
+		classesVo.setSid(((User)session.getAttribute("user")).getId());
+		List<ClassesVo> schedule = classesService.selectScheduleForStudent(classesVo);
+		Map m = new HashMap();
+		List result = new ArrayList<Map>();
+		for(ClassesVo c : schedule) {
+			if(!m.containsKey(c.getCname()))
+				m.put(c.getCname(), new ArrayList<String>());
+			((List)m.get(c.getCname())).add(c.getClassid());
+		}
+		Map json = new HashMap();
+		Map clist = new HashMap();
+		for(String s : (Set<String>)m.keySet()) {
+			System.out.println("Hometown:"+s);
+			json.put("cname", s);
+			json.put("clist", new ArrayList<Map>());
+			for(String classid : (List<String>)m.get(s)) {
+				clist=new HashMap();
+				clist.put("cname", classid);
+				((List<Map>)json.get("clist")).add(clist);
+			}
+			result.add(json);
+		}
+		return new ObjectMapper().writeValueAsString(result);
+	}
 
 	@RequestMapping(value="/seat.do", produces="text/html;charset=UTF-8")
 	@ResponseBody

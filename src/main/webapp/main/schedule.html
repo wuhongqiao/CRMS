@@ -415,11 +415,11 @@
    	    	$.ajax({
     			data:{"year":year,"term":term},
     			type:"post",
-    			url:"/CRMS/student/schedule.do",
+    			url:"/CRMS/"+$.cookie("role")+"/schedule.do",
 				dataType:"json",
     			async:true,
     			success:function(data){
-					alert(JSON.stringify(data));
+					//alert(JSON.stringify(data));
   					jsonfill(data);
     				classcolor(week);
 					}
@@ -470,8 +470,8 @@
 		     	{"cname":"aa2","clist":[{"cname":"cc2"},{"cname":"cc2"}]}];
 		
 		var data=[];
-		var sign = "20"+$.cookie("user")+"5";
-		alert(sign);
+		var sign = "20"+$.cookie("user").substr(0,2);
+		//alert(sign);
 		var year = new Date().getFullYear();
 		for(var asign=Number(sign);asign <=year-1; asign++){
 			var temp = {"cname":asign+"-"+(asign+1),"value":asign,"clist":[{"cname":"一","value":1},{"cname":"二",value:2}]};

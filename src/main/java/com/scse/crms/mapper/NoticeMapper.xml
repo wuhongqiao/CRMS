@@ -7,16 +7,17 @@
     <foreach item="item" collection="list" separator="OR" open="AND(" close=")" index="">  
       target LIKE CONCAT(CONCAT('%', #{item.target}),'%')
     </foreach>
+    ORDER BY notice.id
   </select>
   <select id="selectNoticeForTeacher" parameterType="String" resultType="com.scse.crms.vo.NoticeVo">
-    SELECT notice.*,teacher.name tname FROM notice,teacher WHERE tid=#{tid} AND notice.tid=teacher.id
+    SELECT notice.*,teacher.name tname FROM notice,teacher WHERE tid=#{tid} AND notice.tid=teacher.id ORDER BY notice.id DESC
   </select>
   <select id="selectClassesBySid" parameterType="String" resultType="com.scse.crms.po.Notice">
     SELECT classid as target FROM classes_student WHERE sid=#{sid}
   </select>
   
   <insert id="addNotice" parameterType="com.scse.crms.po.Notice">
-    INSERT notice(id, tid, title, content, target, DATE, effective) VALUE(UNIX_TIMESTAMP(NOW()), 2, 'title', 'content', '1', CURDATE(), NULL)
+    INSERT notice(id, tid, title, content, target, DATE, effective) VALUE(UNIX_TIMESTAMP(NOW()), #{tid}, #{title}, #{content}, #{target}, CURDATE(), NULL)
   </insert>
   
   <delete id="deleteNoticeById" parameterType="String">

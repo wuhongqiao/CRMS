@@ -346,7 +346,7 @@ $("#search_btn").click(function(){
 		            data:{"year":term.years,"term":term.day},
 		            url:'/CRMS/courseList.do',
 		            success:function(data){  
-		            	alert(JSON.stringify(data));
+		            	//alert(JSON.stringify(data));
 	               		dataCustom =data; 
 	        			$("#search_data").cxSelect({
 	        	  			selects: ['course', 'classes'],

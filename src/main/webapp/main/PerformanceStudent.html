@@ -14,6 +14,7 @@
 		<script type="text/javascript" src="../assets/js/bootstrap-table.js" ></script>
 		<script type="text/javascript" src="../assets/js/bootstrap-table-zh-CN.js" ></script>
 		<script type="text/javascript" src="../assets/js/jquery.cxselect.js" ></script>
+		<script type="text/javascript" src="../assets/js/jquery.cookie.js" ></script>
 		<script type="text/javascript" src="../assets/js/bootbox.js" ></script>
 	<script src="../assets/js/term.js"></script>
 	</header>
@@ -138,7 +139,7 @@
             columns: [{
                 checkbox: true
             },{
-                field: 'performance',
+                field: 'cname',
                 title: '课程'
             },{
                 field: 'performance',
@@ -216,15 +217,16 @@
 	</script>
 	<script>
 		var dataCustom=[{"value":"1","cname":"aa","clist":[{"cname":"bb"},{"cname":"bb2"}]},
-		     	{"cname":"aa2","clist":[{"cname":"cc2"},{"cname":"cc2"}]}];
+		     	{"cname":"2","clist":[{"cname":"cc2"},{"cname":"cc2"}]}];
 		
 		//替换数据每次打开请求一次有后台打开注释
 	
-  	var data=[];
-		var sign = 2015;
+		var data=[];
+		var sign = "20"+$.cookie("user").substr(0,2);
+		//alert(sign);
 		var year = new Date().getFullYear();
-		for(var asign=sign;asign <=year; asign++){
-			var temp = {"cname":asign+"-"+(asign+1),"clist":[{"cname":"一"},{"cname":"二"}]};
+		for(var asign=year-1;asign >= Number(sign); asign--){
+			var temp = {"cname":asign+"-"+(asign+1),"value":asign,"clist":[{"cname":"一","value":1},{"cname":"二",value:2}]};
 			data.push(temp);
 		}	
 		
@@ -246,9 +248,33 @@
    			required: false,
     		jsonName: 'cname',
     		jsonSub:'clist',
+    		jsonValue:'value',
     		firstTitl:'请选择',
-   			data: dataCustom
+   			data: data
 		});
+		
+		$(document).ready(function (){
+			
+			$("#search_btn").click(function(){
+				if($(".classes").val()!=null){
+				$.ajax({
+    			data:{"year":$(".course").val(),"term":$(".classes").val()},
+    			type:"post",
+    			url:"/CRMS/student/score.do",
+				dataType:"json",
+    			async:true,
+    			success:function(data){
+	        	  //alert(JSON.stringify(data));
+				  $("#mytab").bootstrapTable('load',data);
+					},
+				error:function(){
+					alert("错误！")
+				}
+    		});
+				}
+			})
+			
+		})
 		
 	</script>
 </html>

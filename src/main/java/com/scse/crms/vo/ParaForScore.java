@@ -5,6 +5,8 @@ public class ParaForScore {
 	String sid;
 	String cid;
 	String tid;
+	String year;
+	String term;
 	String usual_performance;
 	public String getUsual_performance() {
 		return usual_performance;
@@ -35,6 +37,18 @@ public class ParaForScore {
 	}
 	public void setTid(String tid) {
 		this.tid = tid;
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
+	public String getTerm() {
+		return term;
+	}
+	public void setTerm(String term) {
+		this.term = term;
 	}
 	
 }
