@@ -71,7 +71,7 @@
 				}
 			},
 			error:function(data){
-				if(data!="fail"){
+				if(data.responseTex!="fail"){
 					alert("错误:"+JSON.stringify(data));
 				}else{
 					alert("用户名或密码错误");
