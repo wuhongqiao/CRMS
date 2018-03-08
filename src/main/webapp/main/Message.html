@@ -283,7 +283,10 @@
 		    			page.init(data.length,1,options);
 		            },
 		            error:function(data){
-		            	alert("错误："+JSON.stringify(data));
+		            	alert("错误："+data.responseText);
+		            	if(data.responseText=='Insufficient authority'){
+		            		window.parent.location.href='/CRMS/sign_in.html'
+		            	}
 		            }
 		        });
 			var term=getweek();
@@ -313,7 +316,10 @@
 		            	$("#TeachingClass").html(html);
 		            },
 		            error:function(data){
-		            	alert("错误："+JSON.stringify(data));
+		            	alert("错误："+data.responseText);
+		            	if(data.responseText=='Insufficient authority'){
+		            		window.parent.location.href='/CRMS/sign_in.html'
+		            	}
 		            }
 		        });
 				$(document).ready(function (){
@@ -349,7 +355,10 @@
 												}
 								            },
 								            error:function(data){
-								            	alert("错误："+JSON.stringify(data));
+								            	alert("错误："+data.responseText);
+								            	if(data.responseText=='Insufficient authority'){
+								            		window.parent.location.href='/CRMS/sign_in.html'
+								            	}
 								            }
 								        });
 								}else{
@@ -398,9 +407,12 @@
 										alert("删除过程出错!");
 									}
 								},
-								error:function(){
-									alert("错误！")
-								}
+								error:function(data){
+					            	alert("错误："+data.responseText);
+					            	if(data.responseText=='Insufficient authority'){
+					            		window.parent.location.href='/CRMS/sign_in.html'
+					            	}
+					            }
 								})
         			}
 						})
