@@ -268,7 +268,10 @@
 				  $("#mytab").bootstrapTable('load',data);
 					},
 				error:function(){
-					alert("错误！")
+	            	alert("错误："+data.responseText);
+	            	if(data.responseText=='Insufficient authority'){
+	            		window.parent.location.href='/CRMS/sign_in.html'
+	            	}
 				}
     		});
 				}

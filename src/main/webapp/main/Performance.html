@@ -291,7 +291,10 @@ $('#saveModify').click(function() {
 	        		  alert("修改失败");
 	          },
 	          error:function(data){
-	        	  alert("error:"+JSON.stringify(data));
+	            	alert("错误："+data.responseText);
+	            	if(data.responseText=='Insufficient authority'){
+	            		window.parent.location.href='/CRMS/sign_in.html'
+	            	}
 	          }
 	        })
 //              if (verifyNameAndAddress(name, address)) {
@@ -326,7 +329,10 @@ $("#search_btn").click(function(){
 					modifyDescText_check();
 	          },
 	          error:function(data){
-	        	  alert("error:"+JSON.stringify(data));
+	            	alert("错误："+data.responseText);
+	            	if(data.responseText=='Insufficient authority'){
+	            		window.parent.location.href='/CRMS/sign_in.html'
+	            	}
 	          }
 	        })
 	}else{
@@ -364,7 +370,10 @@ $("#search_btn").click(function(){
 	        			});
 		            },
 		            error:function(data){  
-		            	alert("error:"+JSON.stringify(data));
+		            	alert("错误："+data.responseText);
+		            	if(data.responseText=='Insufficient authority'){
+		            		window.parent.location.href='/CRMS/sign_in.html'
+		            	}
 		            }
           });
 
