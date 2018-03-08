@@ -264,9 +264,11 @@ $(document).ready(function(){
         			});
         			if(classid!=null) $("classes").val(classid);
 	            },
-	            error:function(data){  
-	            	alert("error:"+JSON.stringify(data));
-	            }
+				error:function(){
+	            	alert("错误："+data.responseText);
+	            	if(data.responseText=='Insufficient authority'){
+	            		window.parent.location.href='/CRMS/sign_in.html'
+	            	}
       }); 
 			
 			
@@ -286,7 +288,11 @@ $(document).ready(function(){
 		            	seatTable(data.row,data.rank);
 						getseatbyclassid(classid);
 		            },
-		            error:function(data){alert("错误！")}
+					error:function(){
+		            	alert("错误："+data.responseText);
+		            	if(data.responseText=='Insufficient authority'){
+		            		window.parent.location.href='/CRMS/sign_in.html'
+		            	}
 					})
 				}else{
 			    	alert("请选择查询对象")
@@ -378,8 +384,10 @@ $(document).ready(function(){
 		            				getseatbyclassid(classid);
 								},
 								error:function(){
-									alert("错误！")
-								}
+					            	alert("错误："+data.responseText);
+					            	if(data.responseText=='Insufficient authority'){
+					            		window.parent.location.href='/CRMS/sign_in.html'
+					            	}
 		            		})
 					}
 				}
@@ -409,7 +417,11 @@ $(document).ready(function(){
             	 	 console.log(data);
                  
 				},
-				error:function(){alert("错误！")}
+				error:function(){
+	            	alert("错误："+data.responseText);
+	            	if(data.responseText=='Insufficient authority'){
+	            		window.parent.location.href='/CRMS/sign_in.html'
+	            	}
 				})
 			
 		}
@@ -436,7 +448,11 @@ $(document).ready(function(){
 		            	seatTable(data.row,data.rank);
 						getseatbyclassid(classid);
 		            },
-		            error:function(data){alert("错误！")}
+					error:function(){
+		            	alert("错误："+data.responseText);
+		            	if(data.responseText=='Insufficient authority'){
+		            		window.parent.location.href='/CRMS/sign_in.html'
+		            	}
 					})
 				
 			}
@@ -541,8 +557,10 @@ $(document).ready(function(){
 							getseatbyclassid(classid);
 							},
 							error:function(){
-								alert("错误！")
-							}
+				            	alert("错误："+data.responseText);
+				            	if(data.responseText=='Insufficient authority'){
+				            		window.parent.location.href='/CRMS/sign_in.html'
+				            	}
 	           		 	})
 					}
 				})
@@ -552,9 +570,15 @@ $(document).ready(function(){
 						$.ajax({
 						data:{"classid":classid},
 	            		url:'rmallseat',
-		            /* 后面改为success*/complete:function(data){
-						getseatbyclassid(classid);
-						}
+		            /* 后面改为success*/
+		            	success:function(data){
+							getseatbyclassid(classid);
+						},
+						error:function(){
+			            	alert("错误："+data.responseText);
+			            	if(data.responseText=='Insufficient authority'){
+			            		window.parent.location.href='/CRMS/sign_in.html'
+			            	}
 	           		 })
 					
 				})
@@ -564,9 +588,15 @@ $(document).ready(function(){
 					$.ajax({
 						data:{"classid":classid},
 	            		url:'paixv',
-		            /* 后面改为success*/complete:function(data){
+		            /* 后面改为success*/
+		            	success:function(data){
 						getseatbyclassid(classid);
-						}
+						},
+						error:function(){
+			            	alert("错误："+data.responseText);
+			            	if(data.responseText=='Insufficient authority'){
+			            		window.parent.location.href='/CRMS/sign_in.html'
+			            	}
 	           		 })
 				})
 			//占座
@@ -585,8 +615,10 @@ $(document).ready(function(){
 						getseatbyclassid(classid);
 						},
 						error:function(){
-							alert("错误！")
-						}
+			            	alert("错误："+data.responseText);
+			            	if(data.responseText=='Insufficient authority'){
+			            		window.parent.location.href='/CRMS/sign_in.html'
+			            	}
 	           		 })
 					}else{
 						alert("女神旁边的位置已经占满了~");
