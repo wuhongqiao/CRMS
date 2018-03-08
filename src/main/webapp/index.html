@@ -50,7 +50,7 @@
   }];
   
   var role=$.cookie("role");
-  if(role==null||role=="") window.location.href='/CRMS/sign_in.html';
+  if(role==null||role==""||role == undefined ) window.location.href='/CRMS/sign_in.html';
 
   if(role=="student"){
 	config[0].menu[0].items=[

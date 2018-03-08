@@ -476,7 +476,9 @@
 		     	{"cname":"aa2","clist":[{"cname":"cc2"},{"cname":"cc2"}]}];
 		
 		var data=[];
-		var sign = "20"+$.cookie("user").substr(0,2);
+		var user=$.cookie("user")
+		if(user==null||user==""||user == undefined ) window.location.href='/CRMS/sign_in.html';
+		var sign = "20"+user.substr(0,2);
 		//alert(sign);
 		var year = new Date().getFullYear();
 		for(var asign=Number(sign);asign <=year-1; asign++){

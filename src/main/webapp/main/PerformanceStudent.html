@@ -222,7 +222,9 @@
 		//替换数据每次打开请求一次有后台打开注释
 	
 		var data=[];
-		var sign = "20"+$.cookie("user").substr(0,2);
+		var user=$.cookie("user")
+		if(user==null||user==""||user == undefined ) window.location.href='/CRMS/sign_in.html';
+		var sign = "20"+user.substr(0,2);
 		//alert(sign);
 		var year = new Date().getFullYear();
 		for(var asign=year-1;asign >= Number(sign); asign--){
