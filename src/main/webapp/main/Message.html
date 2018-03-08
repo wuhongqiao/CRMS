@@ -58,7 +58,7 @@
 		 	</div>
 		    <label for="name">内容</label>
 		    <!--summernote文本编辑器 -->
-		 	<div id="summernote"><p>Hello Summernote</p></div>
+		 	<div id="summernote"></div>
 		 	<!--
            	作者：
           	时间：2018-01-20
@@ -298,7 +298,7 @@
 						for(var i in data){
 		            		//这个li设置成不可点击
 							html+='<li class="list-group-item" style="background-color: transparent;">'+
-							'<div id="item" data-toggle="popover" data-placement="left">'+data[i].cname+'</div></li>';
+							'<div id="items" data-toggle="popover" data-placement="left">'+data[i].cname+'</div></li>';
 							
 							//这里是2级列表，可点击
 							html+='<ul>';
