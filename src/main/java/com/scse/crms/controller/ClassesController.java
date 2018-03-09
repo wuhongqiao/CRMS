@@ -70,6 +70,7 @@ public class ClassesController {
 		Map clist = new HashMap();
 		for(String s : (Set<String>)m.keySet()) {
 			System.out.println("Hometown:"+s);
+			json = new HashMap();
 			json.put("cname", s);
 			json.put("clist", new ArrayList<Map>());
 			for(String classid : (List<String>)m.get(s)) {
