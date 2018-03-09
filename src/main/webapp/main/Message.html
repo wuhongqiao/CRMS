@@ -302,16 +302,16 @@
 						for(var i in data){
 		            		//这个li设置成不可点击
 							html+='<li class="list-group-item" style="background-color: #237237237;">'+
-							'<div id="items" data-toggle="popover" data-placement="left">'+data[i].cname+'</div></li>';
+							'<div id="items" data-toggle="popover" data-placement="left"><b>'+data[i].cname+'：</b></div></li>';
 							
 							//这里是2级列表，可点击
-							html+='<ul>';
+							//html+='<ul>';
 							var clist=data[i].clist;
 							for(var j in clist){
 								html+='<li class="list-group-item" style="background-color: transparent;">'+
-								'<div id="item" alt="'+clist[j].cname+'" data-toggle="popover" data-placement="left">'+clist[j].cname+'</div></li>';
+								'<div id="item" alt="'+clist[j].cname+'" data-toggle="popover" data-placement="left">&emsp;'+clist[j].cname+'</div></li>';
 							}
-							html+='</ul>';
+							//html+='</ul>';
 						}
 		            	html+='</ul></div>'
 		            	$("#TeachingClass").html(html);
@@ -375,13 +375,13 @@
 				$("#delmsg").on("click",function(){
 					
 					var msgid = $("#seemsgid").val();
-					alert(msgid);
 					if(msgid!=null&& msgid!=""){
 						bootbox.confirm({
 							title: "提示",
        				message: '确认删除？',
         			callback: function (flag) {
-        				$.ajax({
+        				if(flag){
+	        				$.ajax({
 								data: {"id":msgid},
 								url:"/CRMS/teacher/deleteNoticeById.do",
 								type:"post",
@@ -389,7 +389,6 @@
 									if(data=='1'){
 										options.data.splice($("#seemsgid").attr("name"),1);
 										page.init(options.data.length,1,options);
-										alert("ok");
 										
 										$("#seemsgtitle").text("");
 										$("#sendmsgname").text("");
@@ -405,7 +404,8 @@
 					            		window.parent.location.href='/CRMS/sign_in.html'
 					            	}
 					            }
-								})
+							})
+        				}
         			}
 						})
 					}else{
@@ -485,7 +485,7 @@
 	$(function(){  
 	 //点击教学班列表到收件人
 	  $("div#item").on("click",function(){
-		  var $mailTo=$(this).text();//收件人名称
+		  var $mailTo=$(this).text().trim();//收件人名称
 		  
 		  var $mailToId=$(this).attr("alt");//收件人Id
 		  var $divtxt_val=$("#divtxt").text();//收件人框中的值

@@ -199,7 +199,6 @@
 
 // 修改
 function modifyPer(row,sid, sname, performance, absenceScore,homework) {
-	tjchecktext();
 	$("#rowindex").val(row);
     $('#modifyidText').val(sid);
     $('#modifyNameText').val(sname);
@@ -207,6 +206,7 @@ function modifyPer(row,sid, sname, performance, absenceScore,homework) {
     $('#modifyLevelText').val(absenceScore);
     $('#modifyDescText').val(homework);
     $('#modifyModal').modal('show');
+	tjchecktext();
 }
 
 $('#saveModify').click(function() {
@@ -279,7 +279,7 @@ $("#search_btn").click(function(){
 	//          contentType: 'application/json',
 	          dataType:"json",
 	          success:function(data){
-	        	  alert(JSON.stringify(data));
+	        	  //alert(JSON.stringify(data));
 				  $("#mytab").bootstrapTable('load',data);
 				  $("#modifyDescText").attr("max",data[0].proportion);
 					modifyParentNameText_check();
