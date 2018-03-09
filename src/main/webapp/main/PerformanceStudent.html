@@ -269,7 +269,7 @@
 	        	  //alert(JSON.stringify(data));
 				  $("#mytab").bootstrapTable('load',data);
 					},
-				error:function(){
+				error:function(data){
 	            	alert("错误："+data.responseText);
 	            	if(data.responseText=='Insufficient authority'){
 	            		window.parent.location.href='/CRMS/sign_in.html'

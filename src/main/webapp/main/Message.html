@@ -271,8 +271,8 @@
 					$("#msglist").html(cHtml);
 				}
 			};
-			
-			$.ajax({
+			function getNoticeList(){//alert("getNoticeList");
+				$.ajax({
 		            type:"post",
 		            dataType:"json",
 		            url:'/CRMS/teacher/notice.do',
@@ -289,6 +289,7 @@
 		            	}
 		            }
 		        });
+			}
 			var term=getweek();
 			$.ajax({
 		            type:"post",
@@ -339,18 +340,8 @@
 													$("#summernote").summernote('code',"");
 													$("#divtxt").html("");
 													$("#target").val("");
-													alert("发布完成")
-													$.ajax({
-												            type:"post",
-												            dataType:"json",
-												            url:'/CRMS/teacher/notice.do',
-												            success:function(data){
-															//data=[{title:"title",content:"content"}];
-												                options.data=data;
-												    			datas=data;
-												    			page.init(data.length,1,options);
-												            }
-												        });
+													alert("发布完成,将为您更新公告列表")
+													getNoticeList();
 												}else{
 													alert("发布出错")
 												}
@@ -447,6 +438,7 @@
 <script>
     $(document).ready(function() {
         $('#summernote').summernote();
+        getNoticeList();
     });
     $('#summernote').summernote({
 	  height: 200,                 // 定义编辑框高度

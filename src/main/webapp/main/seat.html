@@ -125,7 +125,7 @@ input[type=radio]{
   		<table id="seatTable">
   		</table>
   	</div>
-  	<div class="col-md-2 " >
+  	<div id="studentList" class="col-md-2 " >
   	  	<!--<div class="panel-group">
   		<div class="col-lg-8">
 			    <input type="text" class="form-control" id="exampleInputName2" placeholder="输入内容">
@@ -265,7 +265,7 @@ function seatTable(r,l){
 			            	alert(data);
 							getseatbyclassid(classid);
 						},
-						error:function(){
+						error:function(data){
 			            	alert("错误："+data.responseText);
 			            	if(data.responseText=='Insufficient authority'){
 			            		window.parent.location.href='/CRMS/sign_in.html'
@@ -288,12 +288,12 @@ function seatTable(r,l){
 					            	alert(data);
 									getseatbyclassid(classid);
 								},
-								error:function(){
+								error:function(data){
 									alert("错误！")
 								}
 	           		 		})
 						},
-						error:function(){
+						error:function(data){
 							alert("错误！")
 						}
 	           		 })
@@ -369,7 +369,7 @@ $(document).ready(function(){
 		            	seatTable(data.row,data.rank);
 						getseatbyclassid(classid);
 		            },
-					error:function(){
+					error:function(data){
 		            	alert("错误："+data.responseText);
 		            	if(data.responseText=='Insufficient authority'){
 		            		window.parent.location.href='/CRMS/sign_in.html'
@@ -470,7 +470,7 @@ $(document).ready(function(){
 	            				alert(data);
 	            				getseatbyclassid(classid);
 							},
-							error:function(){
+							error:function(data){
 				            	alert("错误："+data.responseText);
 				            	if(data.responseText=='Insufficient authority'){
 				            		window.parent.location.href='/CRMS/sign_in.html'
@@ -500,12 +500,13 @@ $(document).ready(function(){
 //								{"sid":"1440121108","sname":"我想跳楼","classid":null,"cid":"1","classroom":"B201","seat":"B6","usual_performance":"2"},
 //								{"sid":"1440121109","sname":"啊啊啊啊","classid":null,"cid":"1","classroom":"B201","seat":"B1","usual_performance":"2"},]
 							seatmpty();
-							jsonfill2(data,classid)
+							jsonfill2(data,classid);
+							$(".pre-scrollable").css("max-height",$(window).height()-90);
 		               //请求完都需要操作下面东东
 		            	 	 console.log(data);
 		                 
 						},
-						error:function(){
+						error:function(data){
 			            	alert("错误："+data.responseText);
 			            	if(data.responseText=='Insufficient authority'){
 			            		window.parent.location.href='/CRMS/sign_in.html'
@@ -535,7 +536,7 @@ $(document).ready(function(){
 		            	seatTable(data.row,data.rank);
 						getseatbyclassid(classid);
 		            },
-					error:function(){
+					error:function(data){
 		            	alert("错误："+data.responseText);
 		            	if(data.responseText=='Insufficient authority'){
 		            		window.parent.location.href='/CRMS/sign_in.html'
@@ -582,7 +583,7 @@ $(document).ready(function(){
 			            		alert(data);
 								getseatbyclassid(classid);
 							},
-							error:function(){
+							error:function(data){
 				            	alert("错误："+data.responseText);
 				            	if(data.responseText=='Insufficient authority'){
 				            		window.parent.location.href='/CRMS/sign_in.html'
@@ -600,7 +601,7 @@ $(document).ready(function(){
 		            /* 后面改为success*/success:function(data){
 						getseatbyclassid(classid);
 						},
-						error:function(){
+						error:function(data){
 			            	alert("错误："+data.responseText);
 			            	if(data.responseText=='Insufficient authority'){
 			            		window.parent.location.href='/CRMS/sign_in.html'
@@ -618,7 +619,7 @@ $(document).ready(function(){
 		            /* 后面改为success*/success:function(data){
 						getseatbyclassid(classid);
 						},
-						error:function(){
+						error:function(data){
 			            	alert("错误："+data.responseText);
 			            	if(data.responseText=='Insufficient authority'){
 			            		window.parent.location.href='/CRMS/sign_in.html'
@@ -640,7 +641,7 @@ $(document).ready(function(){
 		            /* 后面改为success*/success:function(data){
 						getseatbyclassid(classid);
 						},
-						error:function(){
+						error:function(data){
 			            	alert("错误："+data.responseText);
 			            	if(data.responseText=='Insufficient authority'){
 			            		window.parent.location.href='/CRMS/sign_in.html'
