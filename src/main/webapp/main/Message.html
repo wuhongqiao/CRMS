@@ -324,9 +324,10 @@
 		        });
 				$(document).ready(function (){
 					$("#submit").click(function(){
+						//alert($("#summernote").summernote("editor.isEmpty"));
 						if($("#title").val()!=null&&$("#title").val().trim()!=""){
 							if($("#target").val()!=null&&$("#target").val().trim()!=""){
-								if($("#summernote").summernote('code')!=null&&$("#summernote").text()!=""){
+								if(!$("#summernote").summernote("editor.isEmpty")){
 										$.ajax({
 											data:{'title':$("#title").val(),'content':$("#summernote").summernote('code'),'target':$("#target").val()},
 								            type:"post",
