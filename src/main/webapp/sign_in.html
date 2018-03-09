@@ -56,28 +56,32 @@
 </script>
 <script type="text/javascript">
 	$("#submit").click(function(){
-		$.ajax({
-			url:"login.do",
-			data:$("#loginform").serialize(),
-			type:"post",
-			dataType:"json",
-			success:function(data){
-				if(data!="fail"){
-					$.cookie("user", data.id);
-					$.cookie("role", data.role);
-					window.location.href="/CRMS/index.html";
-				}else{
-					alert("用户名或密码错误");
+		if($("#login").val()==""||$("#password").val()=="")
+			alert("用户名和密码不能为空");
+		else{
+			$.ajax({
+				url:"login.do",
+				data:$("#loginform").serialize(),
+				type:"post",
+				dataType:"json",
+				success:function(data){
+					if(data!="fail"){
+						$.cookie("user", data.id);
+						$.cookie("role", data.role);
+						window.location.href="/CRMS/index.html";
+					}else{
+						alert("用户名或密码错误");
+					}
+				},
+				error:function(data){
+					if(data.responseTex!="fail"){
+						alert("错误:"+JSON.stringify(data));
+					}else{
+						alert("用户名或密码错误");
+					}
 				}
-			},
-			error:function(data){
-				if(data.responseTex!="fail"){
-					alert("错误:"+JSON.stringify(data));
-				}else{
-					alert("用户名或密码错误");
-				}
-			}
-		})
+			})
+		}
 	})
 </script>
 </html>
