@@ -275,13 +275,13 @@ function seatTable(r,l){
 				}
 				if(thissid != undefined&&stopsid!=undefined){
 					$.ajax({
-						data:{"seat":stopseat,"sid":thissid},
+						data:{"seat":stopseat,"sid":thissid,"classid":classid},
 						type:'post',
 	            		url:'/CRMS/teacher/updateSeat.do',
 		            /* 后面改为success*/
 		            	success:function(data){
 							$.ajax({
-								data:{"seat":thisseat,"sid":stopsid},
+								data:{"seat":thisseat,"sid":stopsid,"classid":classid},
 								type:'post',
 			            		url:'/CRMS/teacher/updateSeat.do',
 				            	success:function(data){
