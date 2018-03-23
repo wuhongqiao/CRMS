@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<!DOCTYPE HTML>  
+<html>  
+	<head>
+		<title>课程表</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		
+		<script type="text/javascript" src="../assets/js/jquery-3.2.1.min.js" ></script>
+		<script type="text/javascript" src="../assets/js/bootstrap.min.js" ></script>
+		<link rel="stylesheet" href="../assets/css/BS/css/bootstrap.css" />
+		<script type="text/javascript" src="../assets/js/jquery.cxselect.js" ></script>
+			<style>
+				.divcss5{ 
+					border:1px dashed #00BFFF; 
+					height:100%; 
+					width:100%; 
+					border-radius: 5px;
+					color: #000;
+					background-color: #e5f3fb;
+					padding-top: 5px;
+						}
+				.divcss5 hr{
+					margin-top: 5px;
+					margin-bottom: 5px;
+					border-top: 1px double black;
+				}
+				.divcss5:hover{
+					border-color: #0058B4;
+					background-color: #d1e8ff;
+					     
+				}
+				.divexpire{
+					border:1px dashed #00BFFF; 
+					height:100%; 
+					width:100%;  
+					border-radius: 5px;
+					color: #E0E0E0;
+					padding-top: 5px;
+					background-color: #9D9D9D;
+				}	
+				.divexpire hr{
+					margin-top: 5px;
+					margin-bottom: 5px;
+					border-top: 1px double black;
+				}
+			</style>
+	</head>
+	
+<body>
+	<form>
+		<div class="panel panel-default">
+			    <div id="search_biao" class="panel-body form-group col-md-4" style="margin-bottom:0px;">
+				        <label class="col-lg-2 " style="text-align: right; margin-top: 5px;">学年:</label>
+				        <div class="col-lg-4">
+				            <select style="font-size:20px;width: 120px; margin-top: 2px;" class="course">
+				            </select>
+				        </div>
+				        <label class="col-lg-2 " style="text-align: right; margin-top: 5px;">学期:</label>
+				        <div class="col-lg-2">
+				            <select style="font-size:20px;width: 50px; margin-top: 2px;" class="classes" >
+				            </select>
+				        </div>
+			    </div>
+			    <div class="col-md-4 panel-body form-group"style="margin-bottom:0px;">
+				    <button class="btn btn-mini btn-primary" type="button" id="search_btn">查询</button>
+				</div>
+				<div class="col-md-4 panel-body form-group"style="margin-bottom:0px;">
+					<label class="col-lg-2 " style="text-align: right; margin-top: 5px;">选周:</label>
+				    <button class="btn btn-link" type="button" id="biaoleft">  
+        				<span class="glyphicon glyphicon-chevron-left"></span>
+    				</button>  
+    				<select id="biaoselect">
+					  <option value="1">1</option>
+					  <option value="2">2</option>
+					  <option value="3">3</option>
+					  <option value="4">4</option>
+					  <option value="5">5</option>
+					  <option value="6">6</option>
+					  <option value="7">7</option>
+					  <option value="8">8</option>
+					  <option value="9">9</option>
+					  <option value="10">10</option>
+					  <option value="11">11</option>
+					  <option value="12">12</option>
+					  <option value="13">13</option>
+					  <option value="14">14</option>
+					  <option value="15">15</option>
+					  <option value="16">16</option>
+					  <option value="17">17</option>
+					  <option value="18">18</option>
+					  <option value="19">19</option>
+					  <option value="20">20</option>
+					</select>
+    				<button class="btn btn-link" type="button" id="biaoright">  
+        				<span class="glyphicon glyphicon-chevron-right"></span>
+    				</button>  
+				</div>
+			</div>
+			<script>
+				function biaodisabled(selectedtext){
+					if(selectedtext<=1){
+						$("#biaoleft").addClass('disabled');
+					}else{
+						$("#biaoleft").removeClass('disabled');
+					}
+					if(selectedtext>=20){
+						$("#biaoright").addClass('disabled');
+					}else{
+						$("#biaoright").removeClass('disabled');
+						}
+				}
+				
+			</script>
+		</form>
+	<table width="95%" bordercolor="#999999" cellspacing="0" bordercolordark="#ffffff" cellpadding="0" border="0" align="center">
+		<tbody><tr>
+			
+		      <td height="25" align="center" valign="top" colspan="8">
+					<!--<table class="table table-bordered" cellspacing="0" cellpadding="0" width="100%" border="0" align="center">
+						<tbody><tr height="25">
+						  <td width="70%" nowrap=""></td>
+		                  <td width="14%" nowrap="">&nbsp;<span>
+		                  <span >
+		                  
+		                  </span>&nbsp;</span>&nbsp;</td>
+						  <td width="8%" nowrap=""><div align="right"><font face="宋体" id="showtime1"></font></div></td>
+						  <td width="8%" align="right" nowrap=""></td>
+						</tr>
+					</tbody></table>-->
+					<div align="right"><font face="宋体" id="showtime1"></font></div>
+		      </td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="table table-bordered" 	bordercolor="#999999" cellspacing="0" bordercolordark="#ffffff" cellpadding="0" width="95%" border="1" align="center">
+		<tbody id="section">
+			<tr height="20" bgcolor="#e6e6e6" nowrap="">
+		    	<td width="10%" align="center"  nowrap="">&nbsp;</td>
+				<td width="10%" align="center"  nowrap=""><strong>星期一</strong></td>
+				<td width="10%" align="center"  nowrap=""><strong>星期二</strong></td>
+				<td width="10%" align="center"  nowrap=""><strong>星期三</strong></td>
+				<td width="10%" align="center"  nowrap=""><strong>星期四</strong></td>
+				<td width="10%" align="center"  nowrap=""><strong>星期五</strong></td>
+			    <td width="10%" align="center"  nowrap=""><strong>星期六</strong></td>
+			    <td width="10%" align="center"  nowrap=""><strong>星期日</strong></td>
+			</tr>
+		    <tr height="20" bgcolor="#FFFFFF" id="firstsection">
+		    	<td width="10%" align="center" valign="top" >1 - 2 节<br>09:00 - 10:20</td>
+		    	<td width="10%" align="left" valign="top" id="td1" >&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td2" >&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td3">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td4">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td5">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td6" >&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td7" >&nbsp;</td>
+		    </tr>
+		    <tr height="20" bgcolor="#FFFFFF">
+		    	<td width="10%" align="center" valign="top" >3 - 4 节<br>10:40 - 12:00</td>
+		    	<td width="10%" align="left" valign="top" id="td8" >&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td9" >&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td10" >&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td11" >&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td12" >&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td13" >&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td14" >&nbsp;</td>
+		    </tr>
+		    <tr height="20" bgcolor="#FFFFFF">
+		    	<td width="10%" align="center" valign="top" >5 - 6 节<br>12:30 - 13:50</td>
+		    	<td width="10%" align="left" valign="top" id="td15" >&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td16" >&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td17" >&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td18" >&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td19" >&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td20" >&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td21" >&nbsp;</td>
+		    </tr>
+		    <tr height="20" bgcolor="#FFFFFF">
+		    	<td width="10%" align="center" valign="top" >7 - 8 节<br>14:00 - 15:20</td>
+		    	<td width="10%" align="left" valign="top" id="td21">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td22">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td23">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td24">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td25">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td26">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td27">&nbsp;</td>
+		    </tr>
+		    <tr height="20" bgcolor="#FFFFFF">
+		    	<td width="10%" align="center" valign="top" >9 - 10 节<br>15:30 - 16:50</td>
+		    	<td width="10%" align="left" valign="top" id="td28">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td29">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td30">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td31">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td32">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td33">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td34">&nbsp;</td>
+		    </tr>
+		    <tr height="20" bgcolor="#FFFFFF">
+		    	<td width="10%" align="center" valign="top" >11 - 12 节<br>17:00 - 18:20</td>
+		    	<td width="10%" align="left" valign="top" id="td35">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td36">1</td>
+		    	<td width="10%" align="left" valign="top" id="td37">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td38">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td39">2</td>
+		    	<td width="10%" align="left" valign="top" id="td40">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td41">1;</td>
+		    </tr>
+		    <tr height="20" bgcolor="#FFFFFF">
+		    	<td width="10%" align="center" valign="top" >13 - 14 节<br>19:00 - 20:20</td>
+		    	<td width="10%" align="left" valign="top" id="td42">1</td>
+		    	<td width="10%" align="left" valign="top" id="td43">2</td>
+		    	<td width="10%" align="left" valign="top" id="td44">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td45">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td46">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td47">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td48">1</td>
+		    </tr>
+		    <tr height="20" bgcolor="#FFFFFF">
+		    	<td width="10%" align="center" valign="top" >15 - 16 节<br>20:30 - 21:50</td>
+		    	<td width="10%" align="left" valign="top" id="td49">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td50">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td51">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td52">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td53">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td54">&nbsp;</td>
+		    	<td width="10%" align="left" valign="top" id="td55">&nbsp;</td>
+		    </tr>
+		</tbody>
+	</table>
+</body>  
+<script>
+    /*  
+     * 说明：  
+     * 本代码将周一作为每周的开始  
+     */    
+    
+    function TodayInfo(start) {    
+        var WEEKLEN = 7, // 一周7天  
+            WEEKDAYS = ["日", "一", "二", "三", "四", "五", "六"],    
+            weekInfo = {"week": null, "day": null}, // 初始化返回信息，默认第null周，星期null    
+            oneDay = 24 * 60 * 60 * 1000, // 一天的毫秒时长    
+            weekLeave, // 开学当天所在周剩余天数    
+            weekStart, // 开学当天start是星期几    
+            today, // 今天    
+            dateDiff, // 今天与开学当天日期差    
+            sDate; //开学之日，日期对象    
+//      var rDateStr = /\d{4}[\/-]\d{1,2}[\/-]\d{1,2}/g; // 简单的日期格式校验：2013/12/19    
+//      if (!rDateStr.test(start)) {    
+//          alert("请使用合法的开学日期！！！");    
+//          return weekInfo;    
+//      }    
+        sDate = new Date(start);    
+        weekStart = sDate.getDay();    
+        weekStart = weekStart === 0 ? 7 : weekStart; // JS中周日的索引为0，这里转换为7，方便计算    
+            
+        weekLeave = WEEKLEN - weekStart;    
+        today = new Date();    
+        weekInfo.day = WEEKDAYS[today.getDay()];   
+        today = new Date(today.getFullYear() + "/" + (today.getMonth() + 1) + "/" + today.getDate());    
+        dateDiff = today - sDate;      
+        dateDiff = parseInt(dateDiff / oneDay);    
+        weekInfo.week = Math.ceil((dateDiff - weekLeave) / WEEKLEN) + 1;    
+        return weekInfo;    
+    }
+    
+    function openStudyDay(){
+    	var openStudyinfo={"mf":null,"sf":null};
+     	var today = new Date();
+    	var marfirst = new Date(today.getFullYear()+"/"+3+"/"+1);
+    	var Sepfirst = new Date(today.getFullYear()+"/"+9+"/"+1);
+    	tm =today-marfirst
+    	if(tm<0){
+    		
+    	    Sepfirst = new Date((today.getFullYear()-1)+"/"+9+"/"+1);
+    	}
+    	marfirst.setDate(leastMonday(marfirst))
+    	Sepfirst.setDate(leastMonday(Sepfirst));
+    	openStudyinfo.mf = marfirst;
+    	openStudyinfo.sf = Sepfirst;
+    	return openStudyinfo ;
+    }
+    function leastMonday(a){
+    	return (8-a.getDay())%7+1
+    }
+    function showTime(){ 
+		  var show_day=new Array('星期一','星期二','星期三','星期四','星期五','星期六','星期日'); 
+		  var time=new Date(); 
+		  var year=time.getFullYear(); 
+		  var month=time.getMonth(); 
+		  var date=time.getDate(); 
+		  var day=time.getDay();  
+		  month<10?month='0'+month:month; 
+		  month++; 
+		  var now_time='当前时间：'+year+'年'+month+'月'+date+'日'+' '+show_day[day-1]; 
+		  return now_time;
+	}
+    function getweek(){
+    	var td1 = TodayInfo(openStudyDay().mf)
+    	var td2 = TodayInfo(openStudyDay().sf)
+//  	alert(td1.week);
+//  	alert(td2.week);
+//		day =0 拿上年第二学期
+//		day =1 拿最新的第一学期
+		var today1 =new Date(); 
+		var toYear2  = today1.getFullYear();
+    	weekInfo = {"week": null, "day": null,"years":null}
+    	if(td1.week==0&&td2.week<0){
+    		alert("还未开学拿最新学期3月第一周课表")
+    		weekInfo.week =1;
+    		weekInfo.day =2;
+    		weekInfo.years = toYear2-1;
+    		return weekInfo;
+    		//当前学年=当前年-1
+    		//当前学期=2
+    	}
+    	if(td1.week>0&&td1.week<=20){
+    		weekInfo.week =td1.week;
+    		weekInfo.day =2;
+    		weekInfo.years = today1.getFullYear()-1;
+    		return weekInfo;
+    		//当前学年=当前年-1
+    		//当前学期=2
+    	}
+    	if(td1.week>20&&td2.week<=0){
+    		alert("还未开学拿最新学期9月第一周课表")
+    		weekInfo.week =1;
+    		weekInfo.day = 1;
+    		weekInfo.years = today1.getFullYear();
+    		return weekInfo;
+    		//当前学年=当前年
+    		//当前学期=1
+    	}
+    	if(td2.week>0&&td2.week<=20){
+    		weekInfo.week =td2.week;
+    		weekInfo.day = 1;
+    		if(today1.getMonth()<9){
+    			weekInfo.years = today1.getFullYear()-1;
+    		}else{
+    			weekInfo.years = today1.getFullYear();
+    		}
+    		return weekInfo;
+    		//当前学年=当前年
+    		//if(当前月<9) 当前学年--
+    		//当前学期=2
+    	}
+    	if(td2.week>20&&td1.week<=0){
+    		alert("还未开学拿最新学期3月第一周课表")
+    		weekInfo.week =1;
+    		weekInfo.day =2; 
+    		weekInfo.years = today1.getFullYear()-1;
+    		return weekInfo;
+    		//当前学年=当前年-1
+    		//当前学期=2
+    	}
+    }
+    function emptysection(){
+    	$("#section tr").each(function(index,element){
+	    	var tdArr = $(this).children();
+	    	if(index!=0){
+	    		tdArr.each(function(index,element){
+	    			if(index!=0){
+	    				$(this).html("&nbsp;");
+	    			}
+	    		})
+	    	}
+  		 })
+    }
+   	    function jsonfill(data){
+	    	emptysection();
+	    	for(var key in data){
+	    		var shooltimes = data[key].shooltime;
+	    		var shooltimearr=shooltimes.split(",");
+	    		for(var index in shooltimearr){
+	    			$("#td"+shooltimearr[index]).html(
+	    				"<div class='divexpire' id='"+data[key].classid+"' onclick='divonclick(this)'><b>"
+	    				+data[key].cname+"</b><br><hr><span>教学班：</span><span class='classid'>"
+	    				+data[key].classid+"</span><br><span>教师："+data[key].tname
+	    				+"</span><br><span>课室："+data[key].classroom
+	    				+"</span><br><span>周数：</span><span class ='weeks'>"+data[key].week+"</span><br></div>"
+	    			);
+	    		}
+			　}
+	    }
+   	    function classcolor(week){
+   	    	$(".weeks").each(function(){
+   	    		$(this).parent().removeClass();
+   	    		var flag = false;
+   	    		var weekarr =$(this).text().split(",");
+   	    		for (var index in weekarr ) {
+   	    			if(week==weekarr[index]){
+   	    				flag = true;
+   	    			}
+   	    		}
+   	    		if (flag) {
+   	    			$(this).parent().addClass("divcss5");
+   	    		} else{
+   	    			$(this).parent().addClass("divexpire");
+   	    		}
+   	    	})
+   	    }
+   	    function divonclick(obj){
+   	    	alert($(obj).attr("id"));
+   	    	var aa = $(obj).attr("id");
+			//打开课程表
+			if(top.topManager){
+			  //打开左侧菜单中配置过的页面
+			  top.topManager.openPage({
+			    id :aa,
+			     href : 'main/seat.html?classid='+aa,
+   				 title : aa,
+			    reload:true
+			  });
+			}
+   	    }
+    $(document).ready(function(){
+		var weekaa = getweek();
+		$("#biaoselect").val(weekaa.week);
+		biaodisabled(weekaa.week);
+		$("#showtime1").html(showTime());
+		var jsondata;
+			$.ajax({
+    			data:JSON.stringify({"years":weekaa.years,"term":weekaa.day}),
+    			contentType: "application/json",
+    			type:"post",
+    			url:"xxx",
+    			async:true,
+    			/* 后面改为success*/complete:function(data){
+    				 data=[{
+							"cname": "课程",
+							"tname": "师一",
+							"classid": "1",
+							"shooltime": "12,42",
+							"week": "1,3,5,7,9,11,13,15",
+							"classroom": "B201"
+							}, {
+							"cname": "课程啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
+							"tname": "师一",
+							"classid": "2",
+							"shooltime": "13",
+							"week": "1,3,5,7,9,11,13,15",
+							"classroom": "B202"
+								}]	
+								
+  					jsonfill(data);
+    				classcolor(weekaa.week);
+					}
+    		});
+		$("#biaoleft").on("click",function(){
+			var aval = $("#biaoselect").val();
+			aval--;
+			if(aval != 0){
+				$("#biaoselect").val(aval);
+			}
+			biaodisabled(aval);
+			aval = $("#biaoselect").val();
+			classcolor(aval);
+		})
+		$("#biaoright").on("click",function(){
+			var bval = $("#biaoselect").val();
+			bval++;
+			if(bval != 21){
+				$("#biaoselect").val(bval);
+			}
+			biaodisabled(bval);
+			bval = $("#biaoselect").val();
+			classcolor(bval);
+    	})
+		$("#biaoselect").change(function(){
+				biaodisabled($(this).val());
+				classcolor($(this).val());
+		})
+    })
+    
+</script>
+<script>
+		var dataCustom=[{"cname":"aa","clist":[{"cname":"bb"},{"cname":"bb2"}]},
+		     	{"cname":"aa2","clist":[{"cname":"cc2"},{"cname":"cc2"}]}];
+		
+		var data=[];
+		var sign = 2015;
+		var year = new Date().getFullYear();
+		for(var asign=sign;asign <=year; asign++){
+			var temp = {"cname":asign+"-"+(asign+1),"clist":[{"cname":"一"},{"cname":"二"}]};
+			data.push(temp);
+		}	
+		
+		//替换数据每次打开请求一次有后台打开注释
+//		$(document).ready(function(){  
+//          $.ajax({  
+//              type:'get',  
+//              url:'xxx',
+//              dataType:'json',  
+//              success:function(data){  
+//                  $("#divp").html('after: ' + data);  
+//               	dataCustom =data; 
+//              }  
+//          });  
+//  	});  
+		$("#search_biao").cxSelect({
+  			selects: ['course', 'classes'],
+   			required: true,
+    		jsonName: 'cname',
+    		jsonSub:'clist',
+//  		firstTitl:'请选择',
+   			data: data
+		});
+		
+	</script>
+</html>  
