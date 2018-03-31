@@ -2,16 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
-  <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
-   <link href="../assets/css/main-min.css" rel="stylesheet" type="text/css" />
-<title>无标题文档</title>
+		<script type="text/javascript" src="../assets/js/jquery-3.2.1.min.js" ></script>
+		<link rel="stylesheet" href="../assets/css/BS/css/bootstrap.css" />	
+		<link rel="stylesheet" href="../assets/css/BS/css/bootstrap-table.css" />
+		<script type="text/javascript" src="../assets/js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="../assets/js/bootstrap-table.js" ></script>
+		<script type="text/javascript" src="../assets/js/bootstrap-table-zh-CN.js" ></script>
+		<script type="text/javascript" src="../assets/js/jquery.cxselect.js" ></script>
+		<script type="text/javascript" src="../assets/js/jquery-ui/jquery-ui.js" ></script>
+<title>座位表</title>
 <style>
-div{
-	border-width:1px;
+/*div{
+	/*border-width:1px;
 	border-color:#999;
 	border-style:solid;
-}
+}*/
 .main{
 	width:79%;
 	overflow-x:auto;
@@ -20,6 +25,7 @@ div{
 	border-color:#999;
 	border-style:solid;
 	
+	
 }
 .seattr{
 	display:inline-block;
@@ -27,16 +33,21 @@ div{
 	white-space:nowrap;
 }
 .seat{
-	width:70px;
+	width:80px;
+	height:70px;
 	margin:3px;
+	border-radius: 3px;
 	display:inline-block;
 	text-align:center;
 	border-width:1px;
 	border-color:#66a7e8;
 	border-style:solid;
+	background-color: #e1e1e8;
 }
 .rseat{
 	margin-right: 50px;
+	
+	background-color: #e1e1e8;
 }
 .mouseover {
 	background-color:#e5f3fb;
@@ -66,7 +77,31 @@ input[type=radio]{
 </head>
 
 <body>
-  <div class="main">
+	<div class="panel panel-default">
+		    <div id="search_data" class="panel-body form-group" style="margin-bottom:0px;">
+			       <label class="col-md-1 " style="text-align: right; margin-top: 5px;">课程:</label>
+				        <div class="col-md-1">
+				            <select style="font-size:16px;width: 80px; margin-top: 5px;" class="course">
+				            </select>
+				        </div>
+				        <label class="col-md-1" style="text-align: right; margin-top: 5px;">教学班:</label>
+				        <div class="col-md-1">
+				            <select style="font-size:16px;width: 80px; margin-top: 5px;" class="classes" >
+				            </select>
+				        </div>
+			      		<div class="col-md-3">
+				            <button class="btn btn-mini btn-primary" type="button" id="search_btn">查询</button>
+				        </div>
+				        <div class="col-md-5">
+				        	<!--<button class="btn btn-primary" type="button" id="zhanz" hidden="hidden">占座</button>-->
+							<input class="btn btn-warning" type="button" id="rmseat" value="移除">
+							<input class="btn btn-danger" type="button" id="rmallseat" value="清空">
+							<input class="btn btn-success" type="button" id="paixv" value="自动排序">
+				        </div>
+		    </div>
+		</div>
+		
+  <!--<div class="main">
     <table id="seatTable" border="1">
       <caption><h1>讲台</h1></caption>
     </table>
@@ -81,35 +116,49 @@ input[type=radio]{
     <input size="2" type="number" min="1" max="30"/>
     <button>+</button><br/>
     </span></div>
-    </center>
+    </center>overflow:scroll; width:400px; height:400px;
+  </div>-->
+  <div>
+  	<div class="col-md-10"style="position: height:100px; overflow :auto" >
+  		<span class="text-center">前门</span>
+  		<table id="seatTable">
+  		</table>
+  	</div>
+  	<div class="col-md-2 " >
+  	  	<!--<div class="panel-group">
+  		<div class="col-lg-8">
+			    <input type="text" class="form-control" id="exampleInputName2" placeholder="输入内容">
+		 </div>
+			  <button type="submit" class="btn btn-info" >搜索</button>
+	 	</div>-->
+	 	 <div class="panel-group pre-scrollable" id="accordion">
+			<!--装油车的xxxxxx-->
+			
+		</div>
+  	</div>
   </div>
 </body>
-<script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
-<script type="text/javascript" src="../assets/js/jquery-ui/jquery-ui.min.js"></script>
 <script>
 $(function() {
-	$(".seat,.list div").mouseover(function(){$(this).addClass("mouseover");});
-	$(".seat,.list div").mouseout(function(){$(this).removeClass("mouseover");});
 	
-	$("input[name='seat']").change(function(){
-		if($(this).attr("checked")){
-			$(".list").animate({
-				scrollTop:$("#list"+$(this).next(".seat").children(".student").attr("name")).attr("checked","true").next().offset().top-$(".list").offset().top+$(".list").scrollTop()-$(document).scrollTop()-160
-			});
-		}
-	});
-	
-    $( ".list div" ).draggable({ 
-		scroll: true, 
-		containment: "document",
-		cancel: "p", 
-		helper: "clone",
-		cursor: "crosshair", 
-		cursorAt: { top: -5, left: -5 },
-		stop:function(){
-			$("table .mouseover").html($(this).html());
-		}
-	 });
+//	$("input[name='seat']").change(function(){
+//		if($(this).attr("checked")){
+//			$(".list").animate({
+//				scrollTop:$("#list"+$(this).next(".seat").children(".student").attr("name")).attr("checked","true").next().offset().top-$(".list").offset().top+$(".list").scrollTop()-$(document).scrollTop()-160
+//			});
+//		}
+//	});
+//	
+//  $( ".list div" ).draggable({ 
+//		scroll: true, 
+//		containment: "document",
+//		cancel: "p", 
+//		helper: "clone",
+//		cursor: "crosshair", 
+//		cursorAt: { top: -5, left: -5 },
+//		stop:function(){
+//			$("table .mouseover").html($(this).html());
+//		}
   });
 </script>
 <script>
@@ -135,36 +184,45 @@ $(function() {
     JSON.stringify(data)
   
 }
-function seatTable(){
-	var html="";
-	var list="";
-	for(var i=0;i<10;i++){
-		html+="<tr>";
+function seatTable(r,l){
+	var html='<tbody>';
+	var lnum =0;
+	
+	var larr=l.split(",");
+	for(var index in larr){
+		lnum+=Number(larr[index])
 		
-		for(var j=0;j<10;j++){
-			html+='<td><label for="seat'+i+j+'">'+
-			'<input type="radio" id="seat'+i+j+'"name="seat"/>'+
-			'<div class=" seat"><div class="student" name="14401211'+i+j+'">'+
-			  '<p>吴哈哈'+i+j+'<br/>'+
-			  '14401211'+i+j+'<p/>'+
+	}
+//	alert(r+"xxxxxxx"+lnum);
+	for(var i=65;i<65+Number(r);i++){
+		html+='<tr>';
+		
+		for(var j=1;j<lnum+1;j++){
+			var a = String.fromCharCode(i);
+			html+='<td><label for="seat'+a+j+'">'+
+			'<input type="radio" id="seat'+a+j+'"name="seat" value="'+a+j+'"/>'+
+			'<div class=" seat"><div class="student" id="'+a+j+'"><span>'+
+			  a+j+'</span><br>'+
 			'</div></div>'+
 			'</label></td>';
-			list+='<label for="list14401211'+i+j+'">'+
-			'<input type="radio" id="list14401211'+i+j+'"name="list" value="14401211'+i+j+'"/>'+
-			'<div>14401211'+i+j+'</div></label>';
 		}
-		html+="</tr>";
+		html+='</tr>';
 	}
-	html+="</table>";
+	html+='</tbody>';
 	$("#seatTable").append(html);
-	$(".list").append(list);
-	$(".list").css("height",$(".main").css("height"));
-	$(".main tr .seat:eq(1)").addClass("rseat");
-	$(".main tr .seat:eq(7)").addClass("rseat");
-}seatTable();
-$(".list>div").click(function(){
-	$(this).css("height","auto");
-});
+	var a = 0;
+	for(var c = 0;c < larr.length-1;c++){
+		a += Number(larr[c])
+		$("#seatTable tr .seat:eq("+(a-1)+")").addClass("rseat");	
+	}
+	
+		$(".seat").mouseover(function(){$(this).addClass("mouseover");});
+		$(".seat").mouseout(function(){$(this).removeClass("mouseover");});
+	}
+//	seatTable("10","4,6,3");
+//$(".list>div").click(function(){
+//	$(this).css("height","auto");
+//});
 </script>
 <script>
 	
@@ -175,7 +233,290 @@ function GetQueryString(name)
      if(r!=null)return  unescape(r[2]); return null;
 }
 $(document).ready(function(){
-	alert(GetQueryString("classid"));
+//	alert(GetQueryString("classid"));
+
 })
 </script>
+<script>
+		var dataCustom=[{"cname":"aa","clist":[{"cname":"bb"},{"cname":"bb2"}]},
+		     	{"cname":"aa2","clist":[{"cname":"cc2"},{"cname":"cc2"}]}];
+		
+		//替换数据每次打开请求一次有后台打开注释
+//		$(document).ready(function(){  
+//          $.ajax({  
+//              type:'get',  
+//              url:'xxx',
+//              dataType:'json',  
+//              success:function(data){  
+//                  $("#divp").html('after: ' + data);  
+//               	dataCustom =data; 
+//              }  
+//          });  
+//  	});  
+		$("#search_data").cxSelect({
+  			selects: ['course', 'classes'],
+   			required: false,
+    		jsonName: 'cname',
+    		jsonSub:'clist',
+    		firstTitl:'请选择',
+   			data: dataCustom
+		});
+	</script>
+	<script>
+		function jsonfill2(data,classid){
+//			console.log("jsonfill")
+//			var data = getseatbyclassid(classid);
+	    	$("#accordion").html("");
+	    	for(var key in data){
+	    		var sid = data[key].sid;
+	    		var sname = data[key].sname;
+	    		var seat = data[key].seat;
+	    		var sperf = data[key].usual_performance;
+	    		console.log($('#'+seat).length);
+			var listhtml="";
+			listhtml+="<div class='panel panel-default'";
+			listhtml+="<div class='panel panel-default'>";
+			listhtml+="<div class='panel-heading'id=list"+sid+" name="+sname+">";
+			listhtml+="<h4 class='panel-title' name="+seat+">";
+			listhtml+="<a data-toggle='collapse' data-parent='#accordion' href='#collapse"+sid+"'>"+sid+"</a>";
+			listhtml+="</h4>";
+			listhtml+="</div>";
+			listhtml+="<div id='collapse"+sid+"' class='panel-collapse collapse '>";
+			listhtml+="<div class='panel-body'>";
+			listhtml+="姓名:"+sname+"<br>学号:"+sid+"<br>座位:"+seat+"<br>考勤分:"+sperf;
+			listhtml+="</div>";
+			listhtml+="</div>";
+			listhtml+="</div>";
+//			console.log(listhtml)
+				$("#accordion").append(listhtml);
+	    		$('#'+seat).append("<div id="+sid+"><span>"+sname+"</span><span>"+sid+"</span></div>");
+	    		if($('#'+seat).length!=0){
+	    			$('#list'+sid).css("background-color"," #00BFFF");
+	    		}
+			　}
+	    	draggablelist(classid);
+	    }
+//		jsonfill2(data,"aa");
+		function seatmpty(){
+			$(".seat div div").remove();
+		}
+		function draggablelist(classid){
+			$( "#accordion>div" ).draggable({ 
+			scroll: true, 
+			containment: "document",
+			cancel: "p", 
+			helper: "clone",
+			cursor: "crosshair", 
+			cursorAt: { top: -5, left: -5 },
+			stop:function(){
+////				$("table .mouseover").html($(this).html());
+				console.log($(this).html())
+//				console.log($("table .mouseover>div>span").html());
+				//新座位
+				var stopseat = $("table .mouseover>div>span").html();
+				var stopsid =$('#'+stopseat+">span:eq(1)").html();
+					console.log(stopsid)
+				var listsid = $(this).children("div").attr("id");
+				if(listsid!=undefined){
+					console.log(listsid)
+					var seat = $("#"+listsid).children("h4").attr("name");
+					var sid  = listsid.replace("list","");
+					var sname = $(this).children("div").attr("name");
+					console.log(seat)
+					console.log(stopseat)
+					console.log(stopsid)
+					console.log(listsid)
+					console.log(sid)
+					if(stopseat != undefined){
+						$.ajax({
+						data:{"seat":stopseat,"sid":sid},
+	            		url:'xxx',
+	            /* 后面改为success*/complete:function(data){
+	            				getseatbyclassid(classid);
+							}
+	            		})
+					}
+				}
+				
+				
+			}
+		 });
+		}
+		function getseatbyclassid(classid){
+			$.ajax({
+						data:{"classid":classid},
+	            		url:'getseatbyclassid',
+		            /* 后面改为success*/complete:function(data){
+		            	data = [{"sid":"1440121104","sname":"邓文杰","classid":null,"cid":"1","classroom":"B201","seat":"A8","usual_performance":"2"},
+								{"sid":"1440121105","sname":"杰哥","classid":null,"cid":"1","classroom":"B201","seat":"A9","usual_performance":"2"},
+								{"sid":"1440121106","sname":"毕设死了","classid":null,"cid":"1","classroom":"B201","seat":"A10","usual_performance":"2"},
+								{"sid":"1440121107","sname":"无语","classid":null,"cid":"1","classroom":"B201","seat":"B5","usual_performance":"2"},
+								{"sid":"1440121108","sname":"我想跳楼","classid":null,"cid":"1","classroom":"B201","seat":"B6","usual_performance":"2"},
+								{"sid":"1440121109","sname":"啊啊啊啊","classid":null,"cid":"1","classroom":"B201","seat":"B1","usual_performance":"2"},]
+									seatmpty();
+									jsonfill2(data,classid)
+		               //请求完都需要操作下面东东
+		            	  console.log(data);
+		                 
+						}
+	        })
+			
+		}
+		
+		function GetQueryString(name){
+		     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		     var r = window.location.search.substr(1).match(reg);
+		     if(r!=null)return  unescape(r[2]); return null;
+		}
+	</script>
+<script>
+		$(document).ready(function(){
+			
+			var classid = GetQueryString(classid);
+			//alert(classid);
+			if(classid==null){
+				classid ="1";
+			}
+			//alert(classid);
+			//请求刷表
+			getseatbyclassid(classid);
+			draggablelist(classid);
+			seatTable("10","4,6,3");
+//			jsonfill2(classid);
+//			draggablelist(classid);
+			$( "#seatTable td" ).draggable({ 
+			scroll: true, 
+			containment: "document",
+			cancel: "p", 
+			helper: function( event ) {
+      			  return $( "<div class='ui-widget-header'>移动</div>" );
+   			},
+			cursor: "crosshair", 
+			cursorAt: { top: -5, left: -5 },
+			stop:function(){
+////				$("table .mouseover").html($(this).html());
+				console.log($(this).html())
+//				console.log($("table .mouseover>div>span").html());
+				//新座位
+				var stopseat = $("table .mouseover>div>span ").html();
+				console.log("stopseat="+stopseat)
+				var stopsid =$('#'+stopseat+">div").attr("id");
+				var thissid = $(this).children("label").children(".seat").children(".student").children("div").attr("id");
+				var thisseat = $(this).children("label").children(".seat").children(".student").attr("id");
+//				var seat = $("#"+listsid).children("h4").attr("name");
+//				var sid  = listsid.replace("list","");
+//				var sname = $(this).children("div").attr("name");
+//				console.log(seat)
+				console.log("stopseat="+stopseat)
+				console.log("stopsid="+stopsid)
+				console.log("thissid="+thissid)
+				console.log("thisseat="+thisseat)
+//				console.log(sid)
+				if(thissid == undefined^stopsid==undefined){
+					
+					var upsid ="";
+					if(thissid != undefined){
+						upsid = thissid
+					}
+					if(stopsid != undefined){
+						upsid = stopsid
+					}
+					$.ajax({
+						data:{"seat":stopseat,"sid":upsid},
+	            		url:'xxx',
+		            /* 后面改为success*/complete:function(data){
+						getseatbyclassid(classid);
+						}
+	           		 })
+				}
+				if(thissid != undefined&&stopsid!=undefined){
+					$.ajax({
+						data:{"seat":stopseat,"sid":thissid},
+	            		url:'xxx',
+		            /* 后面改为success*/complete:function(data){
+						$.ajax({
+						data:{"seat":thisseat,"sid":stopsid},
+	            		url:'xxx',
+		            /* 后面改为success*/complete:function(data){
+						getseatbyclassid(classid);
+						}
+	           		 })
+						}
+	           		 })
+					
+				}
+				
+			}
+		 });
+			$("input[name='seat']").change(function(){
+			var s =  $(this).next(".seat").children(".student").children("div").attr("id");
+			var rms =  $(this).next(".seat").children(".student").attr("id");
+				console.log(s);
+			$("#list"+s).children("h4").children("a").click();
+			if($("#list"+s).length!=0){
+				$("#accordion").animate({
+					scrollTop:$("#list"+s).offset().top-$(this).offset().top+$(this).scrollTop()-$(document).scrollTop()-160
+				});
+			}	
+				
+		});
+		//移除
+			$("#rmseat").click(function(){
+				console.log("移除");
+					var rms =  $("input:radio[name='seat']:checked").val();
+					console.log("rms="+rms);
+					if(rms!=undefined){
+						$.ajax({
+							data:{"classid":classid,"seat":rms},
+		            		url:'rms',
+			            /* 后面改为success*/complete:function(data){
+							getseatbyclassid(classid);
+							}
+	           		 })
+					}
+				})
+		//清空
+			$("#rmallseat").click(function(){
+				console.log("清空");
+						$.ajax({
+						data:{"classid":classid},
+	            		url:'rmallseat',
+		            /* 后面改为success*/complete:function(data){
+						getseatbyclassid(classid);
+						}
+	           		 })
+					
+				})
+			//排序
+			$("#paixv").click(function(){
+				console.log("排序");
+					$.ajax({
+						data:{"classid":classid},
+	            		url:'paixv',
+		            /* 后面改为success*/complete:function(data){
+						getseatbyclassid(classid);
+						}
+	           		 })
+				})
+			//占座
+			$("#zhanz").click(function(){
+				var rms =  $("input:radio[name='seat']:checked").val();
+				if(rms!=undefined){
+				var sid = $("#"+rms+" div").attr("id");
+					if(sid==undefined){
+						$.ajax({
+						data:{"seat":rms},
+	            		url:'zhanz',
+		            /* 后面改为success*/complete:function(data){
+						getseatbyclassid(classid);
+						}
+	           		 })
+					}else{
+						alert("女神旁边的位置已经占满了~");
+					}
+					
+				}
+			})
+	})
+	</script>
 </html>
