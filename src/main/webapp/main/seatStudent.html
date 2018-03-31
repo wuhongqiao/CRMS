@@ -373,13 +373,17 @@ $(document).ready(function(){
 		$(document).ready(function(){
 			
 			var classid = GetQueryString(classid);
-			//alert(classid);
-			if(classid==null){
-				classid ="1";
+			if(classid!=null){
+				getseatbyclassid(classid);
+				
 			}
 			//alert(classid);
-			//请求刷表
-			getseatbyclassid(classid);
+//			if(classid==null){
+//				classid ="1";
+//			}
+//			//alert(classid);
+//			//请求刷表
+//			getseatbyclassid(classid);
 			draggablelist(classid);
 			seatTable("10","4,6,3");
 //			jsonfill2(classid);

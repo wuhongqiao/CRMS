@@ -267,12 +267,15 @@ $(document).ready(function(){
 //			console.log("jsonfill")
 //			var data = getseatbyclassid(classid);
 	    	$("#accordion").html("");
+	    	console.log("aaaaaaaaaaa");
 	    	for(var key in data){
+	    		
 	    		var sid = data[key].sid;
 	    		var sname = data[key].sname;
 	    		var seat = data[key].seat;
 	    		var sperf = data[key].usual_performance;
 	    		console.log($('#'+seat).length);
+	    		console.log(sid);
 			var listhtml="";
 			listhtml+="<div class='panel panel-default'";
 			listhtml+="<div class='panel panel-default'>";
@@ -347,12 +350,13 @@ $(document).ready(function(){
 						data:{"classid":classid},
 	            		url:'getseatbyclassid',
 		            /* 后面改为success*/complete:function(data){
-		            	data = [{"sid":"1440121104","sname":"邓文杰","classid":null,"cid":"1","classroom":"B201","seat":"A8","usual_performance":"2"},
-								{"sid":"1440121105","sname":"杰哥","classid":null,"cid":"1","classroom":"B201","seat":"A9","usual_performance":"2"},
-								{"sid":"1440121106","sname":"毕设死了","classid":null,"cid":"1","classroom":"B201","seat":"A10","usual_performance":"2"},
-								{"sid":"1440121107","sname":"无语","classid":null,"cid":"1","classroom":"B201","seat":"B5","usual_performance":"2"},
-								{"sid":"1440121108","sname":"我想跳楼","classid":null,"cid":"1","classroom":"B201","seat":"B6","usual_performance":"2"},
-								{"sid":"1440121109","sname":"啊啊啊啊","classid":null,"cid":"1","classroom":"B201","seat":"B1","usual_performance":"2"},]
+		            	data=[]
+//		            	data = [{"sid":"1440121104","sname":"邓文杰","classid":null,"cid":"1","classroom":"B201","seat":"A8","usual_performance":"2"},
+//								{"sid":"1440121105","sname":"杰哥","classid":null,"cid":"1","classroom":"B201","seat":"A9","usual_performance":"2"},
+//								{"sid":"1440121106","sname":"毕设死了","classid":null,"cid":"1","classroom":"B201","seat":"A10","usual_performance":"2"},
+//								{"sid":"1440121107","sname":"无语","classid":null,"cid":"1","classroom":"B201","seat":"B5","usual_performance":"2"},
+//								{"sid":"1440121108","sname":"我想跳楼","classid":null,"cid":"1","classroom":"B201","seat":"B6","usual_performance":"2"},
+//								{"sid":"1440121109","sname":"啊啊啊啊","classid":null,"cid":"1","classroom":"B201","seat":"B1","usual_performance":"2"},]
 									seatmpty();
 									jsonfill2(data,classid)
 		               //请求完都需要操作下面东东
@@ -374,14 +378,15 @@ $(document).ready(function(){
 			
 			var classid = GetQueryString(classid);
 			//alert(classid);
-			if(classid==null){
-				classid ="1";
+			if(classid!=null){
+				getseatbyclassid(classid);
+				
 			}
 			//alert(classid);
 			//请求刷表
-			getseatbyclassid(classid);
+			
 			draggablelist(classid);
-			seatTable("10","4,6,3");
+//			seatTable("10","4,6,3");
 //			jsonfill2(classid);
 //			draggablelist(classid);
 			$( "#seatTable td" ).draggable({ 
